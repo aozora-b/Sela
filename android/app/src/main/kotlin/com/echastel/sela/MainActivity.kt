@@ -65,8 +65,7 @@ class MainActivity : FlutterActivity() {
                     val id = call.argument<Int>("id") ?: return@setMethodCallHandler result.error("INVALID_ARG", "id required", null)
                     engines[id]?.close()
                     engines.remove(id)
-                    val meta = engine.getMetadata()
-                        result.success(meta)
+                    result.success(null)
                 }
                 else -> result.notImplemented()
             }

@@ -17,44 +17,37 @@ final _reserved = {
 const _maxNameLength = 180;
 
 String sanitizeStem(String name, {String fallback = 'video'}) {
-  var cleaned = name.replaceAll(_forbidden, '_');
-  cleaned = cleaned.replaceAll(_trailing, '').trim();
-  if (cleaned.isEmpty) {
-    cleaned = fallback;
-  }
-  if (_reserved.contains(cleaned.toUpperCase())) {
-    cleaned = '_$cleaned';
-  }
+  var cleaned = name
+      .replaceAll(_forbidden, '_')
+      .replaceAll(_trailing, '')
+      .trim();
+  if (cleaned.isEmpty) cleaned = fallback;
+  if (_reserved.contains(cleaned.toUpperCase())) cleaned = '_$cleaned';
   return cleaned.length > _maxNameLength
       ? cleaned.substring(0, _maxNameLength)
       : cleaned;
 }
 
 String sanitizeFilename(String name, {String fallback = 'frame'}) {
-  var cleaned = name.replaceAll(_forbidden, '_');
-  cleaned = cleaned.replaceAll(_trailing, '').trim();
-  if (cleaned.isEmpty) {
-    cleaned = fallback;
-  }
+  var cleaned = name
+      .replaceAll(_forbidden, '_')
+      .replaceAll(_trailing, '')
+      .trim();
+  if (cleaned.isEmpty) cleaned = fallback;
   final stem = cleaned.split('.')[0];
-  if (_reserved.contains(stem.toUpperCase())) {
-    cleaned = '_$cleaned';
-  }
+  if (_reserved.contains(stem.toUpperCase())) cleaned = '_$cleaned';
   return cleaned.length > _maxNameLength
       ? cleaned.substring(0, _maxNameLength)
       : cleaned;
 }
 
 String formatTime(double seconds) {
-  if (!seconds.isFinite) {
-    seconds = 0.0;
-  }
-  final total = seconds.round().clamp(0, double.infinity).toInt();
-  final hours = total ~/ 3600;
-  final remainder = total % 3600;
-  final minutes = remainder ~/ 60;
-  final secs = remainder % 60;
-  return '${hours.toString().padLeft(2, '0')}-${minutes.toString().padLeft(2, '0')}-${secs.toString().padLeft(2, '0')}';
+  if (!seconds.isFinite || seconds < 0) seconds = 0.0;
+  final total = seconds.floor();
+  final h = total ~/ 3600;
+  final m = (total % 3600) ~/ 60;
+  final s = total % 60;
+  return '${h.toString().padLeft(2, '0')}-${m.toString().padLeft(2, '0')}-${s.toString().padLeft(2, '0')}';
 }
 
 void validateTemplate(String template) {
@@ -62,7 +55,6 @@ void validateTemplate(String template) {
     throw const InvalidOptionException('Pola nama berkas tidak boleh kosong.');
   }
 
-  // A basic implementation to check placeholders
   final placeholderRegExp = RegExp(r'\{([^{}]+)\}');
   final matches = placeholderRegExp.allMatches(template);
 
@@ -78,11 +70,9 @@ void validateTemplate(String template) {
 
   for (final match in matches) {
     final field = match.group(1)!;
-    final baseField = field.split(':')[0]; // handle like {index:06d}
+    final baseField = field.split(':')[0];
     fields.add(baseField);
-    if (!allowedFields.contains(baseField)) {
-      unknown.add(baseField);
-    }
+    if (!allowedFields.contains(baseField)) unknown.add(baseField);
   }
 
   if (unknown.isNotEmpty) {
@@ -103,7 +93,6 @@ void validateTemplate(String template) {
     throw const InvalidOptionException('Pola nama berkas harus memuat {ext}.');
   }
 
-  // To check if format is valid, try replacing
   try {
     _renderTemplate(template, 'contoh', 1, '00-00-00', 'png');
   } catch (e) {
@@ -118,20 +107,15 @@ String _renderTemplate(
   String time,
   String ext,
 ) {
-  // Specifically support {index:06d} or generic {index}
-  var res = template.replaceAll('{stem}', stem);
-  res = res.replaceAll('{time}', time);
-  res = res.replaceAll('{ext}', ext);
-
-  // handle index formats
+  final res = template
+      .replaceAll('{stem}', stem)
+      .replaceAll('{time}', time)
+      .replaceAll('{ext}', ext);
   final indexRegExp = RegExp(r'\{index(?::(\d+)d)?\}');
-  res = res.replaceAllMapped(indexRegExp, (match) {
-    final widthStr = match.group(1);
-    final width = widthStr != null ? int.parse(widthStr) : 1;
+  return res.replaceAllMapped(indexRegExp, (match) {
+    final width = match.group(1) != null ? int.parse(match.group(1)!) : 1;
     return index.toString().padLeft(width, '0');
   });
-
-  return res;
 }
 
 String buildName({
@@ -141,9 +125,7 @@ String buildName({
   required String ext,
   required String template,
 }) {
-  if (index < 1) {
-    throw ArgumentError('index harus dimulai dari 1');
-  }
+  if (index < 1) throw ArgumentError('index harus dimulai dari 1');
 
   var normalizedExt = ext.toLowerCase();
   if (normalizedExt.startsWith('.')) {
@@ -182,9 +164,7 @@ String buildName({
 }
 
 Future<String> uniqueName(NameRegistry directory, String filename) async {
-  if (!await directory.exists(filename)) {
-    return filename;
-  }
+  if (!await directory.exists(filename)) return filename;
 
   final lastDot = filename.lastIndexOf('.');
   final stem = lastDot == -1 ? filename : filename.substring(0, lastDot);
@@ -192,9 +172,7 @@ Future<String> uniqueName(NameRegistry directory, String filename) async {
 
   for (var counter = 1; counter < 100000; counter++) {
     final candidate = '$stem-$counter$suffix';
-    if (!await directory.exists(candidate)) {
-      return candidate;
-    }
+    if (!await directory.exists(candidate)) return candidate;
   }
 
   throw const OutputNotWritableException(
