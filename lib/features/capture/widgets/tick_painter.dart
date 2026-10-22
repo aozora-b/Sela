@@ -1,0 +1,54 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
+import '../../../theme/sela_colors.dart';
+
+class TickPainter extends CustomPainter {
+  final bool isExactMode;
+  final List<double> ticks;
+  final double duration;
+
+  const TickPainter({
+    required this.isExactMode,
+    required this.ticks,
+    required this.duration,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (duration <= 0 || ticks.isEmpty) return;
+    final cy = size.height / 2;
+
+    if (isExactMode) {
+      // Mode Manual: tick 2dp solid di setiap frame yang sudah disimpan
+      final paint = Paint()
+        ..color = SelaColors.accent
+        ..style = PaintingStyle.fill;
+      for (final t in ticks) {
+        final x = (t / duration).clamp(0.0, 1.0) * size.width;
+        canvas.drawRect(
+          Rect.fromCenter(center: Offset(x, cy), width: 2.0, height: 10.0),
+          paint,
+        );
+      }
+    } else {
+      // Mode Interval: tick 1dp opacity 35% di SETIAP titik planPoints()
+      final paint = Paint()
+        ..color = SelaColors.accent.withValues(alpha: 0.35)
+        ..style = PaintingStyle.fill;
+      for (final t in ticks) {
+        final x = (t / duration).clamp(0.0, 1.0) * size.width;
+        canvas.drawRect(
+          Rect.fromCenter(center: Offset(x, cy), width: 1.0, height: 8.0),
+          paint,
+        );
+      }
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant TickPainter old) =>
+      old.isExactMode != isExactMode ||
+      old.duration != duration ||
+      !listEquals(old.ticks, ticks);
+}

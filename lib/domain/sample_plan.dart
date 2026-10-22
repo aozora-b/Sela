@@ -14,12 +14,15 @@ const double _eps = 1e-9;
   }
 
   final start = opt.startS.clamp(0.0, duration).toDouble();
-  final end = opt.endS == null ? duration : opt.endS!.clamp(0.0, duration).toDouble();
+  final end = opt.endS == null
+      ? duration
+      : opt.endS!.clamp(0.0, duration).toDouble();
 
   if (start >= duration - _eps) {
     throw PlanException(
       'Waktu mulai berada di luar durasi video.',
-      advice: 'Durasi video ini ${duration.toStringAsFixed(1)} detik; turunkan waktu mulai.',
+      advice:
+          'Durasi video ini ${duration.toStringAsFixed(1)} detik; turunkan waktu mulai.',
     );
   }
   if (end - start <= _eps) {
@@ -85,7 +88,9 @@ List<double> planPoints(VideoInfo info, ExtractOptions opt) {
   }
 
   if (result.isEmpty) {
-    throw const PlanException('Tidak ada frame yang bisa diambil dengan setelan ini.');
+    throw const PlanException(
+      'Tidak ada frame yang bisa diambil dengan setelan ini.',
+    );
   }
 
   return result;
@@ -93,7 +98,9 @@ List<double> planPoints(VideoInfo info, ExtractOptions opt) {
 
 int estimateOutputBytes(VideoInfo info, ExtractOptions opt, int count) {
   final pixels = (info.width * info.height).clamp(1, double.infinity).toInt();
-  final perPixel = opt.fmt == OutputFormat.png ? 1.5 : 0.15 + 0.35 * (opt.quality / 100.0);
+  final perPixel = opt.fmt == OutputFormat.png
+      ? 1.5
+      : 0.15 + 0.35 * (opt.quality / 100.0);
   final actualCount = count < 1 ? 1 : count;
   return (actualCount * pixels * perPixel).toInt();
 }

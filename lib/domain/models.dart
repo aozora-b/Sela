@@ -67,16 +67,23 @@ class ExtractOptions {
       throw const InvalidOptionException('Waktu mulai tidak boleh negatif.');
     }
     if (endS != null && endS <= startS) {
-      throw const InvalidOptionException('Waktu selesai harus lebih besar dari waktu mulai.');
+      throw const InvalidOptionException(
+        'Waktu selesai harus lebih besar dari waktu mulai.',
+      );
     }
-    if ((mode == CaptureMode.interval || mode == CaptureMode.range) && intervalS <= 0) {
-      throw const InvalidOptionException('Interval harus lebih besar dari 0 detik.');
+    if ((mode == CaptureMode.interval || mode == CaptureMode.range) &&
+        intervalS <= 0) {
+      throw const InvalidOptionException(
+        'Interval harus lebih besar dari 0 detik.',
+      );
     }
     if (mode == CaptureMode.count && frameTotal < 1) {
       throw const InvalidOptionException('Jumlah frame harus minimal 1.');
     }
     if (quality < 1 || quality > 100) {
-      throw const InvalidOptionException('Kualitas JPG harus di antara 1 dan 100.');
+      throw const InvalidOptionException(
+        'Kualitas JPG harus di antara 1 dan 100.',
+      );
     }
 
     validateTemplate(template);

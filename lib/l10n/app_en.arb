@@ -1,0 +1,41 @@
+{
+  "@@locale": "en",
+  "captureModeManual": "Manual",
+  "captureModeInterval": "Interval",
+  "btnSaveFrame": "Save This Frame",
+  "btnSaveMarked": "Save All Marked Frames",
+  "btnStartExtraction": "Start Extraction",
+  "intervalCustom": "Custom",
+  "intervalSeconds": "{seconds}s",
+  "@intervalSeconds": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "frameEstimate": "±{count} frames · ±{sizeMb} MB",
+  "@frameEstimate": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "sizeMb": {
+        "type": "String"
+      }
+    }
+  },
+  "frameIndicator": "Frame {current} / {total}",
+  "@frameIndicator": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "errorFailedExtract": "Failed to extract frame",
+  "titleCapture": "Extraction"
+}

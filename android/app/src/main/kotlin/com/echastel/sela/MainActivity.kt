@@ -25,7 +25,8 @@ class MainActivity : FlutterActivity() {
                         val engine = SelaEngine()
                         engine.open(path)
                         engines[id] = engine
-                        result.success(null)
+                        val meta = engine.getMetadata()
+                        result.success(meta)
                     } catch (e: Exception) {
                         result.error("OPEN_ERROR", e.message, null)
                     }
@@ -34,6 +35,8 @@ class MainActivity : FlutterActivity() {
                     val id = call.argument<Int>("id") ?: return@setMethodCallHandler result.error("INVALID_ARG", "id required", null)
                     val timeMs = call.argument<Int>("timeMs")?.toLong() ?: return@setMethodCallHandler result.error("INVALID_ARG", "timeMs required", null)
                     val exact = call.argument<Boolean>("exact") ?: false
+                    val width = call.argument<Int>("width")
+                    val height = call.argument<Int>("height")
                     
                     val engine = engines[id]
                     if (engine == null) {
@@ -43,7 +46,7 @@ class MainActivity : FlutterActivity() {
                     
                     CoroutineScope(Dispatchers.IO).launch {
                         try {
-                            val bytes = engine.getFrame(timeMs, exact)
+                            val bytes = engine.getFrame(timeMs, exact, width, height)
                             withContext(Dispatchers.Main) {
                                 if (bytes != null) {
                                     result.success(bytes)
@@ -62,7 +65,8 @@ class MainActivity : FlutterActivity() {
                     val id = call.argument<Int>("id") ?: return@setMethodCallHandler result.error("INVALID_ARG", "id required", null)
                     engines[id]?.close()
                     engines.remove(id)
-                    result.success(null)
+                    val meta = engine.getMetadata()
+                        result.success(meta)
                 }
                 else -> result.notImplemented()
             }

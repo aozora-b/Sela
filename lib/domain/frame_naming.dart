@@ -8,10 +8,10 @@ final _reserved = {
   'PRN',
   'AUX',
   'NUL',
-  for (var i = 1; i <= 9; i++) 'COM$i',
-  for (var i = 1; i <= 9; i++) 'LPT$i',
   'CONIN\$',
   'CONOUT\$',
+  for (var i = 1; i <= 9; i++) 'COM$i',
+  for (var i = 1; i <= 9; i++) 'LPT$i',
 };
 
 const _maxNameLength = 180;
@@ -25,7 +25,9 @@ String sanitizeStem(String name, {String fallback = 'video'}) {
   if (_reserved.contains(cleaned.toUpperCase())) {
     cleaned = '_$cleaned';
   }
-  return cleaned.length > _maxNameLength ? cleaned.substring(0, _maxNameLength) : cleaned;
+  return cleaned.length > _maxNameLength
+      ? cleaned.substring(0, _maxNameLength)
+      : cleaned;
 }
 
 String sanitizeFilename(String name, {String fallback = 'frame'}) {
@@ -38,7 +40,9 @@ String sanitizeFilename(String name, {String fallback = 'frame'}) {
   if (_reserved.contains(stem.toUpperCase())) {
     cleaned = '_$cleaned';
   }
-  return cleaned.length > _maxNameLength ? cleaned.substring(0, _maxNameLength) : cleaned;
+  return cleaned.length > _maxNameLength
+      ? cleaned.substring(0, _maxNameLength)
+      : cleaned;
 }
 
 String formatTime(double seconds) {
@@ -63,7 +67,9 @@ void validateTemplate(String template) {
   final matches = placeholderRegExp.allMatches(template);
 
   if (matches.isEmpty) {
-    throw const InvalidOptionException('Pola nama berkas harus memuat {index} dan {ext}.');
+    throw const InvalidOptionException(
+      'Pola nama berkas harus memuat {index} dan {ext}.',
+    );
   }
 
   final allowedFields = {'stem', 'index', 'time', 'ext'};
@@ -84,12 +90,14 @@ void validateTemplate(String template) {
     throw InvalidOptionException(
       'Pola nama berkas memakai placeholder yang tidak dikenal: '
       '${unknownList.map((e) => '{$e}').join(', ')}. '
-      'Gunakan {stem}, {index}, {time}, dan {ext}.'
+      'Gunakan {stem}, {index}, {time}, dan {ext}.',
     );
   }
 
   if (!fields.contains('index')) {
-    throw const InvalidOptionException('Pola nama berkas harus memuat {index} agar urutan konsisten.');
+    throw const InvalidOptionException(
+      'Pola nama berkas harus memuat {index} agar urutan konsisten.',
+    );
   }
   if (!fields.contains('ext')) {
     throw const InvalidOptionException('Pola nama berkas harus memuat {ext}.');
@@ -103,12 +111,18 @@ void validateTemplate(String template) {
   }
 }
 
-String _renderTemplate(String template, String stem, int index, String time, String ext) {
+String _renderTemplate(
+  String template,
+  String stem,
+  int index,
+  String time,
+  String ext,
+) {
   // Specifically support {index:06d} or generic {index}
   var res = template.replaceAll('{stem}', stem);
   res = res.replaceAll('{time}', time);
   res = res.replaceAll('{ext}', ext);
-  
+
   // handle index formats
   final indexRegExp = RegExp(r'\{index(?::(\d+)d)?\}');
   res = res.replaceAllMapped(indexRegExp, (match) {
@@ -130,18 +144,18 @@ String buildName({
   if (index < 1) {
     throw ArgumentError('index harus dimulai dari 1');
   }
-  
+
   var normalizedExt = ext.toLowerCase();
   if (normalizedExt.startsWith('.')) {
     normalizedExt = normalizedExt.substring(1);
   }
-  
+
   if (normalizedExt != 'png' && normalizedExt != 'jpg') {
     throw InvalidOptionException('Ekstensi keluaran tidak didukung: "$ext".');
   }
 
   validateTemplate(template);
-  
+
   final rendered = _renderTemplate(
     template,
     sanitizeStem(stem),
@@ -149,17 +163,21 @@ String buildName({
     formatTime(ts),
     normalizedExt,
   );
-  
+
   var safe = sanitizeFilename(rendered);
   if (!safe.toLowerCase().endsWith('.$normalizedExt')) {
     safe = '$safe.$normalizedExt';
   }
-  
+
   if (safe.length > _maxNameLength) {
     final suffix = '.$normalizedExt';
-    safe = safe.substring(0, _maxNameLength - suffix.length).replaceAll(_trailing, '') + suffix;
+    safe =
+        safe
+            .substring(0, _maxNameLength - suffix.length)
+            .replaceAll(_trailing, '') +
+        suffix;
   }
-  
+
   return safe;
 }
 

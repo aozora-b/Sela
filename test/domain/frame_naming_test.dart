@@ -61,39 +61,72 @@ void main() {
 
   group('buildName', () {
     test('pola bawaan', () {
-      expect(buildName(stem: 'liburan', index: 123, ts: 123, ext: 'png', template: tpl),
-          'liburan_000123_00-02-03.png');
+      expect(
+        buildName(
+          stem: 'liburan',
+          index: 123,
+          ts: 123,
+          ext: 'png',
+          template: tpl,
+        ),
+        'liburan_000123_00-02-03.png',
+      );
     });
 
     test('mulai dari 1 dengan enam digit', () {
-      expect(buildName(stem: 'a', index: 1, ts: 0, ext: 'jpg', template: tpl),
-          'a_000001_00-00-00.jpg');
+      expect(
+        buildName(stem: 'a', index: 1, ts: 0, ext: 'jpg', template: tpl),
+        'a_000001_00-00-00.jpg',
+      );
     });
 
     test('membersihkan stem', () {
-      expect(buildName(stem: 'a:b*c', index: 1, ts: 0, ext: 'png', template: tpl),
-          'a_b_c_000001_00-00-00.png');
+      expect(
+        buildName(stem: 'a:b*c', index: 1, ts: 0, ext: 'png', template: tpl),
+        'a_b_c_000001_00-00-00.png',
+      );
     });
 
     test('menolak template tanpa {ext}', () {
-      expect(() => buildName(stem: 'a', index: 1, ts: 0, ext: 'png',
-          template: '{stem}_{index:06d}'), throwsA(isA<InvalidOptionException>()));
+      expect(
+        () => buildName(
+          stem: 'a',
+          index: 1,
+          ts: 0,
+          ext: 'png',
+          template: '{stem}_{index:06d}',
+        ),
+        throwsA(isA<InvalidOptionException>()),
+      );
     });
 
     test('menolak ekstensi tidak dikenal', () {
-      expect(() => buildName(stem: 'a', index: 1, ts: 0, ext: 'gif', template: tpl),
-          throwsA(isA<InvalidOptionException>()));
+      expect(
+        () => buildName(stem: 'a', index: 1, ts: 0, ext: 'gif', template: tpl),
+        throwsA(isA<InvalidOptionException>()),
+      );
     });
 
     test('tidak mengizinkan path traversal', () {
-      final r = buildName(stem: 'a', index: 1, ts: 0, ext: 'png',
-          template: '../{stem}_{index:06d}.{ext}');
+      final r = buildName(
+        stem: 'a',
+        index: 1,
+        ts: 0,
+        ext: 'png',
+        template: '../{stem}_{index:06d}.{ext}',
+      );
       expect(r.contains('/'), isFalse);
       expect(r.contains(r'\'), isFalse);
     });
 
     test('nama panjang dipotong di 180 karakter', () {
-      final r = buildName(stem: 'x' * 400, index: 1, ts: 0, ext: 'png', template: tpl);
+      final r = buildName(
+        stem: 'x' * 400,
+        index: 1,
+        ts: 0,
+        ext: 'png',
+        template: tpl,
+      );
       expect(r.length, lessThanOrEqualTo(180));
       expect(r.endsWith('.png'), isTrue);
     });
@@ -101,11 +134,19 @@ void main() {
 
   group('validateTemplate', () {
     test('menolak pola buruk', () {
-      for (final t in ['', '   ', '{stem}_{index:06d}_{unknown}.{ext}',
-                       '{stem}_{time}.{ext}', '{stem}_{index:06d}',
-                       '{stem}_{index:06d_{time}.{ext}']) {
-        expect(() => validateTemplate(t), throwsA(isA<InvalidOptionException>()),
-            reason: 'harus menolak: $t');
+      for (final t in [
+        '',
+        '   ',
+        '{stem}_{index:06d}_{unknown}.{ext}',
+        '{stem}_{time}.{ext}',
+        '{stem}_{index:06d}',
+        '{stem}_{index:06d_{time}.{ext}',
+      ]) {
+        expect(
+          () => validateTemplate(t),
+          throwsA(isA<InvalidOptionException>()),
+          reason: 'harus menolak: $t',
+        );
       }
     });
   });
@@ -124,7 +165,10 @@ void main() {
 
     test('melempar galat saat percobaan habis', () async {
       final reg = _AlwaysExistsRegistry();
-      expect(() => uniqueName(reg, 'a.png'), throwsA(isA<OutputNotWritableException>()));
+      expect(
+        () => uniqueName(reg, 'a.png'),
+        throwsA(isA<OutputNotWritableException>()),
+      );
     });
   });
 }

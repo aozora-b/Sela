@@ -1,0 +1,41 @@
+{
+  "@@locale": "id",
+  "captureModeManual": "Manual",
+  "captureModeInterval": "Interval",
+  "btnSaveFrame": "Simpan Frame Ini",
+  "btnSaveMarked": "Simpan Semua Frame Ditandai",
+  "btnStartExtraction": "Mulai Ekstraksi",
+  "intervalCustom": "Atur",
+  "intervalSeconds": "{seconds} dtk",
+  "@intervalSeconds": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "frameEstimate": "±{count} frame · ±{sizeMb} MB",
+  "@frameEstimate": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "sizeMb": {
+        "type": "String"
+      }
+    }
+  },
+  "frameIndicator": "Frame {current} / {total}",
+  "@frameIndicator": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "errorFailedExtract": "Gagal mengambil frame",
+  "titleCapture": "Ekstraksi"
+}

@@ -40,12 +40,14 @@ abstract final class SelaRadius {
   static const double pill = 999.0;
 
   /// BorderRadius kartu standar.
-  static const BorderRadius cardBorderRadius =
-      BorderRadius.all(Radius.circular(card));
+  static const BorderRadius cardBorderRadius = BorderRadius.all(
+    Radius.circular(card),
+  );
 
   /// BorderRadius kapsul (Pill).
-  static const BorderRadius pillBorderRadius =
-      BorderRadius.all(Radius.circular(pill));
+  static const BorderRadius pillBorderRadius = BorderRadius.all(
+    Radius.circular(pill),
+  );
 
   /// BorderRadius modal bottom sheet (hanya atas).
   static const BorderRadius sheetBorderRadius = BorderRadius.vertical(
