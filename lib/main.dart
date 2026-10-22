@@ -19,6 +19,7 @@ class SelaApp extends StatelessWidget {
       title: 'Sela',
       debugShowCheckedModeBanner: false,
       theme: SelaTheme.darkTheme,
+      locale: const Locale('id'),
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

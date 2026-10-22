@@ -23,7 +23,15 @@ class SelaEngine {
         val fps = fpsStr?.toDoubleOrNull() ?: 30.0
         val durationS = durMs / 1000.0
         val frameCount = (durationS * fps).toInt().coerceAtLeast(1)
-        val codec = "h264"
+        val mimeType = r.extractMetadata(MediaMetadataRetriever.METADATA_KEY_MIMETYPE)
+        val codec = when {
+            mimeType?.contains("avc", ignoreCase = true) == true || mimeType?.contains("h264", ignoreCase = true) == true -> "h264"
+            mimeType?.contains("hevc", ignoreCase = true) == true || mimeType?.contains("h265", ignoreCase = true) == true -> "hevc"
+            mimeType?.contains("vp9", ignoreCase = true) == true -> "vp9"
+            mimeType?.contains("av01", ignoreCase = true) == true || mimeType?.contains("av1", ignoreCase = true) == true -> "av1"
+            mimeType != null -> mimeType.substringAfter('/')
+            else -> "h264"
+        }
         return mapOf(
             "durationS" to durationS,
             "width" to w,

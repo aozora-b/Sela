@@ -69,17 +69,7 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen> {
         elevation: 0,
         scrolledUnderElevation: 0,
         backgroundColor: SelaColors.bgElevated,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(videoInfo.path.split('/').last, style: SelaText.titleCard),
-            Text(
-              'b8a5d0b · Tahap 3b',
-              style: SelaText.caption.copyWith(color: SelaColors.accent),
-            ),
-          ],
-        ),
+        title: Text(videoInfo.path.split('/').last, style: SelaText.titleCard),
         actions: [
           Container(
             padding: const EdgeInsets.symmetric(
