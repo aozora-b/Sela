@@ -163,6 +163,66 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Ekstraksi'**
   String get titleCapture;
+
+  /// No description provided for @progressFrames.
+  ///
+  /// In id, this message translates to:
+  /// **'{current} / {total} frame'**
+  String progressFrames(int current, int total);
+
+  /// No description provided for @progressRemaining.
+  ///
+  /// In id, this message translates to:
+  /// **'Sisa {time}'**
+  String progressRemaining(String time);
+
+  /// No description provided for @btnCancel.
+  ///
+  /// In id, this message translates to:
+  /// **'Batalkan'**
+  String get btnCancel;
+
+  /// No description provided for @btnOpenGallery.
+  ///
+  /// In id, this message translates to:
+  /// **'Buka Galeri'**
+  String get btnOpenGallery;
+
+  /// No description provided for @btnClose.
+  ///
+  /// In id, this message translates to:
+  /// **'Tutup'**
+  String get btnClose;
+
+  /// No description provided for @extractionComplete.
+  ///
+  /// In id, this message translates to:
+  /// **'{count} frame tersimpan di Pictures/Sela'**
+  String extractionComplete(int count);
+
+  /// No description provided for @extractionCancelled.
+  ///
+  /// In id, this message translates to:
+  /// **'Ekstraksi dibatalkan. {count} frame tersimpan.'**
+  String extractionCancelled(int count);
+
+  /// No description provided for @errorMaxFramesExceeded.
+  ///
+  /// In id, this message translates to:
+  /// **'Batas maksimum {max} frame terlampaui. Kurangi durasi atau perbesar interval.'**
+  String errorMaxFramesExceeded(int max);
+
+  /// No description provided for @singleFrameSaved.
+  ///
+  /// In id, this message translates to:
+  /// **'Frame tersimpan di Pictures/Sela'**
+  String get singleFrameSaved;
+
+  /// No description provided for @titleExtracting.
+  ///
+  /// In id, this message translates to:
+  /// **'Mengekstrak frame...'**
+  String get titleExtracting;
 }
 
 class _AppLocalizationsDelegate

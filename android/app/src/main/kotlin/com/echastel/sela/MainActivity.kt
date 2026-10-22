@@ -76,5 +76,52 @@ class MainActivity : FlutterActivity() {
                 else -> result.notImplemented()
             }
         }
+
+        val gallery = SelaGallery(applicationContext)
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "com.echastel.sela/gallery").setMethodCallHandler { call, result ->
+            when (call.method) {
+                "writeImage" -> {
+                    val bytes = call.argument<ByteArray>("bytes")
+                        ?: return@setMethodCallHandler result.error("INVALID_ARG", "bytes required", null)
+                    val displayName = call.argument<String>("displayName")
+                        ?: return@setMethodCallHandler result.error("INVALID_ARG", "displayName required", null)
+                    val mimeType = call.argument<String>("mimeType") ?: "image/png"
+
+                    CoroutineScope(Dispatchers.IO).launch {
+                        try {
+                            val uri = gallery.writeImage(bytes, displayName, mimeType)
+                            withContext(Dispatchers.Main) {
+                                result.success(uri)
+                            }
+                        } catch (e: Exception) {
+                            withContext(Dispatchers.Main) {
+                                result.error("GALLERY_WRITE_ERROR", e.message, null)
+                            }
+                        }
+                    }
+                }
+                "exists" -> {
+                    val displayName = call.argument<String>("displayName")
+                        ?: return@setMethodCallHandler result.error("INVALID_ARG", "displayName required", null)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        try {
+                            val exists = gallery.exists(displayName)
+                            withContext(Dispatchers.Main) {
+                                result.success(exists)
+                            }
+                        } catch (e: Exception) {
+                            withContext(Dispatchers.Main) {
+                                result.error("GALLERY_EXISTS_ERROR", e.message, null)
+                            }
+                        }
+                    }
+                }
+                "openGallery" -> {
+                    val opened = gallery.openGallery()
+                    result.success(opened)
+                }
+                else -> result.notImplemented()
+            }
+        }
     }
 }

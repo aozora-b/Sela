@@ -47,4 +47,44 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get titleCapture => 'Extraction';
+
+  @override
+  String progressFrames(int current, int total) {
+    return '$current / $total frames';
+  }
+
+  @override
+  String progressRemaining(String time) {
+    return 'Remaining $time';
+  }
+
+  @override
+  String get btnCancel => 'Cancel';
+
+  @override
+  String get btnOpenGallery => 'Open Gallery';
+
+  @override
+  String get btnClose => 'Close';
+
+  @override
+  String extractionComplete(int count) {
+    return '$count frames saved to Pictures/Sela';
+  }
+
+  @override
+  String extractionCancelled(int count) {
+    return 'Extraction cancelled. $count frames saved.';
+  }
+
+  @override
+  String errorMaxFramesExceeded(int max) {
+    return 'Maximum limit of $max frames exceeded. Reduce duration or increase interval.';
+  }
+
+  @override
+  String get singleFrameSaved => 'Frame saved to Pictures/Sela';
+
+  @override
+  String get titleExtracting => 'Extracting frames...';
 }

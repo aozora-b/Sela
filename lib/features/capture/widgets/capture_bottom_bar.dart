@@ -5,6 +5,7 @@ import 'package:sela/l10n/generated/app_localizations.dart';
 import '../../../theme/sela_colors.dart';
 import '../../../theme/sela_space.dart';
 import '../../../theme/sela_text.dart';
+import '../../progress/progress_sheet.dart';
 import '../capture_controller.dart';
 
 class CaptureBottomBar extends ConsumerWidget {
@@ -31,7 +32,15 @@ class CaptureBottomBar extends ConsumerWidget {
                 ),
               ),
               onPressed: () {
-                ref.read(captureProvider.notifier).saveCurrentFrame();
+                if (state.isExactMode) {
+                  ref.read(captureProvider.notifier).saveCurrentFrame();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(l10n.singleFrameSaved)),
+                  );
+                } else {
+                  ProgressSheet.show(context);
+                  ref.read(captureProvider.notifier).startExtraction();
+                }
               },
               child: Text(
                 state.isExactMode ? l10n.btnSaveFrame : l10n.btnStartExtraction,

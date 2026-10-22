@@ -37,5 +37,53 @@
     }
   },
   "errorFailedExtract": "Failed to extract frame",
-  "titleCapture": "Extraction"
+  "titleCapture": "Extraction",
+  "progressFrames": "{current} / {total} frames",
+  "@progressFrames": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "progressRemaining": "Remaining {time}",
+  "@progressRemaining": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "btnCancel": "Cancel",
+  "btnOpenGallery": "Open Gallery",
+  "btnClose": "Close",
+  "extractionComplete": "{count} frames saved to Pictures/Sela",
+  "@extractionComplete": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "extractionCancelled": "Extraction cancelled. {count} frames saved.",
+  "@extractionCancelled": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "errorMaxFramesExceeded": "Maximum limit of {max} frames exceeded. Reduce duration or increase interval.",
+  "@errorMaxFramesExceeded": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "singleFrameSaved": "Frame saved to Pictures/Sela",
+  "titleExtracting": "Extracting frames..."
 }

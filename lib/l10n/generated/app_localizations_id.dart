@@ -47,4 +47,44 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get titleCapture => 'Ekstraksi';
+
+  @override
+  String progressFrames(int current, int total) {
+    return '$current / $total frame';
+  }
+
+  @override
+  String progressRemaining(String time) {
+    return 'Sisa $time';
+  }
+
+  @override
+  String get btnCancel => 'Batalkan';
+
+  @override
+  String get btnOpenGallery => 'Buka Galeri';
+
+  @override
+  String get btnClose => 'Tutup';
+
+  @override
+  String extractionComplete(int count) {
+    return '$count frame tersimpan di Pictures/Sela';
+  }
+
+  @override
+  String extractionCancelled(int count) {
+    return 'Ekstraksi dibatalkan. $count frame tersimpan.';
+  }
+
+  @override
+  String errorMaxFramesExceeded(int max) {
+    return 'Batas maksimum $max frame terlampaui. Kurangi durasi atau perbesar interval.';
+  }
+
+  @override
+  String get singleFrameSaved => 'Frame tersimpan di Pictures/Sela';
+
+  @override
+  String get titleExtracting => 'Mengekstrak frame...';
 }

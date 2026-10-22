@@ -37,5 +37,53 @@
     }
   },
   "errorFailedExtract": "Gagal mengambil frame",
-  "titleCapture": "Ekstraksi"
+  "titleCapture": "Ekstraksi",
+  "progressFrames": "{current} / {total} frame",
+  "@progressFrames": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "progressRemaining": "Sisa {time}",
+  "@progressRemaining": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "btnCancel": "Batalkan",
+  "btnOpenGallery": "Buka Galeri",
+  "btnClose": "Tutup",
+  "extractionComplete": "{count} frame tersimpan di Pictures/Sela",
+  "@extractionComplete": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "extractionCancelled": "Ekstraksi dibatalkan. {count} frame tersimpan.",
+  "@extractionCancelled": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "errorMaxFramesExceeded": "Batas maksimum {max} frame terlampaui. Kurangi durasi atau perbesar interval.",
+  "@errorMaxFramesExceeded": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "singleFrameSaved": "Frame tersimpan di Pictures/Sela",
+  "titleExtracting": "Mengekstrak frame..."
 }
