@@ -19,8 +19,9 @@ class SelaEngine {
         val durMs = r.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)?.toLongOrNull() ?: 0L
         val w = r.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH)?.toIntOrNull() ?: 1280
         val h = r.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT)?.toIntOrNull() ?: 720
+        val fpsStr = r.extractMetadata(MediaMetadataRetriever.METADATA_KEY_CAPTURE_FRAMERATE)
+        val fps = fpsStr?.toDoubleOrNull() ?: 30.0
         val durationS = durMs / 1000.0
-        val fps = 30.0
         val frameCount = (durationS * fps).toInt().coerceAtLeast(1)
         val codec = "h264"
         return mapOf(

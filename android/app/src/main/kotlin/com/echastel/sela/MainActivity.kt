@@ -21,14 +21,20 @@ class MainActivity : FlutterActivity() {
                     val id = call.argument<Int>("id") ?: return@setMethodCallHandler result.error("INVALID_ARG", "id required", null)
                     val path = call.argument<String>("path") ?: return@setMethodCallHandler result.error("INVALID_ARG", "path required", null)
                     
-                    try {
-                        val engine = SelaEngine()
-                        engine.open(path)
-                        engines[id] = engine
-                        val meta = engine.getMetadata()
-                        result.success(meta)
-                    } catch (e: Exception) {
-                        result.error("OPEN_ERROR", e.message, null)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        try {
+                            val engine = SelaEngine()
+                            engine.open(path)
+                            engines[id] = engine
+                            val meta = engine.getMetadata()
+                            withContext(Dispatchers.Main) {
+                                result.success(meta)
+                            }
+                        } catch (e: Exception) {
+                            withContext(Dispatchers.Main) {
+                                result.error("OPEN_ERROR", e.message, null)
+                            }
+                        }
                     }
                 }
                 "getFrame" -> {
