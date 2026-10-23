@@ -143,5 +143,7 @@
     }
   },
   "btnApply": "Apply",
-  "sectionAbout": "About"
+  "sectionAbout": "About",
+  "titleHome": "Home",
+  "btnPickVideo": "Pick Video"
 }

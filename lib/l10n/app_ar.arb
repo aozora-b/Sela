@@ -50,5 +50,7 @@
   "dialogRtlTitle": "تغيير التخطيط (RTL)؟",
   "dialogRtlMessage": "التغيير إلى {language} سيعكس تخطيط الواجهة بالكامل. هل تريد المتابعة؟",
   "btnApply": "تطبيق",
-  "sectionAbout": "حول"
+  "sectionAbout": "حول",
+  "titleHome": "الرئيسية",
+  "btnPickVideo": "اختر فيديو"
 }

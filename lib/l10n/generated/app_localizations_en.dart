@@ -185,4 +185,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sectionAbout => 'About';
+
+  @override
+  String get titleHome => 'Home';
+
+  @override
+  String get btnPickVideo => 'Pick Video';
 }

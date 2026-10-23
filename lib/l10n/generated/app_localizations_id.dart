@@ -185,4 +185,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get sectionAbout => 'Tentang';
+
+  @override
+  String get titleHome => 'Beranda';
+
+  @override
+  String get btnPickVideo => 'Pilih Video';
 }

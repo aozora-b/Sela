@@ -1,8 +1,14 @@
 package com.echastel.sela
 
+import android.net.Uri
+import android.provider.OpenableColumns
+import androidx.activity.result.contract.ActivityResultContracts
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
+import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -11,6 +17,15 @@ import kotlinx.coroutines.withContext
 class MainActivity : FlutterActivity() {
     private val CHANNEL = "sela/frame_engine"
     private val engines = mutableMapOf<Int, SelaEngine>()
+
+    private var pendingResult: MethodChannel.Result? = null
+    private val openVideoLauncher = registerForActivityResult(
+        ActivityResultContracts.OpenDocument()
+    ) { uri: Uri? ->
+        val result = pendingResult
+        pendingResult = null
+        handlePickedVideo(uri, result)
+    }
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
@@ -125,5 +140,63 @@ class MainActivity : FlutterActivity() {
                 else -> result.notImplemented()
             }
         }
+
+        // Pemilih video native (SAF). Menyalin berkas terpilih ke cache agar
+        // engine menerima path nyata, bukan URI content://.
+        MethodChannel(
+            flutterEngine.dartExecutor.binaryMessenger,
+            "sela/video_picker"
+        ).setMethodCallHandler { call, result ->
+            when (call.method) {
+                "pickVideo" -> {
+                    pendingResult = result
+                    openVideoLauncher.launch(arrayOf("video/*"))
+                }
+                else -> result.notImplemented()
+            }
+        }
+    }
+
+    private fun handlePickedVideo(uri: Uri?, result: MethodChannel.Result?) {
+        if (result == null) return
+        if (uri == null) {
+            result.success(null)
+            return
+        }
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val displayName = queryDisplayName(uri) ?: "video.mp4"
+                val ext = displayName.substringAfterLast('.', "mp4")
+                val outFile = File(cacheDir, "picked_${System.currentTimeMillis()}.$ext")
+                contentResolver.openInputStream(uri)?.use { input: InputStream ->
+                    FileOutputStream(outFile).use { output ->
+                        input.copyTo(output)
+                    }
+                } ?: throw IllegalStateException("Tidak dapat membuka aliran video")
+                withContext(Dispatchers.Main) {
+                    result.success(
+                        mapOf(
+                            "path" to outFile.absolutePath,
+                            "displayName" to displayName
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    result.error("PICK_ERROR", e.message, null)
+                }
+            }
+        }
+    }
+
+    private fun queryDisplayName(uri: Uri): String? {
+        val projection = arrayOf(OpenableColumns.DISPLAY_NAME)
+        contentResolver.query(uri, projection, null, null, null)?.use { cursor ->
+            if (cursor.moveToFirst()) {
+                val idx = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                if (idx >= 0) return cursor.getString(idx)
+            }
+        }
+        return null
     }
 }

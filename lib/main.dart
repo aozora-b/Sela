@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sela/l10n/generated/app_localizations.dart';
 
-import 'features/capture/capture_screen.dart';
+import 'features/home/home_screen.dart';
 import 'features/settings/settings_controller.dart';
 import 'theme/sela_theme.dart';
 
@@ -25,7 +25,7 @@ class SelaApp extends ConsumerWidget {
       locale: Locale(settings.localeCode),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const CaptureScreen(),
+      home: const HomeScreen(),
     );
   }
 }

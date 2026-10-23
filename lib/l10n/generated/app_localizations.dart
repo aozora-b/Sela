@@ -405,6 +405,18 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Tentang'**
   String get sectionAbout;
+
+  /// No description provided for @titleHome.
+  ///
+  /// In id, this message translates to:
+  /// **'Beranda'**
+  String get titleHome;
+
+  /// No description provided for @btnPickVideo.
+  ///
+  /// In id, this message translates to:
+  /// **'Pilih Video'**
+  String get btnPickVideo;
 }
 
 class _AppLocalizationsDelegate

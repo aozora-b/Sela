@@ -143,5 +143,7 @@
     }
   },
   "btnApply": "Terapkan",
-  "sectionAbout": "Tentang"
+  "sectionAbout": "Tentang",
+  "titleHome": "Beranda",
+  "btnPickVideo": "Pilih Video"
 }

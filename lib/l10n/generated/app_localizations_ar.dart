@@ -185,4 +185,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get sectionAbout => 'حول';
+
+  @override
+  String get titleHome => 'الرئيسية';
+
+  @override
+  String get btnPickVideo => 'اختر فيديو';
 }

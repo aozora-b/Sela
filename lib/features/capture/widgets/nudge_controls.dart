@@ -32,7 +32,6 @@ class NudgeControls extends ConsumerWidget {
             children: [
               _NudgeButton(
                 icon: Icons.remove,
-                label: '-1 Frame',
                 onTap: () => ref
                     .read(captureProvider.notifier)
                     .seekTo(state.currentTime - (1 / videoInfo.fps)),
@@ -46,7 +45,6 @@ class NudgeControls extends ConsumerWidget {
               ),
               _NudgeButton(
                 icon: Icons.add,
-                label: '+1 Frame',
                 onTap: () => ref
                     .read(captureProvider.notifier)
                     .seekTo(state.currentTime + (1 / videoInfo.fps)),
@@ -66,13 +64,11 @@ class NudgeControls extends ConsumerWidget {
 
 class _NudgeButton extends StatelessWidget {
   final IconData icon;
-  final String label;
   final VoidCallback onTap;
   final VoidCallback onLongPress;
 
   const _NudgeButton({
     required this.icon,
-    required this.label,
     required this.onTap,
     required this.onLongPress,
   });
