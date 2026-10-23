@@ -86,32 +86,38 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen> {
     final state = ref.watch(captureProvider);
     final l10n = AppLocalizations.of(context);
     if (l10n == null) return const SizedBox.shrink();
+    final colors = context.colors;
 
     final videoInfo = state.videoInfo;
     if (videoInfo == null) {
       return Scaffold(
-        backgroundColor: SelaColors.bg,
+        backgroundColor: colors.bg,
         appBar: AppBar(
-          backgroundColor: SelaColors.bgElevated,
-          title: Text(l10n.titleCapture, style: SelaText.titleCard),
+          elevation: 0,
+          scrolledUnderElevation: 0,
+          backgroundColor: colors.bgElevated,
+          title: Text(
+            l10n.titleCapture,
+            style: SelaText.titleCard.copyWith(color: colors.textPrimary),
+          ),
         ),
         body: const Center(child: CircularProgressIndicator()),
       );
     }
 
     return Scaffold(
-      backgroundColor: SelaColors.bg,
+      backgroundColor: colors.bg,
       appBar: AppBar(
         elevation: 0,
         scrolledUnderElevation: 0,
-        backgroundColor: SelaColors.bgElevated,
-        title: Text(videoInfo.path.split('/').last, style: SelaText.titleCard),
+        backgroundColor: colors.bgElevated,
+        title: Text(
+          videoInfo.path.split('/').last,
+          style: SelaText.titleCard.copyWith(color: colors.textPrimary),
+        ),
         actions: [
           IconButton(
-            icon: const Icon(
-              Icons.history_rounded,
-              color: SelaColors.textPrimary,
-            ),
+            icon: Icon(Icons.history_rounded, color: colors.textPrimary),
             onPressed: () {
               ref.read(historyProvider.notifier).refresh();
               Navigator.of(context).push(
@@ -120,10 +126,7 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen> {
             },
           ),
           IconButton(
-            icon: const Icon(
-              Icons.settings_outlined,
-              color: SelaColors.textPrimary,
-            ),
+            icon: Icon(Icons.settings_outlined, color: colors.textPrimary),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute<void>(builder: (_) => const SettingsScreen()),
@@ -136,11 +139,14 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen> {
               vertical: SelaSpace.xs,
             ),
             margin: const EdgeInsetsDirectional.only(end: SelaSpace.xl),
-            decoration: const BoxDecoration(
-              color: SelaColors.surfaceHighlight,
+            decoration: BoxDecoration(
+              color: colors.surfaceHighlight,
               borderRadius: SelaRadius.pillBorderRadius,
             ),
-            child: Text(videoInfo.resolution, style: SelaText.caption),
+            child: Text(
+              videoInfo.resolution,
+              style: SelaText.caption.copyWith(color: colors.textPrimary),
+            ),
           ),
         ],
       ),

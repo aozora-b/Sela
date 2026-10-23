@@ -7,11 +7,13 @@ class TickPainter extends CustomPainter {
   final bool isExactMode;
   final List<double> ticks;
   final double duration;
+  final Color accentColor;
 
   const TickPainter({
     required this.isExactMode,
     required this.ticks,
     required this.duration,
+    this.accentColor = SelaColors.accent,
   });
 
   @override
@@ -22,7 +24,7 @@ class TickPainter extends CustomPainter {
     if (isExactMode) {
       // Mode Manual: tick 2dp solid di setiap frame yang sudah disimpan
       final paint = Paint()
-        ..color = SelaColors.accent
+        ..color = accentColor
         ..style = PaintingStyle.fill;
       for (final t in ticks) {
         final x = (t / duration).clamp(0.0, 1.0) * size.width;
@@ -34,7 +36,7 @@ class TickPainter extends CustomPainter {
     } else {
       // Mode Interval: tick 1dp opacity 35% di SETIAP titik planPoints()
       final paint = Paint()
-        ..color = SelaColors.accent.withValues(alpha: 0.35)
+        ..color = accentColor.withValues(alpha: 0.35)
         ..style = PaintingStyle.fill;
       for (final t in ticks) {
         final x = (t / duration).clamp(0.0, 1.0) * size.width;
@@ -50,5 +52,6 @@ class TickPainter extends CustomPainter {
   bool shouldRepaint(covariant TickPainter old) =>
       old.isExactMode != isExactMode ||
       old.duration != duration ||
+      old.accentColor != accentColor ||
       !listEquals(old.ticks, ticks);
 }

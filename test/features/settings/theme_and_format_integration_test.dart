@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sela/domain/models.dart';
+import 'package:sela/features/settings/settings_screen.dart';
+import 'package:sela/l10n/generated/app_localizations.dart';
 import 'package:sela/theme/sela_theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   group('SelaTheme Production Verification', () {
     test('lightTheme has Brightness.light and Editorial Light palette', () {
       final theme = SelaTheme.lightTheme;
@@ -21,6 +28,61 @@ void main() {
       expect(theme.colorScheme.primary, SelaColors.accent);
       expect(theme.colorScheme.surface, SelaColors.surface);
       expect(theme.colorScheme.onSurface, SelaColors.textPrimary);
+    });
+
+    testWidgets(
+      'SettingsScreen renders with SelaColors.bgLight in lightTheme',
+      (tester) async {
+        SharedPreferences.setMockInitialValues({});
+        await tester.pumpWidget(
+          ProviderScope(
+            child: MaterialApp(
+              theme: SelaTheme.lightTheme,
+              themeMode: ThemeMode.light,
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: const Locale('id'),
+              home: const SettingsScreen(),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        final scaffold = tester.widget<Scaffold>(find.byType(Scaffold));
+        expect(scaffold.backgroundColor, SelaColors.bgLight);
+      },
+    );
+
+    testWidgets('SettingsScreen renders with SelaColors.bg in darkTheme', (
+      tester,
+    ) async {
+      SharedPreferences.setMockInitialValues({});
+      await tester.pumpWidget(
+        ProviderScope(
+          child: MaterialApp(
+            theme: SelaTheme.darkTheme,
+            themeMode: ThemeMode.dark,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: AppLocalizations.supportedLocales,
+            locale: const Locale('id'),
+            home: const SettingsScreen(),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final scaffold = tester.widget<Scaffold>(find.byType(Scaffold));
+      expect(scaffold.backgroundColor, SelaColors.bg);
     });
   });
 

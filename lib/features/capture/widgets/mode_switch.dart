@@ -14,11 +14,12 @@ class ModeSwitch extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(captureProvider);
     final l10n = AppLocalizations.of(context)!;
+    final colors = context.colors;
 
     return Container(
       margin: SelaSpace.screenHorizontal,
-      decoration: const BoxDecoration(
-        color: SelaColors.surface,
+      decoration: BoxDecoration(
+        color: colors.surface,
         borderRadius: SelaRadius.pillBorderRadius,
       ),
       child: Row(
@@ -32,7 +33,7 @@ class ModeSwitch extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(vertical: SelaSpace.md),
                 decoration: BoxDecoration(
                   color: state.isExactMode
-                      ? SelaColors.textPrimary
+                      ? colors.textPrimary
                       : Colors.transparent,
                   borderRadius: SelaRadius.pillBorderRadius,
                 ),
@@ -40,9 +41,7 @@ class ModeSwitch extends ConsumerWidget {
                 child: Text(
                   l10n.captureModeManual,
                   style: SelaText.button.copyWith(
-                    color: state.isExactMode
-                        ? SelaColors.bg
-                        : SelaColors.textSecondary,
+                    color: state.isExactMode ? colors.bg : colors.textSecondary,
                   ),
                 ),
               ),
@@ -57,7 +56,7 @@ class ModeSwitch extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(vertical: SelaSpace.md),
                 decoration: BoxDecoration(
                   color: !state.isExactMode
-                      ? SelaColors.textPrimary
+                      ? colors.textPrimary
                       : Colors.transparent,
                   borderRadius: SelaRadius.pillBorderRadius,
                 ),
@@ -66,8 +65,8 @@ class ModeSwitch extends ConsumerWidget {
                   l10n.captureModeInterval,
                   style: SelaText.button.copyWith(
                     color: !state.isExactMode
-                        ? SelaColors.bg
-                        : SelaColors.textSecondary,
+                        ? colors.bg
+                        : colors.textSecondary,
                   ),
                 ),
               ),

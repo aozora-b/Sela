@@ -19,6 +19,7 @@ class SettingsScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final settings = ref.watch(settingsProvider);
     final notifier = ref.read(settingsProvider.notifier);
+    final colors = context.colors;
 
     final currentLang = AppLanguage.all.firstWhere(
       (l) => l.code == settings.localeCode,
@@ -26,12 +27,15 @@ class SettingsScreen extends ConsumerWidget {
     );
 
     return Scaffold(
-      backgroundColor: SelaColors.bg,
+      backgroundColor: colors.bg,
       appBar: AppBar(
-        backgroundColor: SelaColors.bg,
-        foregroundColor: SelaColors.textPrimary,
+        backgroundColor: colors.bg,
+        foregroundColor: colors.textPrimary,
         elevation: 0,
-        title: Text(l10n.titleSettings, style: SelaText.titleCard),
+        title: Text(
+          l10n.titleSettings,
+          style: SelaText.titleCard.copyWith(color: colors.textPrimary),
+        ),
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(
@@ -39,28 +43,28 @@ class SettingsScreen extends ConsumerWidget {
           vertical: SelaSpace.md,
         ),
         children: [
-          _buildSectionHeader(l10n.sectionExtraction),
+          _buildSectionHeader(l10n.sectionExtraction, colors),
           FormatSelectorCard(settings: settings, notifier: notifier),
           const SizedBox(height: SelaSpace.xl),
-          _buildSectionHeader(l10n.sectionAppearance),
-          _buildThemeSelector(settings, notifier, l10n),
+          _buildSectionHeader(l10n.sectionAppearance, colors),
+          _buildThemeSelector(settings, notifier, l10n, colors),
           const SizedBox(height: SelaSpace.xl),
-          _buildSectionHeader(l10n.sectionLanguage),
-          _buildLanguageTile(context, currentLang),
+          _buildSectionHeader(l10n.sectionLanguage, colors),
+          _buildLanguageTile(context, currentLang, colors),
           const SizedBox(height: SelaSpace.xl),
-          _buildSectionHeader(l10n.sectionAbout),
-          _buildAboutTile(l10n),
+          _buildSectionHeader(l10n.sectionAbout, colors),
+          _buildAboutTile(l10n, colors),
         ],
       ),
     );
   }
 
-  Widget _buildSectionHeader(String title) {
+  Widget _buildSectionHeader(String title, SelaColorsData colors) {
     return Padding(
       padding: const EdgeInsets.only(bottom: SelaSpace.sm),
       child: Text(
         title,
-        style: SelaText.caption.copyWith(color: SelaColors.textSecondary),
+        style: SelaText.caption.copyWith(color: colors.textSecondary),
       ),
     );
   }
@@ -69,11 +73,12 @@ class SettingsScreen extends ConsumerWidget {
     AppSettings settings,
     SettingsController notifier,
     AppLocalizations l10n,
+    SelaColorsData colors,
   ) {
     return Container(
       padding: const EdgeInsets.all(SelaSpace.sm),
-      decoration: const BoxDecoration(
-        color: SelaColors.surface,
+      decoration: BoxDecoration(
+        color: colors.surface,
         borderRadius: SelaRadius.cardBorderRadius,
       ),
       child: SegmentedButton<AppThemeMode>(
@@ -101,35 +106,48 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildLanguageTile(BuildContext context, AppLanguage currentLang) {
+  Widget _buildLanguageTile(
+    BuildContext context,
+    AppLanguage currentLang,
+    SelaColorsData colors,
+  ) {
     return Material(
-      color: SelaColors.surface,
+      color: colors.surface,
       borderRadius: SelaRadius.cardBorderRadius,
       clipBehavior: Clip.antiAlias,
       child: ListTile(
         onTap: () => LanguagePickerSheet.show(context),
-        title: Text(currentLang.nativeName, style: SelaText.body),
+        title: Text(
+          currentLang.nativeName,
+          style: SelaText.body.copyWith(color: colors.textPrimary),
+        ),
         subtitle: Text(
           currentLang.englishName,
-          style: SelaText.caption.copyWith(color: SelaColors.textSecondary),
+          style: SelaText.caption.copyWith(color: colors.textSecondary),
         ),
-        trailing: const Icon(
+        trailing: Icon(
           Icons.arrow_forward_ios_rounded,
           size: 16,
-          color: SelaColors.textSecondary,
+          color: colors.textSecondary,
         ),
       ),
     );
   }
 
-  Widget _buildAboutTile(AppLocalizations l10n) {
+  Widget _buildAboutTile(AppLocalizations l10n, SelaColorsData colors) {
     return Material(
-      color: SelaColors.surface,
+      color: colors.surface,
       borderRadius: SelaRadius.cardBorderRadius,
       clipBehavior: Clip.antiAlias,
       child: ListTile(
-        title: Text(l10n.appName, style: SelaText.body),
-        subtitle: const Text('v1.0.0 (build b6)', style: SelaText.caption),
+        title: Text(
+          l10n.appName,
+          style: SelaText.body.copyWith(color: colors.textPrimary),
+        ),
+        subtitle: Text(
+          'v1.0.0 (build b6)',
+          style: SelaText.caption.copyWith(color: colors.textSecondary),
+        ),
       ),
     );
   }

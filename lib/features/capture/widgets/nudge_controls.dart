@@ -18,6 +18,7 @@ class NudgeControls extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(captureProvider);
     final l10n = AppLocalizations.of(context)!;
+    final colors = context.colors;
     final currentFrame = ((state.currentTime * videoInfo.fps).round() + 1)
         .clamp(1, videoInfo.frameCount);
 
@@ -41,7 +42,7 @@ class NudgeControls extends ConsumerWidget {
               ),
               Text(
                 l10n.frameIndicator(currentFrame, videoInfo.frameCount),
-                style: SelaText.titleCard,
+                style: SelaText.titleCard.copyWith(color: colors.textPrimary),
               ),
               _NudgeButton(
                 icon: Icons.add,
@@ -78,6 +79,8 @@ class _NudgeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return InkWell(
       onTap: onTap,
       onLongPress: onLongPress,
@@ -85,11 +88,11 @@ class _NudgeButton extends StatelessWidget {
       child: Container(
         width: 48,
         height: 48,
-        decoration: const BoxDecoration(
-          color: SelaColors.surface,
+        decoration: BoxDecoration(
+          color: colors.surface,
           shape: BoxShape.circle,
         ),
-        child: Icon(icon, color: SelaColors.textPrimary, size: 20),
+        child: Icon(icon, color: colors.textPrimary, size: 20),
       ),
     );
   }

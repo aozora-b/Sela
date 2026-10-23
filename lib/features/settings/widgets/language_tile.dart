@@ -19,12 +19,16 @@ class LanguageTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
     return ListTile(
       contentPadding: EdgeInsets.zero,
       onTap: onTap,
       title: Row(
         children: [
-          Text(lang.nativeName, style: SelaText.body),
+          Text(
+            lang.nativeName,
+            style: SelaText.body.copyWith(color: colors.textPrimary),
+          ),
           if (lang.isRtl) ...[
             const SizedBox(width: SelaSpace.sm),
             Container(
@@ -33,13 +37,13 @@ class LanguageTile extends StatelessWidget {
                 vertical: 2,
               ),
               decoration: BoxDecoration(
-                color: SelaColors.surfaceHighlight,
+                color: colors.surfaceHighlight,
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Text(
                 'RTL',
                 style: SelaText.caption.copyWith(
-                  color: SelaColors.accent,
+                  color: colors.accent,
                   fontSize: 10,
                 ),
               ),
@@ -49,10 +53,10 @@ class LanguageTile extends StatelessWidget {
       ),
       subtitle: Text(
         lang.englishName,
-        style: SelaText.caption.copyWith(color: SelaColors.textSecondary),
+        style: SelaText.caption.copyWith(color: colors.textSecondary),
       ),
       trailing: isSelected
-          ? const Icon(Icons.check_circle_rounded, color: SelaColors.accent)
+          ? Icon(Icons.check_circle_rounded, color: colors.accent)
           : null,
     );
   }

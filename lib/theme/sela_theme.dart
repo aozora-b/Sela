@@ -20,6 +20,9 @@ abstract final class SelaTheme {
       colorScheme: const ColorScheme.dark(
         primary: SelaColors.accent,
         onPrimary: SelaColors.textPrimary,
+        secondary: SelaColors.accent,
+        onSecondary: SelaColors.textPrimary,
+        tertiary: SelaColors.accentSoft,
         surface: SelaColors.surface,
         onSurface: SelaColors.textPrimary,
         error: SelaColors.error,
@@ -78,6 +81,14 @@ abstract final class SelaTheme {
         thickness: 1.0,
         space: 1.0,
       ),
+      textTheme: const TextTheme(
+        displayLarge: SelaText.displaySerif,
+        titleMedium: SelaText.titleCard,
+        bodyMedium: SelaText.body,
+        labelLarge: SelaText.button,
+        labelSmall: SelaText.sectionLabel,
+        bodySmall: SelaText.caption,
+      ),
     );
   }
 
@@ -90,25 +101,30 @@ abstract final class SelaTheme {
       colorScheme: const ColorScheme.light(
         primary: SelaColors.accent,
         onPrimary: Colors.white,
+        secondary: SelaColors.accent,
+        onSecondary: Colors.white,
+        tertiary: Color(0xFFFBECE5),
         surface: SelaColors.surfaceLight,
         onSurface: SelaColors.textPrimaryLight,
         error: SelaColors.error,
         onError: Colors.white,
         outline: SelaColors.borderLight,
       ),
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: false,
-        systemOverlayStyle: SystemUiOverlayStyle(
+        systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.dark,
           statusBarBrightness: Brightness.light,
           systemNavigationBarColor: Colors.transparent,
           systemNavigationBarIconBrightness: Brightness.dark,
         ),
-        titleTextStyle: SelaText.displaySerif,
+        titleTextStyle: SelaText.displaySerif.copyWith(
+          color: SelaColors.textPrimaryLight,
+        ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -147,6 +163,26 @@ abstract final class SelaTheme {
         color: SelaColors.borderLight,
         thickness: 1.0,
         space: 1.0,
+      ),
+      textTheme: TextTheme(
+        displayLarge: SelaText.displaySerif.copyWith(
+          color: SelaColors.textPrimaryLight,
+        ),
+        titleMedium: SelaText.titleCard.copyWith(
+          color: SelaColors.textPrimaryLight,
+        ),
+        bodyMedium: SelaText.body.copyWith(
+          color: SelaColors.textSecondaryLight,
+        ),
+        labelLarge: SelaText.button.copyWith(
+          color: SelaColors.textPrimaryLight,
+        ),
+        labelSmall: SelaText.sectionLabel.copyWith(
+          color: SelaColors.textSecondaryLight,
+        ),
+        bodySmall: SelaText.caption.copyWith(
+          color: SelaColors.textSecondaryLight,
+        ),
       ),
     );
   }

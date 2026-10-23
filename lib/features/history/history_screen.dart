@@ -30,14 +30,18 @@ class HistoryScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final historyAsync = ref.watch(historyProvider);
+    final colors = context.colors;
 
     return Scaffold(
-      backgroundColor: SelaColors.bg,
+      backgroundColor: colors.bg,
       appBar: AppBar(
-        backgroundColor: SelaColors.bg,
-        foregroundColor: SelaColors.textPrimary,
+        backgroundColor: colors.bg,
+        foregroundColor: colors.textPrimary,
         elevation: 0,
-        title: Text(l10n.titleHistory, style: SelaText.titleCard),
+        title: Text(
+          l10n.titleHistory,
+          style: SelaText.titleCard.copyWith(color: colors.textPrimary),
+        ),
       ),
       body: historyAsync.when(
         data: (sessions) {
@@ -45,7 +49,7 @@ class HistoryScreen extends ConsumerWidget {
             return Center(
               child: Text(
                 l10n.emptyHistory,
-                style: SelaText.body.copyWith(color: SelaColors.textSecondary),
+                style: SelaText.body.copyWith(color: colors.textSecondary),
               ),
             );
           }
@@ -67,14 +71,11 @@ class HistoryScreen extends ConsumerWidget {
                 background: Container(
                   alignment: Alignment.centerRight,
                   padding: const EdgeInsets.symmetric(horizontal: SelaSpace.lg),
-                  decoration: const BoxDecoration(
-                    color: SelaColors.error,
+                  decoration: BoxDecoration(
+                    color: colors.error,
                     borderRadius: SelaRadius.cardBorderRadius,
                   ),
-                  child: const Icon(
-                    Icons.delete_outline,
-                    color: SelaColors.textPrimary,
-                  ),
+                  child: const Icon(Icons.delete_outline, color: Colors.white),
                 ),
                 onDismissed: (_) {
                   ref.read(historyProvider.notifier).deleteSession(s.id);
@@ -84,8 +85,8 @@ class HistoryScreen extends ConsumerWidget {
                 },
                 child: Container(
                   padding: const EdgeInsets.all(SelaSpace.md),
-                  decoration: const BoxDecoration(
-                    color: SelaColors.surface,
+                  decoration: BoxDecoration(
+                    color: colors.surface,
                     borderRadius: SelaRadius.cardBorderRadius,
                   ),
                   child: Row(
@@ -94,13 +95,10 @@ class HistoryScreen extends ConsumerWidget {
                         width: 48,
                         height: 48,
                         decoration: BoxDecoration(
-                          color: SelaColors.surfaceHighlight,
+                          color: colors.surfaceHighlight,
                           borderRadius: BorderRadius.circular(SelaRadius.sm),
                         ),
-                        child: const Icon(
-                          Icons.movie_outlined,
-                          color: SelaColors.accent,
-                        ),
+                        child: Icon(Icons.movie_outlined, color: colors.accent),
                       ),
                       const SizedBox(width: SelaSpace.md),
                       Expanded(
@@ -110,6 +108,7 @@ class HistoryScreen extends ConsumerWidget {
                             Text(
                               stem,
                               style: SelaText.body.copyWith(
+                                color: colors.textPrimary,
                                 fontWeight: FontWeight.bold,
                               ),
                               maxLines: 1,
@@ -118,7 +117,9 @@ class HistoryScreen extends ConsumerWidget {
                             const SizedBox(height: SelaSpace.xs),
                             Text(
                               '${_formatDate(s.timestamp)} · ${l10n.historyTotalFrames(s.savedCount)} · ${_formatSize(s.totalSizeBytes, l10n)}',
-                              style: SelaText.caption,
+                              style: SelaText.caption.copyWith(
+                                color: colors.textSecondary,
+                              ),
                             ),
                           ],
                         ),
@@ -130,11 +131,14 @@ class HistoryScreen extends ConsumerWidget {
             },
           );
         },
-        loading: () => const Center(
-          child: CircularProgressIndicator(color: SelaColors.accent),
+        loading: () =>
+            Center(child: CircularProgressIndicator(color: colors.accent)),
+        error: (err, _) => Center(
+          child: Text(
+            err.toString(),
+            style: SelaText.caption.copyWith(color: colors.textSecondary),
+          ),
         ),
-        error: (err, _) =>
-            Center(child: Text(err.toString(), style: SelaText.caption)),
       ),
     );
   }

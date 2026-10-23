@@ -12,31 +12,42 @@ class ResumeDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final colors = context.colors;
+
     return AlertDialog(
-      backgroundColor: SelaColors.surface,
+      backgroundColor: colors.surface,
       shape: const RoundedRectangleBorder(
         borderRadius: SelaRadius.cardBorderRadius,
       ),
-      title: Text(l10n.dialogResumeTitle, style: SelaText.titleCard),
-      content: Text(l10n.dialogResumeMessage(nextFrame), style: SelaText.body),
+      title: Text(
+        l10n.dialogResumeTitle,
+        style: SelaText.titleCard.copyWith(color: colors.textPrimary),
+      ),
+      content: Text(
+        l10n.dialogResumeMessage(nextFrame),
+        style: SelaText.body.copyWith(color: colors.textSecondary),
+      ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
           child: Text(
             l10n.btnRestart,
-            style: SelaText.button.copyWith(color: SelaColors.textSecondary),
+            style: SelaText.button.copyWith(color: colors.textSecondary),
           ),
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: SelaColors.accent,
-            foregroundColor: SelaColors.textPrimary,
+            backgroundColor: colors.accent,
+            foregroundColor: Colors.white,
             shape: const RoundedRectangleBorder(
               borderRadius: SelaRadius.pillBorderRadius,
             ),
           ),
           onPressed: () => Navigator.of(context).pop(true),
-          child: Text(l10n.btnResume, style: SelaText.button),
+          child: Text(
+            l10n.btnResume,
+            style: SelaText.button.copyWith(color: Colors.white),
+          ),
         ),
       ],
     );

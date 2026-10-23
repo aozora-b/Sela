@@ -51,6 +51,7 @@ class _FrameFilmstripState extends ConsumerState<FrameFilmstrip> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
     final state = ref.watch(captureProvider);
     if (state.videoInfo == null) return const SizedBox.shrink();
 
@@ -115,9 +116,9 @@ class _FrameFilmstripState extends ConsumerState<FrameFilmstrip> {
                       bottomRight: const Radius.circular(SelaRadius.sm),
                     ),
                     border: isActive
-                        ? Border.all(color: SelaColors.accent, width: 2)
+                        ? Border.all(color: colors.accent, width: 2)
                         : null,
-                    color: SelaColors.surface,
+                    color: colors.surface,
                   ),
                   clipBehavior: Clip.antiAlias,
                   child: _ThumbnailFuture(timeS: timeS),
@@ -137,6 +138,7 @@ class _ThumbnailFuture extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colors = context.colors;
     final future = ref.read(captureProvider.notifier).getThumbnail(timeS);
     return FutureBuilder<Uint8List?>(
       future: future,
@@ -151,7 +153,7 @@ class _ThumbnailFuture extends ConsumerWidget {
             gaplessPlayback: true,
           );
         }
-        return const Icon(Icons.movie, color: SelaColors.textSecondary);
+        return Icon(Icons.movie, color: colors.textSecondary);
       },
     );
   }

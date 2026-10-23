@@ -20,10 +20,11 @@ class FormatSelectorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final colors = context.colors;
     return Container(
       padding: const EdgeInsets.all(SelaSpace.md),
-      decoration: const BoxDecoration(
-        color: SelaColors.surface,
+      decoration: BoxDecoration(
+        color: colors.surface,
         borderRadius: SelaRadius.cardBorderRadius,
       ),
       child: Column(
@@ -32,7 +33,10 @@ class FormatSelectorCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(l10n.labelFormat, style: SelaText.body),
+              Text(
+                l10n.labelFormat,
+                style: SelaText.body.copyWith(color: colors.textPrimary),
+              ),
               SegmentedButton<OutputFormat>(
                 segments: const [
                   ButtonSegment(value: OutputFormat.png, label: Text('PNG')),
@@ -49,10 +53,13 @@ class FormatSelectorCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(l10n.labelJpegQuality, style: SelaText.body),
+                Text(
+                  l10n.labelJpegQuality,
+                  style: SelaText.body.copyWith(color: colors.textPrimary),
+                ),
                 Text(
                   '${settings.jpegQuality}%',
-                  style: SelaText.body.copyWith(color: SelaColors.accent),
+                  style: SelaText.body.copyWith(color: colors.accent),
                 ),
               ],
             ),
@@ -60,8 +67,8 @@ class FormatSelectorCard extends StatelessWidget {
               value: settings.jpegQuality.toDouble(),
               min: 1,
               max: 100,
-              activeColor: SelaColors.accent,
-              inactiveColor: SelaColors.surfaceHighlight,
+              activeColor: colors.accent,
+              inactiveColor: colors.surfaceHighlight,
               onChanged: (val) => notifier.setJpegQuality(val.round()),
             ),
           ],

@@ -18,6 +18,7 @@ class CaptureBottomBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(captureProvider);
     final l10n = AppLocalizations.of(context)!;
+    final colors = context.colors;
 
     return Padding(
       padding: SelaSpace.screenHorizontal,
@@ -28,8 +29,8 @@ class CaptureBottomBar extends ConsumerWidget {
             height: 56,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: SelaColors.accent,
-                foregroundColor: SelaColors.textPrimary,
+                backgroundColor: colors.accent,
+                foregroundColor: Colors.white,
                 shape: const RoundedRectangleBorder(
                   borderRadius: SelaRadius.pillBorderRadius,
                 ),
@@ -66,7 +67,7 @@ class CaptureBottomBar extends ConsumerWidget {
               },
               child: Text(
                 state.isExactMode ? l10n.btnSaveFrame : l10n.btnStartExtraction,
-                style: SelaText.button,
+                style: SelaText.button.copyWith(color: Colors.white),
               ),
             ),
           ),
@@ -88,8 +89,8 @@ class CaptureBottomBar extends ConsumerWidget {
                 l10n.btnSaveMarked,
                 style: SelaText.button.copyWith(
                   color: state.savedFrames.isEmpty
-                      ? SelaColors.textSecondary
-                      : SelaColors.accent,
+                      ? colors.textSecondary
+                      : colors.accent,
                 ),
               ),
             ),

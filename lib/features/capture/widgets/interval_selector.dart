@@ -14,6 +14,7 @@ class IntervalSelector extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(captureProvider);
     final l10n = AppLocalizations.of(context)!;
+    final colors = context.colors;
 
     final intervals = [0.25, 0.5, 1.0, 2.0, 5.0];
 
@@ -52,7 +53,7 @@ class IntervalSelector extends ConsumerWidget {
         const SizedBox(height: SelaSpace.lg),
         Text(
           l10n.frameEstimate(state.estimatedFrameCount, state.estimatedSizeMb),
-          style: SelaText.body,
+          style: SelaText.body.copyWith(color: colors.textSecondary),
           textAlign: TextAlign.center,
         ),
       ],
@@ -73,6 +74,8 @@ class _IntervalChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: onTap,
@@ -83,13 +86,13 @@ class _IntervalChip extends StatelessWidget {
           vertical: SelaSpace.sm,
         ),
         decoration: BoxDecoration(
-          color: isActive ? SelaColors.accent : SelaColors.surface,
+          color: isActive ? colors.accent : colors.surface,
           borderRadius: SelaRadius.pillBorderRadius,
         ),
         child: Text(
           label,
           style: SelaText.button.copyWith(
-            color: isActive ? SelaColors.textPrimary : SelaColors.textSecondary,
+            color: isActive ? Colors.white : colors.textSecondary,
           ),
         ),
       ),

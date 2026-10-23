@@ -16,7 +16,7 @@ class ProgressSheet extends ConsumerWidget {
       context: context,
       isDismissible: false,
       enableDrag: false,
-      backgroundColor: SelaColors.bgElevated,
+      backgroundColor: context.colors.bgElevated,
       shape: const RoundedRectangleBorder(
         borderRadius: SelaRadius.sheetBorderRadius,
       ),
@@ -35,6 +35,7 @@ class ProgressSheet extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final progress = ref.watch(extractionProgressProvider);
     final controller = ref.read(captureProvider.notifier);
+    final colors = context.colors;
 
     return SafeArea(
       child: Padding(
@@ -53,7 +54,7 @@ class ProgressSheet extends ConsumerWidget {
                   : progress.error != null
                   ? progress.error!
                   : l10n.titleExtracting,
-              style: SelaText.titleCard,
+              style: SelaText.titleCard.copyWith(color: colors.textPrimary),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: SelaSpace.xl),
@@ -66,12 +67,15 @@ class ProgressSheet extends ConsumerWidget {
                   CircularProgressIndicator(
                     value: progress.progressRatio,
                     strokeWidth: 6,
-                    backgroundColor: SelaColors.surfaceHighlight,
-                    valueColor: const AlwaysStoppedAnimation(SelaColors.accent),
+                    backgroundColor: colors.surfaceHighlight,
+                    valueColor: AlwaysStoppedAnimation(colors.accent),
                   ),
                   Text(
                     '${(progress.progressRatio * 100).toInt()}%',
-                    style: SelaText.body.copyWith(fontWeight: FontWeight.bold),
+                    style: SelaText.body.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: colors.textPrimary,
+                    ),
                   ),
                 ],
               ),
@@ -79,7 +83,7 @@ class ProgressSheet extends ConsumerWidget {
             const SizedBox(height: SelaSpace.lg),
             Text(
               l10n.progressFrames(progress.current, progress.total),
-              style: SelaText.body,
+              style: SelaText.body.copyWith(color: colors.textSecondary),
             ),
             if (progress.remainingTime != null && progress.isExtracting) ...[
               const SizedBox(height: SelaSpace.xs),
@@ -87,7 +91,7 @@ class ProgressSheet extends ConsumerWidget {
                 l10n.progressRemaining(
                   _formatDuration(progress.remainingTime!),
                 ),
-                style: SelaText.caption,
+                style: SelaText.caption.copyWith(color: colors.textSecondary),
               ),
             ],
             const SizedBox(height: SelaSpace.xl),
@@ -97,14 +101,17 @@ class ProgressSheet extends ConsumerWidget {
                 height: 48,
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
-                    foregroundColor: SelaColors.textPrimary,
-                    side: const BorderSide(color: SelaColors.surfaceHighlight),
+                    foregroundColor: colors.textPrimary,
+                    side: BorderSide(color: colors.surfaceHighlight),
                     shape: const RoundedRectangleBorder(
                       borderRadius: SelaRadius.pillBorderRadius,
                     ),
                   ),
                   onPressed: () => controller.cancelExtraction(),
-                  child: Text(l10n.btnCancel, style: SelaText.button),
+                  child: Text(
+                    l10n.btnCancel,
+                    style: SelaText.button.copyWith(color: colors.textPrimary),
+                  ),
                 ),
               )
             else
@@ -116,8 +123,8 @@ class ProgressSheet extends ConsumerWidget {
                         height: 48,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: SelaColors.accent,
-                            foregroundColor: SelaColors.textPrimary,
+                            backgroundColor: colors.accent,
+                            foregroundColor: Colors.white,
                             shape: const RoundedRectangleBorder(
                               borderRadius: SelaRadius.pillBorderRadius,
                             ),
@@ -128,7 +135,9 @@ class ProgressSheet extends ConsumerWidget {
                           },
                           child: Text(
                             l10n.btnOpenGallery,
-                            style: SelaText.button,
+                            style: SelaText.button.copyWith(
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
@@ -139,16 +148,19 @@ class ProgressSheet extends ConsumerWidget {
                       height: 48,
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                          foregroundColor: SelaColors.textPrimary,
-                          side: const BorderSide(
-                            color: SelaColors.surfaceHighlight,
-                          ),
+                          foregroundColor: colors.textPrimary,
+                          side: BorderSide(color: colors.surfaceHighlight),
                           shape: const RoundedRectangleBorder(
                             borderRadius: SelaRadius.pillBorderRadius,
                           ),
                         ),
                         onPressed: () => Navigator.of(context).pop(),
-                        child: Text(l10n.btnClose, style: SelaText.button),
+                        child: Text(
+                          l10n.btnClose,
+                          style: SelaText.button.copyWith(
+                            color: colors.textPrimary,
+                          ),
+                        ),
                       ),
                     ),
                   ),

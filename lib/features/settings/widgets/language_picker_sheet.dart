@@ -14,10 +14,11 @@ class LanguagePickerSheet extends ConsumerStatefulWidget {
   const LanguagePickerSheet({super.key});
 
   static Future<void> show(BuildContext context) {
+    final colors = context.colors;
     return showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
-      backgroundColor: SelaColors.surface,
+      backgroundColor: colors.surface,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
@@ -58,15 +59,16 @@ class _LanguagePickerSheetState extends ConsumerState<LanguagePickerSheet> {
     final notifier = ref.read(settingsProvider.notifier);
     await notifier.setLocale(lang.code);
     if (!mounted) return;
+
     Navigator.of(context).pop();
 
-    if (!involvesRtl && lang.code != prev) {
+    if (!involvesRtl && prev != lang.code) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(l10n.languageChanged),
           action: SnackBarAction(
             label: l10n.btnUndo,
-            textColor: SelaColors.accent,
+            textColor: context.colors.accent,
             onPressed: () => notifier.setLocale(prev),
           ),
         ),
@@ -78,48 +80,48 @@ class _LanguagePickerSheetState extends ConsumerState<LanguagePickerSheet> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final currentLocale = ref.watch(settingsProvider).localeCode;
-    final query = _query.toLowerCase().trim();
+    final colors = context.colors;
 
     final filteredAll = AppLanguage.all.where((l) {
-      if (query.isEmpty) return true;
-      return l.nativeName.toLowerCase().contains(query) ||
-          l.englishName.toLowerCase().contains(query) ||
-          l.code.toLowerCase().contains(query);
+      final q = _query.toLowerCase();
+      return l.nativeName.toLowerCase().contains(q) ||
+          l.englishName.toLowerCase().contains(q);
     }).toList();
 
     return DraggableScrollableSheet(
-      initialChildSize: 0.75,
+      initialChildSize: 0.7,
       maxChildSize: 0.9,
-      minChildSize: 0.5,
+      minChildSize: 0.4,
       expand: false,
-      builder: (ctx, scroll) => Column(
+      builder: (_, scroll) => Column(
         children: [
           const SizedBox(height: SelaSpace.sm),
           Container(
             width: 40,
             height: 4,
-            decoration: const BoxDecoration(
-              color: SelaColors.surfaceHighlight,
+            decoration: BoxDecoration(
+              color: colors.surfaceHighlight,
               borderRadius: SelaRadius.pillBorderRadius,
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(SelaSpace.md),
-            child: Text(l10n.titleSelectLanguage, style: SelaText.titleCard),
+            child: Text(
+              l10n.titleSelectLanguage,
+              style: SelaText.titleCard.copyWith(color: colors.textPrimary),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: SelaSpace.xl),
             child: TextField(
               controller: _searchController,
-              style: SelaText.body,
+              style: SelaText.body.copyWith(color: colors.textPrimary),
               decoration: InputDecoration(
                 hintText: l10n.searchLanguage,
-                hintStyle: SelaText.body.copyWith(
-                  color: SelaColors.textSecondary,
-                ),
-                prefixIcon: const Icon(
+                hintStyle: SelaText.body.copyWith(color: colors.textSecondary),
+                prefixIcon: Icon(
                   Icons.search_rounded,
-                  color: SelaColors.textSecondary,
+                  color: colors.textSecondary,
                 ),
                 suffixIcon: _query.isNotEmpty
                     ? IconButton(
@@ -131,7 +133,7 @@ class _LanguagePickerSheetState extends ConsumerState<LanguagePickerSheet> {
                       )
                     : null,
                 filled: true,
-                fillColor: SelaColors.surfaceHighlight,
+                fillColor: colors.surfaceHighlight,
                 border: const OutlineInputBorder(
                   borderRadius: SelaRadius.cardBorderRadius,
                   borderSide: BorderSide.none,
@@ -153,7 +155,7 @@ class _LanguagePickerSheetState extends ConsumerState<LanguagePickerSheet> {
                     child: Text(
                       l10n.sectionSuggested,
                       style: SelaText.caption.copyWith(
-                        color: SelaColors.textSecondary,
+                        color: colors.textSecondary,
                       ),
                     ),
                   ),
@@ -164,14 +166,14 @@ class _LanguagePickerSheetState extends ConsumerState<LanguagePickerSheet> {
                       onTap: () => _selectLanguage(l, currentLocale),
                     ),
                   ),
-                  const Divider(color: SelaColors.surfaceHighlight),
+                  Divider(color: colors.surfaceHighlight),
                 ],
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: SelaSpace.sm),
                   child: Text(
                     l10n.sectionAllLanguages,
                     style: SelaText.caption.copyWith(
-                      color: SelaColors.textSecondary,
+                      color: colors.textSecondary,
                     ),
                   ),
                 ),
