@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../../theme/sela_colors.dart';
-
 class TickPainter extends CustomPainter {
   final bool isExactMode;
   final List<double> ticks;
@@ -13,7 +11,7 @@ class TickPainter extends CustomPainter {
     required this.isExactMode,
     required this.ticks,
     required this.duration,
-    this.accentColor = SelaColors.accent,
+    required this.accentColor,
   });
 
   @override

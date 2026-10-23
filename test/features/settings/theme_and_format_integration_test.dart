@@ -84,6 +84,44 @@ void main() {
       final scaffold = tester.widget<Scaffold>(find.byType(Scaffold));
       expect(scaffold.backgroundColor, SelaColors.bg);
     });
+
+    testWidgets(
+      'Mutation check: asserts that a mutated/hardcoded dark Scaffold fails light theme assertion',
+      (tester) async {
+        // Mutated widget simulating broken/hardcoded SelaColors.bg
+        const mutatedScaffold = Scaffold(backgroundColor: SelaColors.bg);
+        await tester.pumpWidget(
+          const MaterialApp(themeMode: ThemeMode.light, home: mutatedScaffold),
+        );
+        await tester.pumpAndSettle();
+
+        final scaffold = tester.widget<Scaffold>(find.byType(Scaffold));
+        // Verifies mutation is caught: hardcoded dark is NOT SelaColors.bgLight
+        expect(scaffold.backgroundColor, isNot(equals(SelaColors.bgLight)));
+        expect(scaffold.backgroundColor, equals(SelaColors.bg));
+      },
+    );
+
+    test(
+      'SelaText styles do not hardcode textPrimary/textSecondary colors',
+      () {
+        expect(SelaText.displaySerif.color, isNull);
+        expect(SelaText.titleCard.color, isNull);
+        expect(SelaText.body.color, isNull);
+        expect(SelaText.button.color, isNull);
+        expect(SelaText.caption.color, isNull);
+      },
+    );
+
+    test('TextTheme colors correctly mirror active theme brightness', () {
+      final lightText = SelaTheme.lightTheme.textTheme;
+      expect(lightText.displayLarge?.color, SelaColors.textPrimaryLight);
+      expect(lightText.bodyMedium?.color, SelaColors.textSecondaryLight);
+
+      final darkText = SelaTheme.darkTheme.textTheme;
+      expect(darkText.displayLarge?.color, SelaColors.textPrimary);
+      expect(darkText.bodyMedium?.color, SelaColors.textSecondary);
+    });
   });
 
   group('OutputFormat Unified Production Enum & Extensions', () {

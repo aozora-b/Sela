@@ -45,7 +45,10 @@ class RtlConfirmDialog extends StatelessWidget {
             ),
           ),
           onPressed: () => Navigator.of(context).pop(true),
-          child: Text(l10n.btnApply, style: SelaText.button),
+          child: Text(
+            l10n.btnApply,
+            style: SelaText.button.copyWith(color: Colors.white),
+          ),
         ),
       ],
     );

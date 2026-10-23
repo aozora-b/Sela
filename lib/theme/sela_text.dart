@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'sela_colors.dart';
 
 /// Tipografi resmi Sela (Editorial Serif Display + Clean UI Sans).
+/// Seluruh TextStyle dasar bebas dari hardcoded dark colors (warna diwariskan dari Theme).
 abstract final class SelaText {
   /// Font Serif untuk Judul Besar & Angka Progres (Playfair Display / Serif).
   static const String serifFamily = 'PlayfairDisplay';
@@ -16,7 +17,6 @@ abstract final class SelaText {
     fontSize: 32.0,
     fontWeight: FontWeight.w400,
     height: 1.15,
-    color: SelaColors.textPrimary,
   );
 
   /// Angka Progres Besar di tengah Ring (Serif 48 sp).
@@ -25,7 +25,6 @@ abstract final class SelaText {
     fontSize: 48.0,
     fontWeight: FontWeight.w400,
     height: 1.0,
-    color: SelaColors.textPrimary,
   );
 
   /// Judul Kartu & Navigasi (Sans 16 sp, Semi-Bold).
@@ -34,7 +33,6 @@ abstract final class SelaText {
     fontSize: 16.0,
     fontWeight: FontWeight.w600,
     height: 1.25,
-    color: SelaColors.textPrimary,
   );
 
   /// Teks Isi Standar (Sans 14 sp).
@@ -43,7 +41,6 @@ abstract final class SelaText {
     fontSize: 14.0,
     fontWeight: FontWeight.w400,
     height: 1.45,
-    color: SelaColors.textSecondary,
   );
 
   /// Label Tombol CTA (Sans 15 sp, Medium).
@@ -52,7 +49,6 @@ abstract final class SelaText {
     fontSize: 15.0,
     fontWeight: FontWeight.w600,
     letterSpacing: 0.2,
-    color: SelaColors.textPrimary,
   );
 
   /// Label Kategori / Header Seksi Huruf Kapital (Sans 11 sp, Tracked).
@@ -61,7 +57,6 @@ abstract final class SelaText {
     fontSize: 11.0,
     fontWeight: FontWeight.w600,
     letterSpacing: 0.8,
-    color: SelaColors.textSecondary,
   );
 
   /// Metadata Halus & Keterangan Waktu (Sans 12 sp).
@@ -70,6 +65,17 @@ abstract final class SelaText {
     fontSize: 12.0,
     fontWeight: FontWeight.w400,
     height: 1.3,
-    color: SelaColors.textSecondary,
   );
+
+  /// Helper untuk mendapatkan TextStyle yang ter-token dinamis sesuai tema aktif.
+  static TextStyle of(
+    BuildContext context,
+    TextStyle style, {
+    bool isSecondary = false,
+  }) {
+    final colors = SelaColors.of(context);
+    return style.copyWith(
+      color: isSecondary ? colors.textSecondary : colors.textPrimary,
+    );
+  }
 }

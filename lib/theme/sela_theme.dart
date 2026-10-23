@@ -29,19 +29,21 @@ abstract final class SelaTheme {
         onError: SelaColors.textPrimary,
         outline: SelaColors.border,
       ),
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: false,
-        systemOverlayStyle: SystemUiOverlayStyle(
+        systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.light,
           statusBarBrightness: Brightness.dark,
           systemNavigationBarColor: Colors.transparent,
           systemNavigationBarIconBrightness: Brightness.light,
         ),
-        titleTextStyle: SelaText.displaySerif,
+        titleTextStyle: SelaText.displaySerif.copyWith(
+          color: SelaColors.textPrimary,
+        ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -81,13 +83,9 @@ abstract final class SelaTheme {
         thickness: 1.0,
         space: 1.0,
       ),
-      textTheme: const TextTheme(
-        displayLarge: SelaText.displaySerif,
-        titleMedium: SelaText.titleCard,
-        bodyMedium: SelaText.body,
-        labelLarge: SelaText.button,
-        labelSmall: SelaText.sectionLabel,
-        bodySmall: SelaText.caption,
+      textTheme: _buildTextTheme(
+        SelaColors.textPrimary,
+        SelaColors.textSecondary,
       ),
     );
   }
@@ -164,26 +162,21 @@ abstract final class SelaTheme {
         thickness: 1.0,
         space: 1.0,
       ),
-      textTheme: TextTheme(
-        displayLarge: SelaText.displaySerif.copyWith(
-          color: SelaColors.textPrimaryLight,
-        ),
-        titleMedium: SelaText.titleCard.copyWith(
-          color: SelaColors.textPrimaryLight,
-        ),
-        bodyMedium: SelaText.body.copyWith(
-          color: SelaColors.textSecondaryLight,
-        ),
-        labelLarge: SelaText.button.copyWith(
-          color: SelaColors.textPrimaryLight,
-        ),
-        labelSmall: SelaText.sectionLabel.copyWith(
-          color: SelaColors.textSecondaryLight,
-        ),
-        bodySmall: SelaText.caption.copyWith(
-          color: SelaColors.textSecondaryLight,
-        ),
+      textTheme: _buildTextTheme(
+        SelaColors.textPrimaryLight,
+        SelaColors.textSecondaryLight,
       ),
+    );
+  }
+
+  static TextTheme _buildTextTheme(Color primary, Color secondary) {
+    return TextTheme(
+      displayLarge: SelaText.displaySerif.copyWith(color: primary),
+      titleMedium: SelaText.titleCard.copyWith(color: primary),
+      bodyMedium: SelaText.body.copyWith(color: secondary),
+      labelLarge: SelaText.button.copyWith(color: primary),
+      labelSmall: SelaText.sectionLabel.copyWith(color: secondary),
+      bodySmall: SelaText.caption.copyWith(color: secondary),
     );
   }
 }
