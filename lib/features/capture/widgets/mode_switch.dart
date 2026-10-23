@@ -25,6 +25,7 @@ class ModeSwitch extends ConsumerWidget {
         children: [
           Expanded(
             child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
               onTap: () => ref.read(captureProvider.notifier).toggleMode(true),
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
@@ -49,6 +50,7 @@ class ModeSwitch extends ConsumerWidget {
           ),
           Expanded(
             child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
               onTap: () => ref.read(captureProvider.notifier).toggleMode(false),
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),

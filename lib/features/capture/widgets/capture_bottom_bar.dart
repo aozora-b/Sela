@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sela/l10n/generated/app_localizations.dart';
 
+import '../../../domain/sample_plan.dart';
 import '../../../theme/sela_colors.dart';
 import '../../../theme/sela_space.dart';
 import '../../../theme/sela_text.dart';
@@ -38,8 +39,20 @@ class CaptureBottomBar extends ConsumerWidget {
                     SnackBar(content: Text(l10n.singleFrameSaved)),
                   );
                 } else {
+                  if (state.estimatedFrameCount > maxFrames) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(l10n.errorMaxFramesExceeded(maxFrames)),
+                      ),
+                    );
+                    return;
+                  }
                   ProgressSheet.show(context);
-                  ref.read(captureProvider.notifier).startExtraction();
+                  ref
+                      .read(captureProvider.notifier)
+                      .startExtraction(
+                        errorMessage: l10n.errorMaxFramesExceeded(maxFrames),
+                      );
                 }
               },
               child: Text(
