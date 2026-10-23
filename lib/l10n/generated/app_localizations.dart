@@ -218,6 +218,12 @@ abstract class AppLocalizations {
   /// **'Frame tersimpan di Pictures/Sela'**
   String get singleFrameSaved;
 
+  /// No description provided for @errorSaveFrame.
+  ///
+  /// In id, this message translates to:
+  /// **'Gagal menyimpan frame'**
+  String get errorSaveFrame;
+
   /// No description provided for @titleExtracting.
   ///
   /// In id, this message translates to:

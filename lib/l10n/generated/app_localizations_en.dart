@@ -86,5 +86,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get singleFrameSaved => 'Frame saved to Pictures/Sela';
 
   @override
+  String get errorSaveFrame => 'Failed to save frame';
+
+  @override
   String get titleExtracting => 'Extracting frames...';
 }

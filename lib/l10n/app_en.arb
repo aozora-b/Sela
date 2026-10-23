@@ -85,5 +85,6 @@
     }
   },
   "singleFrameSaved": "Frame saved to Pictures/Sela",
+  "errorSaveFrame": "Failed to save frame",
   "titleExtracting": "Extracting frames..."
 }

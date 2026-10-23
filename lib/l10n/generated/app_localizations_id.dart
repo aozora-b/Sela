@@ -86,5 +86,8 @@ class AppLocalizationsId extends AppLocalizations {
   String get singleFrameSaved => 'Frame tersimpan di Pictures/Sela';
 
   @override
+  String get errorSaveFrame => 'Gagal menyimpan frame';
+
+  @override
   String get titleExtracting => 'Mengekstrak frame...';
 }

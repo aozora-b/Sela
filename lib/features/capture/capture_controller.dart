@@ -12,12 +12,11 @@ import '../../engine/frame_engine_channel.dart';
 import '../../engine/gallery_writer_channel.dart';
 import '../progress/extraction_progress_controller.dart';
 import 'capture_state.dart';
-
 export 'capture_state.dart';
 
 class CaptureController extends Notifier<CaptureState> {
-  final FrameEngineChannel _engine = FrameEngineChannel();
-  final GalleryWriterChannel _gallery = GalleryWriterChannel();
+  final _engine = FrameEngineChannel();
+  final _gallery = GalleryWriterChannel();
   final Map<double, Uint8List> _thumbCache = {};
   static const int _maxThumbCache = 20;
   bool _isCancelled = false;
@@ -55,9 +54,8 @@ class CaptureController extends Notifier<CaptureState> {
     fetchActiveFrame(state.currentTime);
   }
 
-  void selectInterval(double intervalS) {
-    state = state.copyWith(selectedInterval: intervalS);
-  }
+  void selectInterval(double intervalS) =>
+      state = state.copyWith(selectedInterval: intervalS);
 
   String _stem(String path) =>
       path.split(Platform.pathSeparator).last.split('.').first;
@@ -65,7 +63,6 @@ class CaptureController extends Notifier<CaptureState> {
   Future<String?> saveCurrentFrame() async {
     final video = state.videoInfo;
     if (video == null) return null;
-
     try {
       final bytes = await _engine.getFrame(state.currentTime, exact: true);
       final registry = GalleryNameRegistry(_gallery);
@@ -73,24 +70,23 @@ class CaptureController extends Notifier<CaptureState> {
         1,
         video.frameCount,
       );
-
-      final rawName = buildName(
+      final raw = buildName(
         stem: _stem(video.path),
         index: idx,
         ts: state.currentTime,
         ext: 'png',
         template: '{stem}_{index:06d}_{time}.{ext}',
       );
-      final filename = await uniqueName(registry, rawName);
+      final name = await uniqueName(registry, raw);
       final uri = await _gallery.writeImage(
         bytes: bytes,
-        displayName: filename,
+        displayName: name,
         mimeType: 'image/png',
       );
-      registry.recordCreated(filename);
-
-      final frames = {...state.savedFrames, state.currentTime};
-      state = state.copyWith(savedFrames: frames);
+      registry.recordCreated(name);
+      state = state.copyWith(
+        savedFrames: {...state.savedFrames, state.currentTime},
+      );
       return uri;
     } on OutputNotWritableException {
       return null;
@@ -99,78 +95,71 @@ class CaptureController extends Notifier<CaptureState> {
     }
   }
 
-  Future<void> startExtraction({String? errorMessage}) async {
+  Future<void> startExtraction({required String errorMessage}) async {
     final video = state.videoInfo;
     if (video == null) return;
-
+    final progress = ref.read(extractionProgressProvider.notifier);
     final opt = ExtractOptions(
       mode: CaptureMode.interval,
       intervalS: state.selectedInterval,
     );
-    final points = planPoints(video, opt);
-
+    final List<double> points;
+    try {
+      points = planPoints(video, opt);
+    } catch (_) {
+      progress.setError(errorMessage);
+      return;
+    }
     if (points.length > maxFrames) {
-      ref
-          .read(extractionProgressProvider.notifier)
-          .setError(
-            errorMessage ?? 'Batas maksimum $maxFrames frame terlampaui.',
-          );
+      progress.setError(errorMessage);
       return;
     }
 
     _isCancelled = false;
-    final progressNotifier = ref.read(extractionProgressProvider.notifier);
-    progressNotifier.start(points.length);
-
+    progress.start(points.length);
     final registry = GalleryNameRegistry(_gallery);
     final stem = _stem(video.path);
-    final stopwatch = Stopwatch()..start();
+    final sw = Stopwatch()..start();
 
     try {
       for (int i = 0; i < points.length; i++) {
         if (_isCancelled) {
-          progressNotifier.cancel(i);
+          progress.cancel(i);
           return;
         }
-
         final t = points[i];
-        final bytes = await _engine.getFrame(t, exact: false);
-        final rawName = buildName(
+        final bytes = await _engine.getFrame(t, exact: true);
+        final raw = buildName(
           stem: stem,
           index: i + 1,
           ts: t,
           ext: 'png',
           template: opt.template,
         );
-        final filename = await uniqueName(registry, rawName);
+        final name = await uniqueName(registry, raw);
         await _gallery.writeImage(
           bytes: bytes,
-          displayName: filename,
+          displayName: name,
           mimeType: 'image/png',
         );
-        registry.recordCreated(filename);
+        registry.recordCreated(name);
 
-        final elapsedMs = stopwatch.elapsedMilliseconds;
-        final avgMsPerFrame = elapsedMs / (i + 1);
-        final remainingMs = (avgMsPerFrame * (points.length - (i + 1))).round();
-
-        progressNotifier.updateProgress(
+        final avgMs = sw.elapsedMilliseconds / (i + 1);
+        final remMs = (avgMs * (points.length - (i + 1))).round();
+        progress.updateProgress(
           current: i + 1,
-          remaining: Duration(milliseconds: remainingMs),
+          remaining: Duration(milliseconds: remMs),
         );
       }
-
-      progressNotifier.complete(points.length);
+      progress.complete(points.length);
     } on OutputNotWritableException catch (e) {
-      progressNotifier.setError(e.message);
+      progress.setError(e.message);
     } catch (e) {
-      progressNotifier.setError(e.toString());
+      progress.setError(e.toString());
     }
   }
 
-  void cancelExtraction() {
-    _isCancelled = true;
-  }
+  void cancelExtraction() => _isCancelled = true;
 
   Future<bool> openGallery() => _gallery.openGallery();
 

@@ -85,5 +85,6 @@
     }
   },
   "singleFrameSaved": "Frame tersimpan di Pictures/Sela",
+  "errorSaveFrame": "Gagal menyimpan frame",
   "titleExtracting": "Mengekstrak frame..."
 }

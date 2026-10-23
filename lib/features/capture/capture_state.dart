@@ -38,20 +38,25 @@ class CaptureState {
     );
   }
 
+  int get estimatedFrameCount {
+    if (videoInfo == null || selectedInterval <= 0) return 0;
+    final duration = videoInfo!.durationS;
+    if (!duration.isFinite || duration <= 0) return 0;
+    return ((duration - 1e-9) / selectedInterval).floor() + 1;
+  }
+
   List<double> get intervalPoints {
-    if (videoInfo == null) return const [];
+    if (videoInfo == null || estimatedFrameCount > maxFrames) return const [];
     try {
       final opt = ExtractOptions(
         mode: CaptureMode.interval,
         intervalS: selectedInterval,
       );
       return planPoints(videoInfo!, opt);
-    } catch (e) {
+    } catch (_) {
       return const [];
     }
   }
-
-  int get estimatedFrameCount => intervalPoints.length;
 
   String get estimatedSizeMb {
     if (videoInfo == null) return '0';

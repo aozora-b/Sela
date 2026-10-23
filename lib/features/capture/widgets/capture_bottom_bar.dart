@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sela/l10n/generated/app_localizations.dart';
@@ -32,12 +34,17 @@ class CaptureBottomBar extends ConsumerWidget {
                   borderRadius: SelaRadius.pillBorderRadius,
                 ),
               ),
-              onPressed: () {
+              onPressed: () async {
                 if (state.isExactMode) {
-                  ref.read(captureProvider.notifier).saveCurrentFrame();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(l10n.singleFrameSaved)),
-                  );
+                  final uri = await ref
+                      .read(captureProvider.notifier)
+                      .saveCurrentFrame();
+                  if (!context.mounted) return;
+                  final msg = uri != null
+                      ? l10n.singleFrameSaved
+                      : l10n.errorSaveFrame;
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text(msg)));
                 } else {
                   if (state.estimatedFrameCount > maxFrames) {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -47,12 +54,14 @@ class CaptureBottomBar extends ConsumerWidget {
                     );
                     return;
                   }
-                  ProgressSheet.show(context);
-                  ref
-                      .read(captureProvider.notifier)
-                      .startExtraction(
-                        errorMessage: l10n.errorMaxFramesExceeded(maxFrames),
-                      );
+                  unawaited(ProgressSheet.show(context));
+                  unawaited(
+                    ref
+                        .read(captureProvider.notifier)
+                        .startExtraction(
+                          errorMessage: l10n.errorMaxFramesExceeded(maxFrames),
+                        ),
+                  );
                 }
               },
               child: Text(
