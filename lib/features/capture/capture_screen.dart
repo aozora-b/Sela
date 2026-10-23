@@ -57,7 +57,7 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen> {
         .read(historyRepositoryProvider)
         .getActiveSession(path);
     if (!mounted || session == null) return;
-    if (session.savedCount > 0 && session.savedCount < session.total) {
+    if (session.canResume) {
       final l10n = AppLocalizations.of(context)!;
       final resume = await showDialog<bool>(
         context: context,

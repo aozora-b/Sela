@@ -79,11 +79,7 @@ void main() {
     expect(result, isFalse);
   });
 
-  group('Resume gate validation (0 < savedCount < total)', () {
-    bool shouldTriggerResume(ExtractionSession session) {
-      return session.savedCount > 0 && session.savedCount < session.total;
-    }
-
+  group('Resume gate validation (session.canResume)', () {
     test('triggers resume when partially completed', () {
       final s = ExtractionSession(
         id: 'test',
@@ -94,7 +90,7 @@ void main() {
         timestamp: DateTime.now(),
         totalSizeBytes: 1024,
       );
-      expect(shouldTriggerResume(s), isTrue);
+      expect(s.canResume, isTrue);
     });
 
     test('does not trigger resume when savedCount is 0', () {
@@ -107,7 +103,7 @@ void main() {
         timestamp: DateTime.now(),
         totalSizeBytes: 0,
       );
-      expect(shouldTriggerResume(s), isFalse);
+      expect(s.canResume, isFalse);
     });
 
     test('does not trigger resume when session is already completed', () {
@@ -120,7 +116,7 @@ void main() {
         timestamp: DateTime.now(),
         totalSizeBytes: 2048,
       );
-      expect(shouldTriggerResume(s), isFalse);
+      expect(s.canResume, isFalse);
     });
   });
 }

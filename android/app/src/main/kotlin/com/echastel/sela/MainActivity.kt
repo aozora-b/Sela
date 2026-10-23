@@ -43,6 +43,8 @@ class MainActivity : FlutterActivity() {
                     val exact = call.argument<Boolean>("exact") ?: false
                     val width = call.argument<Int>("width")
                     val height = call.argument<Int>("height")
+                    val format = call.argument<String>("format") ?: "jpeg"
+                    val quality = call.argument<Int>("quality") ?: 90
                     
                     val engine = engines[id]
                     if (engine == null) {
@@ -52,7 +54,7 @@ class MainActivity : FlutterActivity() {
                     
                     CoroutineScope(Dispatchers.IO).launch {
                         try {
-                            val bytes = engine.getFrame(timeMs, exact, width, height)
+                            val bytes = engine.getFrame(timeMs, exact, width, height, format, quality)
                             withContext(Dispatchers.Main) {
                                 if (bytes != null) {
                                     result.success(bytes)

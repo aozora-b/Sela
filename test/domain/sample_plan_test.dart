@@ -184,7 +184,7 @@ void main() {
       i,
       ExtractOptions(
         mode: CaptureMode.count,
-        fmt: OutputFormat.jpg,
+        fmt: OutputFormat.jpeg,
         quality: 80,
       ),
       10,

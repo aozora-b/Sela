@@ -19,7 +19,8 @@ class SelaApp extends ConsumerWidget {
     return MaterialApp(
       title: 'Sela',
       debugShowCheckedModeBanner: false,
-      theme: SelaTheme.darkTheme,
+      theme: SelaTheme.lightTheme,
+      darkTheme: SelaTheme.darkTheme,
       themeMode: settings.themeMode.flutterThemeMode,
       locale: Locale(settings.localeCode),
       localizationsDelegates: AppLocalizations.localizationsDelegates,

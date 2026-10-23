@@ -40,12 +40,16 @@ class FrameEngineChannel implements FrameEngine {
     bool exact = false,
     int? width,
     int? height,
+    String format = 'jpeg',
+    int quality = 90,
   }) async {
     if (_instanceId == -1) throw Exception("Engine not opened");
     final Map<String, dynamic> args = {
       'id': _instanceId,
       'timeMs': (timeS * 1000).toInt(),
       'exact': exact,
+      'format': format,
+      'quality': quality,
     };
     if (width != null) args['width'] = width;
     if (height != null) args['height'] = height;

@@ -12,6 +12,7 @@ import '../../engine/frame_engine_channel.dart';
 import '../../engine/gallery_writer_channel.dart';
 import '../history/history_repository.dart';
 import '../progress/extraction_progress_controller.dart';
+import '../settings/settings_controller.dart';
 import 'capture_state.dart';
 import 'thumbnail_cache.dart';
 export 'capture_state.dart';
@@ -63,26 +64,32 @@ class CaptureController extends Notifier<CaptureState> {
       path.split(Platform.pathSeparator).last.split('.').first;
 
   Future<String?> saveCurrentFrame() async {
-    final video = state.videoInfo;
-    if (video == null) return null;
+    final v = state.videoInfo;
+    if (v == null) return null;
+    final s = ref.read(settingsProvider);
     try {
-      final bytes = await _engine.getFrame(state.currentTime, exact: true);
-      final idx = ((state.currentTime * video.fps).round() + 1).clamp(
+      final bytes = await _engine.getFrame(
+        state.currentTime,
+        exact: true,
+        format: s.format.name,
+        quality: s.jpegQuality,
+      );
+      final idx = ((state.currentTime * v.fps).round() + 1).clamp(
         1,
-        video.frameCount,
+        v.frameCount,
       );
       final raw = buildName(
-        stem: _stem(video.path),
+        stem: _stem(v.path),
         index: idx,
         ts: state.currentTime,
-        ext: 'png',
+        ext: s.format.ext,
         template: '{stem}_{index:06d}_{time}.{ext}',
       );
       final name = await uniqueName(GalleryNameRegistry(_gallery), raw);
       final uri = await _gallery.writeImage(
         bytes: bytes,
         displayName: name,
-        mimeType: 'image/png',
+        mimeType: s.format.mimeType,
       );
       GalleryNameRegistry(_gallery).recordCreated(name);
       state = state.copyWith(
@@ -98,82 +105,82 @@ class CaptureController extends Notifier<CaptureState> {
     required String errorMessage,
     int resumeFromIndex = 0,
   }) async {
-    final video = state.videoInfo;
-    if (video == null) return;
+    final v = state.videoInfo;
+    if (v == null) return;
+    final s = ref.read(settingsProvider);
     final progress = ref.read(extractionProgressProvider.notifier);
     final opt = ExtractOptions(
       mode: CaptureMode.interval,
       intervalS: state.selectedInterval,
+      fmt: s.format,
+      quality: s.jpegQuality,
     );
-    final List<double> points;
+    final List<double> pts;
     try {
-      points = planPoints(video, opt);
+      pts = planPoints(v, opt);
     } catch (_) {
-      progress.setError(errorMessage);
-      return;
+      return progress.setError(errorMessage);
     }
-    if (points.length > maxFrames) {
-      progress.setError(errorMessage);
-      return;
-    }
+    if (pts.length > maxFrames) return progress.setError(errorMessage);
 
     _isCancelled = false;
-    final remCount = points.length - resumeFromIndex;
+    final rem = pts.length - resumeFromIndex;
     progress.start(
-      points.length,
+      pts.length,
       initialCurrent: resumeFromIndex,
-      initialRemaining: Duration(milliseconds: remCount * 300),
+      initialRemaining: Duration(milliseconds: rem * 300),
     );
-    final registry = GalleryNameRegistry(_gallery);
-    final stem = _stem(video.path);
+    final reg = GalleryNameRegistry(_gallery);
+    final stem = _stem(v.path);
     final sw = Stopwatch()..start();
     int totalBytes = 0;
 
     try {
-      for (int i = resumeFromIndex; i < points.length; i++) {
-        if (_isCancelled) {
-          progress.cancel(i);
-          return;
-        }
-        final t = points[i];
-        final bytes = await _engine.getFrame(t, exact: true);
+      for (int i = resumeFromIndex; i < pts.length; i++) {
+        if (_isCancelled) return progress.cancel(i);
+        final t = pts[i];
+        final bytes = await _engine.getFrame(
+          t,
+          exact: false,
+          format: s.format.name,
+          quality: s.jpegQuality,
+        );
         totalBytes += bytes.length;
         final raw = buildName(
           stem: stem,
           index: i + 1,
           ts: t,
-          ext: 'png',
+          ext: s.format.ext,
           template: opt.template,
         );
-        final name = await uniqueName(registry, raw);
+        final name = await uniqueName(reg, raw);
         await _gallery.writeImage(
           bytes: bytes,
           displayName: name,
-          mimeType: 'image/png',
+          mimeType: s.format.mimeType,
         );
-        registry.recordCreated(name);
-        if ((i + 1) % 5 == 0 || i + 1 == points.length) {
+        reg.recordCreated(name);
+        if ((i + 1) % 5 == 0 || i + 1 == pts.length) {
           await _history.recordProgress(
-            videoPath: video.path,
+            videoPath: v.path,
             savedCount: i + 1,
-            total: points.length,
+            total: pts.length,
             totalBytes: totalBytes,
           );
         }
-
-        final avgMs = sw.elapsedMilliseconds / ((i - resumeFromIndex) + 1);
-        final remMs = (avgMs * (points.length - (i + 1))).round();
+        final avg = sw.elapsedMilliseconds / ((i - resumeFromIndex) + 1);
+        final remMs = (avg * (pts.length - (i + 1))).round();
         progress.updateProgress(
           current: i + 1,
           remaining: Duration(milliseconds: remMs),
         );
       }
       await _history.recordCompleted(
-        videoPath: video.path,
-        total: points.length,
+        videoPath: v.path,
+        total: pts.length,
         totalBytes: totalBytes,
       );
-      progress.complete(points.length);
+      progress.complete(pts.length);
     } on OutputNotWritableException catch (e) {
       progress.setError(e.message);
     } catch (e) {
@@ -182,9 +189,7 @@ class CaptureController extends Notifier<CaptureState> {
   }
 
   void cancelExtraction() => _isCancelled = true;
-
   Future<bool> openGallery() => _gallery.openGallery();
-
   Future<Uint8List?> getThumbnail(double timeS) =>
       _thumbs.getThumbnail(_engine, timeS);
 }

@@ -1,9 +1,10 @@
 import 'exceptions.dart';
+import 'formats.dart';
 import 'frame_naming.dart';
 
-enum CaptureMode { interval, count, range }
+export 'formats.dart' show OutputFormat, OutputFormatX;
 
-enum OutputFormat { png, jpg }
+enum CaptureMode { interval, count, range }
 
 class VideoInfo {
   final String path;

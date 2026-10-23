@@ -1,4 +1,6 @@
-enum OutputFormat { png, jpeg }
+import 'formats.dart';
+
+export 'formats.dart' show OutputFormat, OutputFormatX;
 
 enum AppThemeMode { dark, light, system }
 

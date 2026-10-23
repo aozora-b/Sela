@@ -17,6 +17,8 @@ class ExtractionSession {
     this.totalSizeBytes = 0,
   });
 
+  bool get canResume => savedCount > 0 && savedCount < total;
+
   Map<String, dynamic> toJson() => {
     'id': id,
     'videoPath': videoPath,

@@ -7,6 +7,8 @@ abstract class FrameEngine {
     bool exact = false,
     int? width,
     int? height,
+    String format = 'jpeg',
+    int quality = 90,
   });
   Future<void> close();
 }

@@ -42,7 +42,14 @@ class SelaEngine {
         )
     }
 
-    fun getFrame(timeMs: Long, exact: Boolean, width: Int? = null, height: Int? = null): ByteArray? {
+    fun getFrame(
+        timeMs: Long,
+        exact: Boolean,
+        width: Int? = null,
+        height: Int? = null,
+        format: String = "jpeg",
+        quality: Int = 90
+    ): ByteArray? {
         val r = retriever ?: throw IllegalStateException("Engine not opened")
         val option = if (exact) {
             MediaMetadataRetriever.OPTION_CLOSEST
@@ -58,7 +65,12 @@ class SelaEngine {
         if (bitmap == null) return null
         
         val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream)
+        val compressFormat = if (format.equals("png", ignoreCase = true)) {
+            Bitmap.CompressFormat.PNG
+        } else {
+            Bitmap.CompressFormat.JPEG
+        }
+        bitmap.compress(compressFormat, quality.coerceIn(1, 100), stream)
         bitmap.recycle()
         return stream.toByteArray()
     }

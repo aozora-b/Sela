@@ -1,3 +1,11 @@
+enum OutputFormat { png, jpeg }
+
+extension OutputFormatX on OutputFormat {
+  String get ext => this == OutputFormat.png ? 'png' : 'jpg';
+  String get mimeType => this == OutputFormat.png ? 'image/png' : 'image/jpeg';
+  String get label => this == OutputFormat.png ? 'PNG' : 'JPEG';
+}
+
 const videoExtensions = {
   '.mp4',
   '.m4v',
