@@ -49,9 +49,10 @@ class FrameEngineChannel implements FrameEngine {
     };
     if (width != null) args['width'] = width;
     if (height != null) args['height'] = height;
-    final bytes = await _channel.invokeMethod<List<int>>('getFrame', args);
-    if (bytes == null) throw Exception("Frame extraction returned null");
-    return bytes.cast<int>();
+    final res = await _channel.invokeMethod<dynamic>('getFrame', args);
+    if (res == null) throw Exception("Frame extraction returned null");
+    if (res is List) return res.cast<int>();
+    throw Exception("Unexpected frame data type: ${res.runtimeType}");
   }
 
   @override

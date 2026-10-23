@@ -229,6 +229,54 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Mengekstrak frame...'**
   String get titleExtracting;
+
+  /// No description provided for @titleHistory.
+  ///
+  /// In id, this message translates to:
+  /// **'Riwayat'**
+  String get titleHistory;
+
+  /// No description provided for @emptyHistory.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum ada riwayat ekstraksi'**
+  String get emptyHistory;
+
+  /// No description provided for @dialogResumeTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Lanjutkan Ekstraksi?'**
+  String get dialogResumeTitle;
+
+  /// No description provided for @dialogResumeMessage.
+  ///
+  /// In id, this message translates to:
+  /// **'Lanjutkan dari frame {nextFrame}?'**
+  String dialogResumeMessage(int nextFrame);
+
+  /// No description provided for @btnResume.
+  ///
+  /// In id, this message translates to:
+  /// **'Lanjutkan'**
+  String get btnResume;
+
+  /// No description provided for @btnRestart.
+  ///
+  /// In id, this message translates to:
+  /// **'Mulai Ulang'**
+  String get btnRestart;
+
+  /// No description provided for @sessionDeleted.
+  ///
+  /// In id, this message translates to:
+  /// **'Riwayat dihapus'**
+  String get sessionDeleted;
+
+  /// No description provided for @historyTotalFrames.
+  ///
+  /// In id, this message translates to:
+  /// **'{count} frame'**
+  String historyTotalFrames(int count);
 }
 
 class _AppLocalizationsDelegate

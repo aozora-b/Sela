@@ -90,4 +90,32 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get titleExtracting => 'Extracting frames...';
+
+  @override
+  String get titleHistory => 'History';
+
+  @override
+  String get emptyHistory => 'No extraction history yet';
+
+  @override
+  String get dialogResumeTitle => 'Resume Extraction?';
+
+  @override
+  String dialogResumeMessage(int nextFrame) {
+    return 'Resume from frame $nextFrame?';
+  }
+
+  @override
+  String get btnResume => 'Resume';
+
+  @override
+  String get btnRestart => 'Restart';
+
+  @override
+  String get sessionDeleted => 'History deleted';
+
+  @override
+  String historyTotalFrames(int count) {
+    return '$count frames';
+  }
 }

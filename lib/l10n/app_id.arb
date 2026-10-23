@@ -86,5 +86,27 @@
   },
   "singleFrameSaved": "Frame tersimpan di Pictures/Sela",
   "errorSaveFrame": "Gagal menyimpan frame",
-  "titleExtracting": "Mengekstrak frame..."
+  "titleExtracting": "Mengekstrak frame...",
+  "titleHistory": "Riwayat",
+  "emptyHistory": "Belum ada riwayat ekstraksi",
+  "dialogResumeTitle": "Lanjutkan Ekstraksi?",
+  "dialogResumeMessage": "Lanjutkan dari frame {nextFrame}?",
+  "@dialogResumeMessage": {
+    "placeholders": {
+      "nextFrame": {
+        "type": "int"
+      }
+    }
+  },
+  "btnResume": "Lanjutkan",
+  "btnRestart": "Mulai Ulang",
+  "sessionDeleted": "Riwayat dihapus",
+  "historyTotalFrames": "{count} frame",
+  "@historyTotalFrames": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

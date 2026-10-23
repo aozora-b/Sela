@@ -90,4 +90,32 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get titleExtracting => 'Mengekstrak frame...';
+
+  @override
+  String get titleHistory => 'Riwayat';
+
+  @override
+  String get emptyHistory => 'Belum ada riwayat ekstraksi';
+
+  @override
+  String get dialogResumeTitle => 'Lanjutkan Ekstraksi?';
+
+  @override
+  String dialogResumeMessage(int nextFrame) {
+    return 'Lanjutkan dari frame $nextFrame?';
+  }
+
+  @override
+  String get btnResume => 'Lanjutkan';
+
+  @override
+  String get btnRestart => 'Mulai Ulang';
+
+  @override
+  String get sessionDeleted => 'Riwayat dihapus';
+
+  @override
+  String historyTotalFrames(int count) {
+    return '$count frame';
+  }
 }

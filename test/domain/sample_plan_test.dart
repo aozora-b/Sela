@@ -3,13 +3,13 @@ import 'package:sela/domain/models.dart';
 import 'package:sela/domain/sample_plan.dart';
 import 'package:sela/domain/exceptions.dart';
 
-VideoInfo info(double duration) => VideoInfo(
+VideoInfo info(double d) => VideoInfo(
   path: 'video.mp4',
-  durationS: duration,
+  durationS: d,
   fps: 30,
   width: 1920,
   height: 1080,
-  frameCount: (duration * 30).toInt(),
+  frameCount: (d * 30).toInt(),
   codec: 'h264',
 );
 
@@ -25,7 +25,6 @@ void main() {
       expect(p.last, 59.0);
       expect(p, orderedEquals([...p]..sort()));
     });
-
     test('3 detik pada video 10 detik', () {
       final p = planPoints(
         info(10),
@@ -33,7 +32,6 @@ void main() {
       );
       expect(p, [0.0, 3.0, 6.0, 9.0]);
     });
-
     test('menghormati start dan end', () {
       final p = planPoints(
         info(60),
@@ -48,7 +46,6 @@ void main() {
       expect(p.first, 10.0);
       expect(p.last, 19.0);
     });
-
     test('interval lebih kecil dari durasi frame', () {
       final p = planPoints(
         info(10),
@@ -58,7 +55,6 @@ void main() {
       expect(p.last, closeTo(9.75, 1e-9));
     });
   });
-
   group('mode count', () {
     test('30 frame tersebar merata pada 60 detik', () {
       final p = planPoints(
@@ -76,7 +72,6 @@ void main() {
       expect(p.last, lessThan(60.0));
       expect(p.last, closeTo(58.0, 1e-9));
     });
-
     test('satu frame', () {
       final p = planPoints(
         info(10),
@@ -84,7 +79,6 @@ void main() {
       );
       expect(p, [0.0]);
     });
-
     test('menghormati rentang', () {
       final p = planPoints(
         info(100),
@@ -100,7 +94,6 @@ void main() {
       expect(p.last, closeTo(28.0, 1e-9));
     });
   });
-
   group('mode range', () {
     test('menghormati batas', () {
       final p = planPoints(
@@ -114,7 +107,6 @@ void main() {
       );
       expect(p, [10.0, 12.0, 14.0, 16.0, 18.0]);
     });
-
     test('tanpa end memakai seluruh durasi', () {
       final p = planPoints(
         info(5),
@@ -122,7 +114,6 @@ void main() {
       );
       expect(p, [0.0, 1.0, 2.0, 3.0, 4.0]);
     });
-
     test('end di-clamp ke durasi', () {
       final p = planPoints(
         info(10),
@@ -136,7 +127,6 @@ void main() {
       expect(p, [5.0, 7.0, 9.0]);
     });
   });
-
   group('galat', () {
     test('start di luar durasi', () {
       expect(
@@ -147,14 +137,12 @@ void main() {
         throwsA(isA<PlanException>()),
       );
     });
-
     test('durasi nol', () {
       expect(
         () => planPoints(info(0), ExtractOptions(mode: CaptureMode.interval)),
         throwsA(isA<PlanException>()),
       );
     });
-
     test('terlalu banyak frame', () {
       expect(
         () => planPoints(
@@ -165,7 +153,6 @@ void main() {
       );
     });
   });
-
   group('validasi opsi', () {
     test('nilai tidak sah ditolak', () {
       expect(
@@ -186,7 +173,6 @@ void main() {
       );
     });
   });
-
   test('perkiraan PNG lebih besar dari JPG', () {
     final i = info(10);
     final png = estimateOutputBytes(

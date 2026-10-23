@@ -6,10 +6,11 @@ class ExtractionProgressNotifier extends Notifier<ExtractionProgressState> {
   @override
   ExtractionProgressState build() => const ExtractionProgressState();
 
-  void start(int total) {
+  void start(int total, {int initialCurrent = 0, Duration? initialRemaining}) {
     state = ExtractionProgressState(
       total: total,
-      current: 0,
+      current: initialCurrent,
+      remainingTime: initialRemaining,
       isExtracting: true,
       isCancelled: false,
       isCompleted: false,
