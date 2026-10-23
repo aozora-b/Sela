@@ -85,31 +85,68 @@ void main() {
       expect(scaffold.backgroundColor, SelaColors.bg);
     });
 
-    testWidgets(
-      'Mutation check: asserts that a mutated/hardcoded dark Scaffold fails light theme assertion',
-      (tester) async {
-        // Mutated widget simulating broken/hardcoded SelaColors.bg
-        const mutatedScaffold = Scaffold(backgroundColor: SelaColors.bg);
-        await tester.pumpWidget(
-          const MaterialApp(themeMode: ThemeMode.light, home: mutatedScaffold),
-        );
-        await tester.pumpAndSettle();
-
-        final scaffold = tester.widget<Scaffold>(find.byType(Scaffold));
-        // Verifies mutation is caught: hardcoded dark is NOT SelaColors.bgLight
-        expect(scaffold.backgroundColor, isNot(equals(SelaColors.bgLight)));
-        expect(scaffold.backgroundColor, equals(SelaColors.bg));
-      },
-    );
-
     test(
       'SelaText styles do not hardcode textPrimary/textSecondary colors',
       () {
         expect(SelaText.displaySerif.color, isNull);
+        expect(SelaText.progressNumber.color, isNull);
         expect(SelaText.titleCard.color, isNull);
         expect(SelaText.body.color, isNull);
         expect(SelaText.button.color, isNull);
+        expect(SelaText.sectionLabel.color, isNull);
         expect(SelaText.caption.color, isNull);
+      },
+    );
+
+    testWidgets(
+      'SelaText.of dynamically injects theme-appropriate text colors',
+      (tester) async {
+        late BuildContext lightCtx, darkCtx;
+        await tester.pumpWidget(
+          MaterialApp(
+            theme: SelaTheme.lightTheme,
+            themeMode: ThemeMode.light,
+            home: Builder(
+              builder: (ctx) {
+                lightCtx = ctx;
+                return const SizedBox();
+              },
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        expect(
+          SelaText.of(lightCtx, SelaText.titleCard).color,
+          SelaColors.textPrimaryLight,
+        );
+        expect(
+          SelaText.of(lightCtx, SelaText.caption, isSecondary: true).color,
+          SelaColors.textSecondaryLight,
+        );
+
+        await tester.pumpWidget(
+          MaterialApp(
+            theme: SelaTheme.darkTheme,
+            themeMode: ThemeMode.dark,
+            home: Builder(
+              builder: (ctx) {
+                darkCtx = ctx;
+                return const SizedBox();
+              },
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        expect(
+          SelaText.of(darkCtx, SelaText.titleCard).color,
+          SelaColors.textPrimary,
+        );
+        expect(
+          SelaText.of(darkCtx, SelaText.caption, isSecondary: true).color,
+          SelaColors.textSecondary,
+        );
       },
     );
 

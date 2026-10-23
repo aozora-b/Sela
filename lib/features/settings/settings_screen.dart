@@ -34,7 +34,7 @@ class SettingsScreen extends ConsumerWidget {
         elevation: 0,
         title: Text(
           l10n.titleSettings,
-          style: SelaText.titleCard.copyWith(color: colors.textPrimary),
+          style: SelaText.of(context, SelaText.titleCard),
         ),
       ),
       body: ListView(
@@ -43,28 +43,32 @@ class SettingsScreen extends ConsumerWidget {
           vertical: SelaSpace.md,
         ),
         children: [
-          _buildSectionHeader(l10n.sectionExtraction, colors),
+          _buildSectionHeader(context, l10n.sectionExtraction, colors),
           FormatSelectorCard(settings: settings, notifier: notifier),
           const SizedBox(height: SelaSpace.xl),
-          _buildSectionHeader(l10n.sectionAppearance, colors),
+          _buildSectionHeader(context, l10n.sectionAppearance, colors),
           _buildThemeSelector(settings, notifier, l10n, colors),
           const SizedBox(height: SelaSpace.xl),
-          _buildSectionHeader(l10n.sectionLanguage, colors),
+          _buildSectionHeader(context, l10n.sectionLanguage, colors),
           _buildLanguageTile(context, currentLang, colors),
           const SizedBox(height: SelaSpace.xl),
-          _buildSectionHeader(l10n.sectionAbout, colors),
+          _buildSectionHeader(context, l10n.sectionAbout, colors),
           _buildAboutTile(l10n, colors),
         ],
       ),
     );
   }
 
-  Widget _buildSectionHeader(String title, SelaColorsData colors) {
+  Widget _buildSectionHeader(
+    BuildContext context,
+    String title,
+    SelaColorsData colors,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(bottom: SelaSpace.sm),
       child: Text(
         title,
-        style: SelaText.caption.copyWith(color: colors.textSecondary),
+        style: SelaText.of(context, SelaText.caption, isSecondary: true),
       ),
     );
   }

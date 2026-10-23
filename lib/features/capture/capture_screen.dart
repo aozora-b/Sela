@@ -43,13 +43,17 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen> {
   }
 
   Future<void> _initSampleVideo() async {
-    try {
-      final byteData = await rootBundle.load('assets/test.mp4');
-      final tempFile = File('${Directory.systemTemp.path}/test.mp4');
-      await tempFile.writeAsBytes(byteData.buffer.asUint8List());
-      await ref.read(captureProvider.notifier).openVideo(tempFile.path);
-      if (mounted) unawaited(_checkResume(tempFile.path));
-    } catch (_) {}
+    for (final asset in ['assets/test_1080p.mp4', 'assets/test.mp4']) {
+      try {
+        final byteData = await rootBundle.load(asset);
+        final name = asset.split('/').last;
+        final tempFile = File('${Directory.systemTemp.path}/$name');
+        await tempFile.writeAsBytes(byteData.buffer.asUint8List());
+        await ref.read(captureProvider.notifier).openVideo(tempFile.path);
+        if (mounted) unawaited(_checkResume(tempFile.path));
+        break;
+      } catch (_) {}
+    }
   }
 
   Future<void> _checkResume(String path) async {
@@ -98,7 +102,7 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen> {
           backgroundColor: colors.bgElevated,
           title: Text(
             l10n.titleCapture,
-            style: SelaText.titleCard.copyWith(color: colors.textPrimary),
+            style: SelaText.of(context, SelaText.titleCard),
           ),
         ),
         body: const Center(child: CircularProgressIndicator()),
@@ -113,7 +117,7 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen> {
         backgroundColor: colors.bgElevated,
         title: Text(
           videoInfo.path.split('/').last,
-          style: SelaText.titleCard.copyWith(color: colors.textPrimary),
+          style: SelaText.of(context, SelaText.titleCard),
         ),
         actions: [
           IconButton(
