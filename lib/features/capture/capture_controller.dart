@@ -152,12 +152,14 @@ class CaptureController extends Notifier<CaptureState> {
           mimeType: 'image/png',
         );
         registry.recordCreated(name);
-        await _history.recordProgress(
-          videoPath: video.path,
-          savedCount: i + 1,
-          total: points.length,
-          totalBytes: totalBytes,
-        );
+        if ((i + 1) % 5 == 0 || i + 1 == points.length) {
+          await _history.recordProgress(
+            videoPath: video.path,
+            savedCount: i + 1,
+            total: points.length,
+            totalBytes: totalBytes,
+          );
+        }
 
         final avgMs = sw.elapsedMilliseconds / ((i - resumeFromIndex) + 1);
         final remMs = (avgMs * (points.length - (i + 1))).round();

@@ -1,5 +1,6 @@
 {
   "@@locale": "id",
+  "appName": "Sela",
   "captureModeManual": "Manual",
   "captureModeInterval": "Interval",
   "btnSaveFrame": "Simpan Frame Ini",
@@ -108,5 +109,39 @@
         "type": "int"
       }
     }
-  }
+  },
+  "historyFileSize": "±{sizeMb} MB",
+  "@historyFileSize": {
+    "placeholders": {
+      "sizeMb": {
+        "type": "String"
+      }
+    }
+  },
+  "titleSettings": "Setelan",
+  "sectionExtraction": "Ekstraksi",
+  "labelFormat": "Format Berkas",
+  "labelJpegQuality": "Kualitas JPEG",
+  "sectionAppearance": "Tampilan",
+  "themeDark": "Gelap",
+  "themeLight": "Terang",
+  "themeSystem": "Sistem",
+  "sectionLanguage": "Bahasa",
+  "titleSelectLanguage": "Pilih Bahasa",
+  "searchLanguage": "Cari bahasa...",
+  "sectionSuggested": "Disarankan",
+  "sectionAllLanguages": "Semua Bahasa",
+  "languageChanged": "Bahasa diubah",
+  "btnUndo": "Urungkan",
+  "dialogRtlTitle": "Ubah Tata Letak (RTL)?",
+  "dialogRtlMessage": "Mengubah ke {language} akan mencerminkan seluruh tata letak antarmuka. Lanjutkan?",
+  "@dialogRtlMessage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "btnApply": "Terapkan",
+  "sectionAbout": "Tentang"
 }

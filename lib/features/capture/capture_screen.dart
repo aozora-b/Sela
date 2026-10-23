@@ -14,6 +14,7 @@ import '../history/history_controller.dart';
 import '../history/history_repository.dart';
 import '../history/history_screen.dart';
 import '../progress/progress_sheet.dart';
+import '../settings/settings_screen.dart';
 import 'capture_controller.dart';
 import 'widgets/capture_bottom_bar.dart';
 import 'widgets/interval_selector.dart';
@@ -115,6 +116,17 @@ class _CaptureScreenState extends ConsumerState<CaptureScreen> {
               ref.read(historyProvider.notifier).refresh();
               Navigator.of(context).push(
                 MaterialPageRoute<void>(builder: (_) => const HistoryScreen()),
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.settings_outlined,
+              color: SelaColors.textPrimary,
+            ),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute<void>(builder: (_) => const SettingsScreen()),
               );
             },
           ),

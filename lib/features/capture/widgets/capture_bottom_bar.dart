@@ -73,10 +73,24 @@ class CaptureBottomBar extends ConsumerWidget {
           if (state.isExactMode) ...[
             const SizedBox(height: SelaSpace.md),
             TextButton(
-              onPressed: () {},
+              onPressed: state.savedFrames.isEmpty
+                  ? null
+                  : () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            l10n.extractionComplete(state.savedFrames.length),
+                          ),
+                        ),
+                      );
+                    },
               child: Text(
                 l10n.btnSaveMarked,
-                style: SelaText.button.copyWith(color: SelaColors.accent),
+                style: SelaText.button.copyWith(
+                  color: state.savedFrames.isEmpty
+                      ? SelaColors.textSecondary
+                      : SelaColors.accent,
+                ),
               ),
             ),
           ],

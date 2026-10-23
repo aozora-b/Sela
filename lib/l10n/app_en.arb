@@ -1,5 +1,6 @@
 {
   "@@locale": "en",
+  "appName": "Sela",
   "captureModeManual": "Manual",
   "captureModeInterval": "Interval",
   "btnSaveFrame": "Save This Frame",
@@ -108,5 +109,39 @@
         "type": "int"
       }
     }
-  }
+  },
+  "historyFileSize": "±{sizeMb} MB",
+  "@historyFileSize": {
+    "placeholders": {
+      "sizeMb": {
+        "type": "String"
+      }
+    }
+  },
+  "titleSettings": "Settings",
+  "sectionExtraction": "Extraction",
+  "labelFormat": "File Format",
+  "labelJpegQuality": "JPEG Quality",
+  "sectionAppearance": "Appearance",
+  "themeDark": "Dark",
+  "themeLight": "Light",
+  "themeSystem": "System",
+  "sectionLanguage": "Language",
+  "titleSelectLanguage": "Select Language",
+  "searchLanguage": "Search language...",
+  "sectionSuggested": "Suggested",
+  "sectionAllLanguages": "All Languages",
+  "languageChanged": "Language changed",
+  "btnUndo": "Undo",
+  "dialogRtlTitle": "Change Layout (RTL)?",
+  "dialogRtlMessage": "Changing to {language} will mirror the entire user interface. Continue?",
+  "@dialogRtlMessage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "btnApply": "Apply",
+  "sectionAbout": "About"
 }

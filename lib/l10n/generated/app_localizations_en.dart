@@ -10,6 +10,9 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get appName => 'Sela';
+
+  @override
   String get captureModeManual => 'Manual';
 
   @override
@@ -118,4 +121,68 @@ class AppLocalizationsEn extends AppLocalizations {
   String historyTotalFrames(int count) {
     return '$count frames';
   }
+
+  @override
+  String historyFileSize(String sizeMb) {
+    return '±$sizeMb MB';
+  }
+
+  @override
+  String get titleSettings => 'Settings';
+
+  @override
+  String get sectionExtraction => 'Extraction';
+
+  @override
+  String get labelFormat => 'File Format';
+
+  @override
+  String get labelJpegQuality => 'JPEG Quality';
+
+  @override
+  String get sectionAppearance => 'Appearance';
+
+  @override
+  String get themeDark => 'Dark';
+
+  @override
+  String get themeLight => 'Light';
+
+  @override
+  String get themeSystem => 'System';
+
+  @override
+  String get sectionLanguage => 'Language';
+
+  @override
+  String get titleSelectLanguage => 'Select Language';
+
+  @override
+  String get searchLanguage => 'Search language...';
+
+  @override
+  String get sectionSuggested => 'Suggested';
+
+  @override
+  String get sectionAllLanguages => 'All Languages';
+
+  @override
+  String get languageChanged => 'Language changed';
+
+  @override
+  String get btnUndo => 'Undo';
+
+  @override
+  String get dialogRtlTitle => 'Change Layout (RTL)?';
+
+  @override
+  String dialogRtlMessage(String language) {
+    return 'Changing to $language will mirror the entire user interface. Continue?';
+  }
+
+  @override
+  String get btnApply => 'Apply';
+
+  @override
+  String get sectionAbout => 'About';
 }

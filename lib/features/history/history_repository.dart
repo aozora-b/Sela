@@ -15,11 +15,17 @@ class HistoryRepository {
     final prefs = await _prefs;
     final raw = prefs.getStringList(_historyKey) ?? [];
     return raw
-        .map(
-          (str) => ExtractionSession.fromJson(
-            jsonDecode(str) as Map<String, dynamic>,
-          ),
-        )
+        .map((str) {
+          try {
+            final s = ExtractionSession.fromJson(
+              jsonDecode(str) as Map<String, dynamic>,
+            );
+            return (s.videoPath.isEmpty || s.total <= 0) ? null : s;
+          } catch (_) {
+            return null;
+          }
+        })
+        .whereType<ExtractionSession>()
         .toList();
   }
 

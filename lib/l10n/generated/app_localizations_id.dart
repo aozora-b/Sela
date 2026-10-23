@@ -10,6 +10,9 @@ class AppLocalizationsId extends AppLocalizations {
   AppLocalizationsId([String locale = 'id']) : super(locale);
 
   @override
+  String get appName => 'Sela';
+
+  @override
   String get captureModeManual => 'Manual';
 
   @override
@@ -118,4 +121,68 @@ class AppLocalizationsId extends AppLocalizations {
   String historyTotalFrames(int count) {
     return '$count frame';
   }
+
+  @override
+  String historyFileSize(String sizeMb) {
+    return '±$sizeMb MB';
+  }
+
+  @override
+  String get titleSettings => 'Setelan';
+
+  @override
+  String get sectionExtraction => 'Ekstraksi';
+
+  @override
+  String get labelFormat => 'Format Berkas';
+
+  @override
+  String get labelJpegQuality => 'Kualitas JPEG';
+
+  @override
+  String get sectionAppearance => 'Tampilan';
+
+  @override
+  String get themeDark => 'Gelap';
+
+  @override
+  String get themeLight => 'Terang';
+
+  @override
+  String get themeSystem => 'Sistem';
+
+  @override
+  String get sectionLanguage => 'Bahasa';
+
+  @override
+  String get titleSelectLanguage => 'Pilih Bahasa';
+
+  @override
+  String get searchLanguage => 'Cari bahasa...';
+
+  @override
+  String get sectionSuggested => 'Disarankan';
+
+  @override
+  String get sectionAllLanguages => 'Semua Bahasa';
+
+  @override
+  String get languageChanged => 'Bahasa diubah';
+
+  @override
+  String get btnUndo => 'Urungkan';
+
+  @override
+  String get dialogRtlTitle => 'Ubah Tata Letak (RTL)?';
+
+  @override
+  String dialogRtlMessage(String language) {
+    return 'Mengubah ke $language akan mencerminkan seluruh tata letak antarmuka. Lanjutkan?';
+  }
+
+  @override
+  String get btnApply => 'Terapkan';
+
+  @override
+  String get sectionAbout => 'Tentang';
 }

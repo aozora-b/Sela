@@ -21,9 +21,9 @@ class HistoryScreen extends ConsumerWidget {
     return '$y-$m-$d $h:$min';
   }
 
-  String _formatSize(int bytes) {
+  String _formatSize(int bytes, AppLocalizations l10n) {
     final mb = bytes / (1024 * 1024);
-    return '±${mb.toStringAsFixed(1)} MB';
+    return l10n.historyFileSize(mb.toStringAsFixed(1));
   }
 
   @override
@@ -117,7 +117,7 @@ class HistoryScreen extends ConsumerWidget {
                             ),
                             const SizedBox(height: SelaSpace.xs),
                             Text(
-                              '${_formatDate(s.timestamp)} · ${l10n.historyTotalFrames(s.savedCount)} · ${_formatSize(s.totalSizeBytes)}',
+                              '${_formatDate(s.timestamp)} · ${l10n.historyTotalFrames(s.savedCount)} · ${_formatSize(s.totalSizeBytes, l10n)}',
                               style: SelaText.caption,
                             ),
                           ],

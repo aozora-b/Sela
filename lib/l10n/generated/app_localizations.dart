@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_ar.dart';
 import 'app_localizations_en.dart';
 import 'app_localizations_id.dart';
 
@@ -94,9 +95,16 @@ abstract class AppLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
+    Locale('ar'),
     Locale('en'),
     Locale('id'),
   ];
+
+  /// No description provided for @appName.
+  ///
+  /// In id, this message translates to:
+  /// **'Sela'**
+  String get appName;
 
   /// No description provided for @captureModeManual.
   ///
@@ -277,6 +285,126 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'{count} frame'**
   String historyTotalFrames(int count);
+
+  /// No description provided for @historyFileSize.
+  ///
+  /// In id, this message translates to:
+  /// **'±{sizeMb} MB'**
+  String historyFileSize(String sizeMb);
+
+  /// No description provided for @titleSettings.
+  ///
+  /// In id, this message translates to:
+  /// **'Setelan'**
+  String get titleSettings;
+
+  /// No description provided for @sectionExtraction.
+  ///
+  /// In id, this message translates to:
+  /// **'Ekstraksi'**
+  String get sectionExtraction;
+
+  /// No description provided for @labelFormat.
+  ///
+  /// In id, this message translates to:
+  /// **'Format Berkas'**
+  String get labelFormat;
+
+  /// No description provided for @labelJpegQuality.
+  ///
+  /// In id, this message translates to:
+  /// **'Kualitas JPEG'**
+  String get labelJpegQuality;
+
+  /// No description provided for @sectionAppearance.
+  ///
+  /// In id, this message translates to:
+  /// **'Tampilan'**
+  String get sectionAppearance;
+
+  /// No description provided for @themeDark.
+  ///
+  /// In id, this message translates to:
+  /// **'Gelap'**
+  String get themeDark;
+
+  /// No description provided for @themeLight.
+  ///
+  /// In id, this message translates to:
+  /// **'Terang'**
+  String get themeLight;
+
+  /// No description provided for @themeSystem.
+  ///
+  /// In id, this message translates to:
+  /// **'Sistem'**
+  String get themeSystem;
+
+  /// No description provided for @sectionLanguage.
+  ///
+  /// In id, this message translates to:
+  /// **'Bahasa'**
+  String get sectionLanguage;
+
+  /// No description provided for @titleSelectLanguage.
+  ///
+  /// In id, this message translates to:
+  /// **'Pilih Bahasa'**
+  String get titleSelectLanguage;
+
+  /// No description provided for @searchLanguage.
+  ///
+  /// In id, this message translates to:
+  /// **'Cari bahasa...'**
+  String get searchLanguage;
+
+  /// No description provided for @sectionSuggested.
+  ///
+  /// In id, this message translates to:
+  /// **'Disarankan'**
+  String get sectionSuggested;
+
+  /// No description provided for @sectionAllLanguages.
+  ///
+  /// In id, this message translates to:
+  /// **'Semua Bahasa'**
+  String get sectionAllLanguages;
+
+  /// No description provided for @languageChanged.
+  ///
+  /// In id, this message translates to:
+  /// **'Bahasa diubah'**
+  String get languageChanged;
+
+  /// No description provided for @btnUndo.
+  ///
+  /// In id, this message translates to:
+  /// **'Urungkan'**
+  String get btnUndo;
+
+  /// No description provided for @dialogRtlTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Ubah Tata Letak (RTL)?'**
+  String get dialogRtlTitle;
+
+  /// No description provided for @dialogRtlMessage.
+  ///
+  /// In id, this message translates to:
+  /// **'Mengubah ke {language} akan mencerminkan seluruh tata letak antarmuka. Lanjutkan?'**
+  String dialogRtlMessage(String language);
+
+  /// No description provided for @btnApply.
+  ///
+  /// In id, this message translates to:
+  /// **'Terapkan'**
+  String get btnApply;
+
+  /// No description provided for @sectionAbout.
+  ///
+  /// In id, this message translates to:
+  /// **'Tentang'**
+  String get sectionAbout;
 }
 
 class _AppLocalizationsDelegate
@@ -290,7 +418,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en', 'id'].contains(locale.languageCode);
+      <String>['ar', 'en', 'id'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -299,6 +427,8 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'ar':
+      return AppLocalizationsAr();
     case 'en':
       return AppLocalizationsEn();
     case 'id':
