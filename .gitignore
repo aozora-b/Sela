@@ -61,3 +61,5 @@ release/
 # Transient proof/scratch dumps from local verification runs
 analyze_out.txt
 test_out.txt
+/screen*.png
+/test_screen.png
