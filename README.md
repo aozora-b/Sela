@@ -25,6 +25,21 @@ Engineered specifically for content creators, animators, video editors, and medi
 
 ---
 
+## 📱 Application Preview
+
+<p align="center">
+  <img src="docs/screenshots/01_home_screen.png" width="31%" alt="Home Screen" />
+  <img src="docs/screenshots/02_manual_mode.png" width="31%" alt="Manual Stepping Mode" />
+  <img src="docs/screenshots/03_interval_mode.png" width="31%" alt="Interval Extraction Mode" />
+</p>
+<p align="center">
+  <img src="docs/screenshots/04_results_grid.png" width="31%" alt="Results Gallery Grid" />
+  <img src="docs/screenshots/07_language_picker.png" width="31%" alt="10-Language Picker & RTL" />
+  <img src="docs/screenshots/08_settings_english.png" width="31%" alt="Settings & Appearance" />
+</p>
+
+---
+
 ## ✨ Key Features
 
 - 📸 **Sub-Millisecond Manual Stepping**: Scrub fluidly through high-resolution video with fine-grained step controls (`-1`, `+1`, `-10`, `+10` frames) and real-time synchronized timeline ticks.
