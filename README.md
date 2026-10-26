@@ -1,16 +1,15 @@
-# Sela — High-Performance Video Frame Extractor
+# Sela — Video Frame Extractor for Android
 
 <p align="center">
-  <b>Extract crystal-clear, exact video frames with sub-millisecond precision, zero lag, and memory stability.</b><br>
-  <i>A modern, robust Flutter & Native Android video frame extraction utility.</i>
+  <b>An accurate, lightweight video frame extractor for Android.</b><br>
+  <i>Built with Flutter and native Android Media APIs (Kotlin).</i>
 </p>
 
 <p align="center">
+  <img src="https://img.shields.io/badge/Platform-Android-3DDC84?logo=android&logoColor=white" alt="Platform" />
   <img src="https://img.shields.io/badge/Flutter-3.47+-02569B?logo=flutter&logoColor=white" alt="Flutter" />
   <img src="https://img.shields.io/badge/Dart-3.13+-0175C2?logo=dart&logoColor=white" alt="Dart" />
-  <img src="https://img.shields.io/badge/Android-API%2029%20to%2036-3DDC84?logo=android&logoColor=white" alt="Android" />
   <img src="https://img.shields.io/badge/Kotlin-2.0+-7F52FF?logo=kotlin&logoColor=white" alt="Kotlin" />
-  <img src="https://img.shields.io/badge/Architecture-Clean%20%2B%20Riverpod-blue" alt="Architecture" />
   <img src="https://img.shields.io/badge/Tests-91%20Passing-success" alt="Tests" />
   <img src="https://img.shields.io/badge/License-MIT-green" alt="License" />
 </p>
@@ -19,9 +18,11 @@
 
 ## 🌟 Overview
 
-**Sela** is a high-performance Android application built with **Flutter** and accelerated by a native **Kotlin MediaCodec / MediaMetadataRetriever** engine via Platform Channels. 
+**Sela** is an open-source Android application designed to extract high-quality still frames from video files with precise frame-level control.
 
-Engineered specifically for content creators, animators, video editors, and media analysts, Sela solves common mobile video extraction challenges: eliminating dropped frames, preventing out-of-memory crashes on 4K/60fps clips, and ensuring frame-to-timestamp synchronization down to the exact microsecond.
+While standard mobile video players prioritize smooth continuous playback, extracting a specific frame often leads to timestamp mismatches or excessive memory usage on mobile hardware. Desktop video editors and command-line tools like FFmpeg can handle this accurately, but transferring files back and forth to a computer is inconvenient.
+
+Sela solves this directly on Android by pairing a clean Flutter interface with native Android media decoders (`MediaMetadataRetriever` and `MediaExtractor` written in Kotlin). It allows you to inspect video timelines, step through individual frames, bookmark key moments, or batch-export frames at fixed time intervals directly on your phone or tablet.
 
 ---
 
@@ -42,13 +43,28 @@ Engineered specifically for content creators, animators, video editors, and medi
 
 ## ✨ Key Features
 
-- 📸 **Sub-Millisecond Manual Stepping**: Scrub fluidly through high-resolution video with fine-grained step controls (`-1`, `+1`, `-10`, `+10` frames) and real-time synchronized timeline ticks.
-- ⏱️ **Automated Interval Batch Extraction**: Extract hundreds or thousands of frames at designated intervals (0.25s, 0.5s, 1s, 2s, 5s) directly into organized folders.
-- ⚡ **Zero-Lag Filmstrip (0 ms Instant Placeholders)**: Rapid scrubbing without blank flicker, powered by sparse keyframe warm-up, predictive background prefetching, and an adaptive 120-frame LRU cache.
-- 🖼️ **Native Android Photo Picker**: Uses modern Android `MediaStore.ACTION_PICK_IMAGES` (API 33+) with fallback mechanisms. Operates cleanly without requiring broad or sensitive storage permissions (`READ_MEDIA_VIDEO`).
-- 🌍 **Comprehensive 10-Language Localization**: Full native translations for English, Indonesian, Spanish, French, German, and Japanese, alongside full Right-to-Left (RTL) layout mirroring for Arabic, Persian, Hebrew, and Urdu.
-- 💾 **Production MediaStore & SAF Export**: Supports lossless PNG and compressed JPEG output formats, automated subfolder grouping, and collision-resistant file naming.
-- 🎨 **Warm Editorial Design**: Thoughtfully crafted dark and light modes, typography pairing (Playfair Display + Inter), subtle haptic feedback, and smooth spring animations.
+- 📸 **Frame-Accurate Stepping**: Navigate through videos frame-by-frame with `-1`, `+1`, `-10`, and `+10` step controls, synchronized with real-time timeline indicators.
+- ⏱️ **Interval-Based Batch Extraction**: Extract frames across the entire video or a selected range at preset intervals (0.25s, 0.5s, 1s, 2s, 5s) or custom durations.
+- 🎞️ **Responsive Filmstrip Timeline**: Preview video segments with an adaptive thumbnail filmstrip, backed by asynchronous prefetching and a bounded memory cache.
+- 🔒 **Privacy-Friendly Photo Picker**: Uses Android's native system photo picker (`MediaStore.ACTION_PICK_IMAGES` on Android 13+) and Storage Access Framework, requiring zero broad storage permissions.
+- 🌍 **10-Language Support & Full RTL**: Localized into English, Indonesian, Spanish, French, German, and Japanese, with complete Right-to-Left (RTL) mirroring for Arabic, Persian, Hebrew, and Urdu.
+- 💾 **Flexible Frame Export**: Save extracted frames in lossless PNG or compressed JPEG formats directly to your device gallery, with batch selection and sharing support.
+- 🎨 **Clean, Distraction-Free Interface**: Thoughtfully designed dark and light themes, readable typography, and subtle tactile haptics.
+
+---
+
+## 📋 Technical Specifications
+
+| Attribute | Specification |
+|---|---|
+| **Target Platform** | Android (Phones & Tablets) |
+| **Supported OS** | Android 10 to Android 15+ (API 29 – 36) |
+| **UI Framework** | Flutter 3.47+ (Dart 3.13+) |
+| **Native Engine** | Kotlin 2.0+ (Android Media APIs) |
+| **State Management** | Riverpod |
+| **Input Formats** | MP4, MOV, MKV, WEBM |
+| **Export Formats** | PNG (Lossless), JPEG (Configurable quality) |
+| **Storage Permissions** | None required (Uses system Photo Picker & SAF) |
 
 ---
 
@@ -57,7 +73,7 @@ Engineered specifically for content creators, animators, video editors, and medi
 ```
 lib/
 ├── core/             # Cross-cutting utilities & name registries
-├── domain/           # Pure Dart business models, time-to-frame math (Zero Flutter dependencies)
+├── domain/           # Pure Dart business models & time-to-frame math (Zero Flutter dependencies)
 ├── engine/           # Platform Channel abstractions & native video picker interfaces
 ├── features/         # Feature-first modular presentation & Riverpod controllers
 │   ├── capture/      # Filmstrip, timeline scrubber, preview & thumbnail caching
@@ -70,14 +86,14 @@ lib/
 └── theme/            # Design tokens: SelaColors, SelaSpace, SelaText, SelaTheme
 ```
 
-### 1. Dual Native Decoders & Request Coalescing
-Preview timeline scrubbing and filmstrip thumbnail rendering operate on dedicated native executors (`previewExecutor` vs. `thumbExecutor`). Scrubbing invokes rapid sequence token cancellation, instantly aborting stale frame decode tasks so playback remains locked at 60 FPS.
+### 1. Dedicated Native Executors
+Preview timeline scrubbing and filmstrip thumbnail rendering run on separate native thread pools (`previewExecutor` vs. `thumbExecutor`). Rapid scrubbing requests issue sequence tokens that discard superseded decode tasks, keeping the UI smooth and responsive.
 
-### 2. Single Source of Truth for Frame ↔ Time
-Container frame counts and durations are unified via `MediaExtractor` and `MediaMetadataRetriever`. The effective average frame rate (`avg_frame_rate = frameCount / durationS`) guarantees 1-to-1 parity between frame numbers and playback timestamps, eliminating black edge-frames.
+### 2. Synchronized Frame & Timestamp Calculations
+Container durations and frame rates are extracted via `MediaExtractor` and `MediaMetadataRetriever`. The unified mapping logic ensures predictable synchronization between frame indices and target timestamps across variable-framerate clips.
 
-### 3. Strict Memory Management
-To guarantee stability on extended 4K sessions, Flutter's global `ImageCache` is capped at 24 MB (60 entries) and actively flushed on session exit. Every thumbnail decodes strictly through bounded `cacheWidth` constraints.
+### 3. Bounded Memory Consumption
+To prevent high memory pressure when working with large videos, thumbnail decoding uses strict dimension constraints (`cacheWidth`), and Flutter's in-memory image cache is capped and cleared between sessions.
 
 ---
 
@@ -119,7 +135,7 @@ flutter build appbundle --release
 
 - **Static Analysis**: `flutter analyze` $\rightarrow$ **0 issues found** (Clean).
 - **Test Coverage**: 91 unit & widget tests passing (100% pass rate).
-- **Standards**: Compliant with enterprise clean architecture, zero-noise self-documenting code, and modular file boundaries ($\le 200$ lines per file).
+- **Standards**: Modular architecture, zero-noise self-documenting code, and compact file boundaries ($\le 200$ lines per file).
 
 ---
 
