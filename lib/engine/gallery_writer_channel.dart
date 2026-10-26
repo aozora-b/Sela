@@ -12,19 +12,22 @@ class GalleryWriterChannel implements GalleryWriter {
     required List<int> bytes,
     required String displayName,
     required String mimeType,
+    String? subfolder,
   }) async {
     final result = await _channel.invokeMethod<String>('writeImage', {
       'bytes': Uint8List.fromList(bytes),
       'displayName': displayName,
       'mimeType': mimeType,
+      'subfolder': ?subfolder,
     });
     return result ?? '';
   }
 
   @override
-  Future<bool> exists(String displayName) async {
+  Future<bool> exists(String displayName, {String? subfolder}) async {
     final result = await _channel.invokeMethod<bool>('exists', {
       'displayName': displayName,
+      'subfolder': ?subfolder,
     });
     return result ?? false;
   }
@@ -32,6 +35,15 @@ class GalleryWriterChannel implements GalleryWriter {
   @override
   Future<bool> openGallery() async {
     final result = await _channel.invokeMethod<bool>('openGallery');
+    return result ?? false;
+  }
+
+  @override
+  Future<bool> shareImages(List<String> paths) async {
+    if (paths.isEmpty) return false;
+    final result = await _channel.invokeMethod<bool>('shareImages', {
+      'paths': paths,
+    });
     return result ?? false;
   }
 }

@@ -28,6 +28,38 @@ class VideoInfo {
   });
 
   String get resolution => '$width×$height';
+
+  /// Satu sumber kebenaran FPS (avg_frame_rate = frameCount / durationS).
+  double get effectiveFps {
+    if (durationS > 0 && frameCount > 0) {
+      return frameCount / durationS;
+    }
+    return fps > 0 ? fps : 30.0;
+  }
+
+  /// Format FPS untuk UI (misal "24.2 FPS" atau "30 FPS").
+  String get formattedFps {
+    final f = fps > 0 ? fps : effectiveFps;
+    if ((f - f.roundToDouble()).abs() < 0.05) {
+      return '${f.round()} FPS';
+    }
+    return '${f.toStringAsFixed(1)} FPS';
+  }
+
+  /// Memetakan waktu (detik) ke indeks frame (1..frameCount) secara konsisten.
+  int frameForTime(double timeS) {
+    if (frameCount <= 1 || durationS <= 0) return 1;
+    final clamped = timeS.clamp(0.0, durationS);
+    final idx = ((clamped / durationS) * (frameCount - 1)).round() + 1;
+    return idx.clamp(1, frameCount);
+  }
+
+  /// Memetakan indeks frame (1..frameCount) ke waktu (detik) secara konsisten.
+  double timeForFrame(int frameIndex) {
+    if (frameCount <= 1 || durationS <= 0) return 0.0;
+    final clamped = frameIndex.clamp(1, frameCount);
+    return ((clamped - 1) / (frameCount - 1)) * durationS;
+  }
 }
 
 class ExtractOptions {

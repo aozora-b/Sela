@@ -42,7 +42,8 @@ class _LanguagePickerSheetState extends ConsumerState<LanguagePickerSheet> {
   }
 
   Future<void> _selectLanguage(AppLanguage lang, String currentLocale) async {
-    final l10n = AppLocalizations.of(context)!;
+    final messenger = ScaffoldMessenger.of(context);
+    final accentColor = context.colors.accent;
     final currentIsRtl = AppLanguage.isLanguageRtl(currentLocale);
     final involvesRtl = lang.isRtl || currentIsRtl;
 
@@ -63,12 +64,15 @@ class _LanguagePickerSheetState extends ConsumerState<LanguagePickerSheet> {
     Navigator.of(context).pop();
 
     if (!involvesRtl && prev != lang.code) {
-      ScaffoldMessenger.of(context).showSnackBar(
+      final newL10n = await AppLocalizations.delegate.load(Locale(lang.code));
+      messenger.clearSnackBars();
+      messenger.showSnackBar(
         SnackBar(
-          content: Text(l10n.languageChanged),
+          duration: const Duration(seconds: 2),
+          content: Text(newL10n.languageChanged),
           action: SnackBarAction(
-            label: l10n.btnUndo,
-            textColor: context.colors.accent,
+            label: newL10n.btnUndo,
+            textColor: accentColor,
             onPressed: () => notifier.setLocale(prev),
           ),
         ),

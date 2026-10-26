@@ -6,7 +6,9 @@ import '../../theme/sela_colors.dart';
 import '../../theme/sela_space.dart';
 import '../../theme/sela_text.dart';
 import '../capture/capture_controller.dart';
+import '../results/results_screen.dart';
 import 'extraction_progress_controller.dart';
+import 'widgets/progress_actions.dart';
 
 class ProgressSheet extends ConsumerWidget {
   const ProgressSheet({super.key});
@@ -32,6 +34,22 @@ class ProgressSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(extractionProgressProvider, (prev, next) {
+      if ((prev == null || !prev.isCompleted) && next.isCompleted) {
+        // Otomatis pindah ke halaman hasil (ResultsScreen) setelah selesai
+        Future.microtask(() {
+          if (!context.mounted) return;
+          final navigator = Navigator.of(context);
+          navigator.pop(); // Tutup progress sheet
+          navigator.push(
+            MaterialPageRoute<void>(
+              builder: (_) => const ResultsScreen(),
+            ),
+          );
+        });
+      }
+    });
+
     final l10n = AppLocalizations.of(context)!;
     final progress = ref.watch(extractionProgressProvider);
     final controller = ref.read(captureProvider.notifier);
@@ -95,77 +113,7 @@ class ProgressSheet extends ConsumerWidget {
               ),
             ],
             const SizedBox(height: SelaSpace.xl),
-            if (progress.isExtracting)
-              SizedBox(
-                width: double.infinity,
-                height: 48,
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: colors.textPrimary,
-                    side: BorderSide(color: colors.surfaceHighlight),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: SelaRadius.pillBorderRadius,
-                    ),
-                  ),
-                  onPressed: () => controller.cancelExtraction(),
-                  child: Text(
-                    l10n.btnCancel,
-                    style: SelaText.button.copyWith(color: colors.textPrimary),
-                  ),
-                ),
-              )
-            else
-              Row(
-                children: [
-                  if (progress.isCompleted)
-                    Expanded(
-                      child: SizedBox(
-                        height: 48,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: colors.accent,
-                            foregroundColor: Colors.white,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: SelaRadius.pillBorderRadius,
-                            ),
-                          ),
-                          onPressed: () {
-                            controller.openGallery();
-                            Navigator.of(context).pop();
-                          },
-                          child: Text(
-                            l10n.btnOpenGallery,
-                            style: SelaText.button.copyWith(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  if (progress.isCompleted) const SizedBox(width: SelaSpace.md),
-                  Expanded(
-                    child: SizedBox(
-                      height: 48,
-                      child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: colors.textPrimary,
-                          side: BorderSide(color: colors.surfaceHighlight),
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: SelaRadius.pillBorderRadius,
-                          ),
-                        ),
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: Text(
-                          l10n.btnClose,
-                          style: SelaText.button.copyWith(
-                            color: colors.textPrimary,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            ProgressActions(progress: progress, controller: controller),
           ],
         ),
       ),

@@ -6,8 +6,15 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_ar.dart';
+import 'app_localizations_de.dart';
 import 'app_localizations_en.dart';
+import 'app_localizations_es.dart';
+import 'app_localizations_fa.dart';
+import 'app_localizations_fr.dart';
+import 'app_localizations_he.dart';
 import 'app_localizations_id.dart';
+import 'app_localizations_ja.dart';
+import 'app_localizations_ur.dart';
 
 // ignore_for_file: type=lint
 
@@ -96,8 +103,15 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('ar'),
+    Locale('de'),
     Locale('en'),
+    Locale('es'),
+    Locale('fa'),
+    Locale('fr'),
+    Locale('he'),
     Locale('id'),
+    Locale('ja'),
+    Locale('ur'),
   ];
 
   /// No description provided for @appName.
@@ -151,8 +165,8 @@ abstract class AppLocalizations {
   /// No description provided for @frameEstimate.
   ///
   /// In id, this message translates to:
-  /// **'±{count} frame · ±{sizeMb} MB'**
-  String frameEstimate(int count, String sizeMb);
+  /// **'±{count} frame'**
+  String frameEstimate(int count);
 
   /// No description provided for @frameIndicator.
   ///
@@ -417,6 +431,198 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Pilih Video'**
   String get btnPickVideo;
+
+  /// No description provided for @homeHeadline.
+  ///
+  /// In id, this message translates to:
+  /// **'Ambil momen\ndari video.'**
+  String get homeHeadline;
+
+  /// No description provided for @homeSubtitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Ekstrak frame diam dengan presisi.'**
+  String get homeSubtitle;
+
+  /// No description provided for @homePickVideo.
+  ///
+  /// In id, this message translates to:
+  /// **'Pilih video'**
+  String get homePickVideo;
+
+  /// No description provided for @homeSupportedFormats.
+  ///
+  /// In id, this message translates to:
+  /// **'MP4 · MOV · MKV · WEBM'**
+  String get homeSupportedFormats;
+
+  /// No description provided for @homePickFolder.
+  ///
+  /// In id, this message translates to:
+  /// **'Pilih folder'**
+  String get homePickFolder;
+
+  /// No description provided for @tabExtract.
+  ///
+  /// In id, this message translates to:
+  /// **'Ekstrak'**
+  String get tabExtract;
+
+  /// No description provided for @titleResults.
+  ///
+  /// In id, this message translates to:
+  /// **'Hasil'**
+  String get titleResults;
+
+  /// No description provided for @btnSelectAll.
+  ///
+  /// In id, this message translates to:
+  /// **'Pilih semua'**
+  String get btnSelectAll;
+
+  /// No description provided for @btnDeselectAll.
+  ///
+  /// In id, this message translates to:
+  /// **'Batal pilih'**
+  String get btnDeselectAll;
+
+  /// No description provided for @btnSaveToGallery.
+  ///
+  /// In id, this message translates to:
+  /// **'Simpan ke Galeri'**
+  String get btnSaveToGallery;
+
+  /// No description provided for @btnShare.
+  ///
+  /// In id, this message translates to:
+  /// **'Bagikan'**
+  String get btnShare;
+
+  /// No description provided for @btnViewResults.
+  ///
+  /// In id, this message translates to:
+  /// **'Lihat Hasil'**
+  String get btnViewResults;
+
+  /// No description provided for @resultsSelectedCount.
+  ///
+  /// In id, this message translates to:
+  /// **'{count} frame · {sizeMb} MB'**
+  String resultsSelectedCount(int count, String sizeMb);
+
+  /// No description provided for @folderPickNotice.
+  ///
+  /// In id, this message translates to:
+  /// **'Pemilihan folder akan hadir pada pembaruan mendatang'**
+  String get folderPickNotice;
+
+  /// No description provided for @titleDeleteSession.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus Riwayat'**
+  String get titleDeleteSession;
+
+  /// No description provided for @confirmDeleteSession.
+  ///
+  /// In id, this message translates to:
+  /// **'Apakah Anda yakin ingin menghapus riwayat ini?'**
+  String get confirmDeleteSession;
+
+  /// No description provided for @btnDelete.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus'**
+  String get btnDelete;
+
+  /// No description provided for @customIntervalTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Atur Interval'**
+  String get customIntervalTitle;
+
+  /// No description provided for @customIntervalHint.
+  ///
+  /// In id, this message translates to:
+  /// **'Detik (contoh: 0.1 atau 3)'**
+  String get customIntervalHint;
+
+  /// No description provided for @titlePhotos.
+  ///
+  /// In id, this message translates to:
+  /// **'Foto ({count})'**
+  String titlePhotos(int count);
+
+  /// No description provided for @resultsSubtitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Ketuk untuk memilih foto'**
+  String get resultsSubtitle;
+
+  /// No description provided for @btnSaveAll.
+  ///
+  /// In id, this message translates to:
+  /// **'Simpan Semua'**
+  String get btnSaveAll;
+
+  /// No description provided for @btnSaveSelected.
+  ///
+  /// In id, this message translates to:
+  /// **'Simpan yang Dipilih'**
+  String get btnSaveSelected;
+
+  /// No description provided for @savedToFolder.
+  ///
+  /// In id, this message translates to:
+  /// **'{count} frame tersimpan di {folder}'**
+  String savedToFolder(int count, String folder);
+
+  /// No description provided for @errorSharePhotos.
+  ///
+  /// In id, this message translates to:
+  /// **'Gagal membagikan foto'**
+  String get errorSharePhotos;
+
+  /// No description provided for @sectionStorage.
+  ///
+  /// In id, this message translates to:
+  /// **'Penyimpanan & Folder'**
+  String get sectionStorage;
+
+  /// No description provided for @labelOrganizeByVideo.
+  ///
+  /// In id, this message translates to:
+  /// **'Kelompokkan per Video'**
+  String get labelOrganizeByVideo;
+
+  /// No description provided for @subOrganizeByVideo.
+  ///
+  /// In id, this message translates to:
+  /// **'Otomatis membuat subfolder sesuai nama video agar ribuan frame tetap rapi.'**
+  String get subOrganizeByVideo;
+
+  /// No description provided for @labelPickFolder.
+  ///
+  /// In id, this message translates to:
+  /// **'Pilih Folder Penyimpanan'**
+  String get labelPickFolder;
+
+  /// No description provided for @tooltipResetDefault.
+  ///
+  /// In id, this message translates to:
+  /// **'Kembalikan ke Default'**
+  String get tooltipResetDefault;
+
+  /// No description provided for @storageFolderChanged.
+  ///
+  /// In id, this message translates to:
+  /// **'Folder penyimpanan diubah ke {path}'**
+  String storageFolderChanged(String path);
+
+  /// No description provided for @titleSelectVideoCount.
+  ///
+  /// In id, this message translates to:
+  /// **'Pilih Video ({count})'**
+  String titleSelectVideoCount(int count);
 }
 
 class _AppLocalizationsDelegate
@@ -429,8 +635,18 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['ar', 'en', 'id'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>[
+    'ar',
+    'de',
+    'en',
+    'es',
+    'fa',
+    'fr',
+    'he',
+    'id',
+    'ja',
+    'ur',
+  ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -441,10 +657,24 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   switch (locale.languageCode) {
     case 'ar':
       return AppLocalizationsAr();
+    case 'de':
+      return AppLocalizationsDe();
     case 'en':
       return AppLocalizationsEn();
+    case 'es':
+      return AppLocalizationsEs();
+    case 'fa':
+      return AppLocalizationsFa();
+    case 'fr':
+      return AppLocalizationsFr();
+    case 'he':
+      return AppLocalizationsHe();
     case 'id':
       return AppLocalizationsId();
+    case 'ja':
+      return AppLocalizationsJa();
+    case 'ur':
+      return AppLocalizationsUr();
   }
 
   throw FlutterError(

@@ -7,6 +7,9 @@ import 'features/settings/settings_controller.dart';
 import 'theme/sela_theme.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  PaintingBinding.instance.imageCache.maximumSize = 40;
+  PaintingBinding.instance.imageCache.maximumSizeBytes = 40 * 1024 * 1024;
   runApp(const ProviderScope(child: SelaApp()));
 }
 

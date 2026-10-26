@@ -15,14 +15,11 @@
       }
     }
   },
-  "frameEstimate": "±{count} frame · ±{sizeMb} MB",
+  "frameEstimate": "±{count} frame",
   "@frameEstimate": {
     "placeholders": {
       "count": {
         "type": "int"
-      },
-      "sizeMb": {
-        "type": "String"
       }
     }
   },
@@ -145,5 +142,78 @@
   "btnApply": "Terapkan",
   "sectionAbout": "Tentang",
   "titleHome": "Beranda",
-  "btnPickVideo": "Pilih Video"
+  "btnPickVideo": "Pilih Video",
+  "homeHeadline": "Ambil momen\ndari video.",
+  "homeSubtitle": "Ekstrak frame diam dengan presisi.",
+  "homePickVideo": "Pilih video",
+  "homeSupportedFormats": "MP4 · MOV · MKV · WEBM",
+  "homePickFolder": "Pilih folder",
+  "tabExtract": "Ekstrak",
+  "titleResults": "Hasil",
+  "btnSelectAll": "Pilih semua",
+  "btnDeselectAll": "Batal pilih",
+  "btnSaveToGallery": "Simpan ke Galeri",
+  "btnShare": "Bagikan",
+  "btnViewResults": "Lihat Hasil",
+  "resultsSelectedCount": "{count} frame · {sizeMb} MB",
+  "@resultsSelectedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "sizeMb": {
+        "type": "String"
+      }
+    }
+  },
+  "folderPickNotice": "Pemilihan folder akan hadir pada pembaruan mendatang",
+  "titleDeleteSession": "Hapus Riwayat",
+  "confirmDeleteSession": "Apakah Anda yakin ingin menghapus riwayat ini?",
+  "btnDelete": "Hapus",
+  "customIntervalTitle": "Atur Interval",
+  "customIntervalHint": "Detik (contoh: 0.1 atau 3)",
+  "titlePhotos": "Foto ({count})",
+  "@titlePhotos": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "resultsSubtitle": "Ketuk untuk memilih foto",
+  "btnSaveAll": "Simpan Semua",
+  "btnSaveSelected": "Simpan yang Dipilih",
+  "savedToFolder": "{count} frame tersimpan di {folder}",
+  "@savedToFolder": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "folder": {
+        "type": "String"
+      }
+    }
+  },
+  "errorSharePhotos": "Gagal membagikan foto",
+  "sectionStorage": "Penyimpanan & Folder",
+  "labelOrganizeByVideo": "Kelompokkan per Video",
+  "subOrganizeByVideo": "Otomatis membuat subfolder sesuai nama video agar ribuan frame tetap rapi.",
+  "labelPickFolder": "Pilih Folder Penyimpanan",
+  "tooltipResetDefault": "Kembalikan ke Default",
+  "storageFolderChanged": "Folder penyimpanan diubah ke {path}",
+  "@storageFolderChanged": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "titleSelectVideoCount": "Pilih Video ({count})",
+  "@titleSelectVideoCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

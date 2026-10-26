@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sela/l10n/generated/app_localizations.dart';
 
@@ -14,13 +15,23 @@ class NudgeControls extends ConsumerWidget {
 
   const NudgeControls({super.key, required this.videoInfo});
 
+  void _step(WidgetRef ref, CaptureState state, int deltaFrames) {
+    final currentFrame = videoInfo.frameForTime(state.currentTime);
+    final targetFrame = (currentFrame + deltaFrames).clamp(
+      1,
+      videoInfo.frameCount,
+    );
+    final targetTime = videoInfo.timeForFrame(targetFrame);
+    ref.read(captureProvider.notifier).seekTo(targetTime);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(captureProvider);
     final l10n = AppLocalizations.of(context)!;
     final colors = context.colors;
-    final currentFrame = ((state.currentTime * videoInfo.fps).round() + 1)
-        .clamp(1, videoInfo.frameCount);
+    final currentFrame = videoInfo.frameForTime(state.currentTime);
+    final isMarked = state.markedFrames.contains(currentFrame);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -31,44 +42,74 @@ class NudgeControls extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _NudgeButton(
-                icon: Icons.remove,
-                onTap: () => ref
-                    .read(captureProvider.notifier)
-                    .seekTo(state.currentTime - (1 / videoInfo.fps)),
-                onLongPress: () => ref
-                    .read(captureProvider.notifier)
-                    .seekTo(state.currentTime - (10 / videoInfo.fps)),
+                label: '-1',
+                onTap: () => _step(ref, state, -1),
+                onLongPress: () => _step(ref, state, -10),
               ),
-              Text(
-                l10n.frameIndicator(currentFrame, videoInfo.frameCount),
-                style: SelaText.titleCard.copyWith(color: colors.textPrimary),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        l10n.frameIndicator(currentFrame, videoInfo.frameCount),
+                        style: SelaText.titleCard.copyWith(
+                          color: colors.textPrimary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      GestureDetector(
+                        onTap: () {
+                          HapticFeedback.selectionClick();
+                          ref
+                              .read(captureProvider.notifier)
+                              .toggleMarkCurrentFrame();
+                        },
+                        child: Icon(
+                          isMarked
+                              ? Icons.bookmark_rounded
+                              : Icons.bookmark_border_rounded,
+                          size: 20,
+                          color: isMarked
+                              ? colors.accent
+                              : colors.textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    '${state.currentTime.toStringAsFixed(2)}s · ${videoInfo.formattedFps}',
+                    style: SelaText.caption.copyWith(
+                      color: colors.textSecondary,
+                    ),
+                  ),
+                ],
               ),
               _NudgeButton(
-                icon: Icons.add,
-                onTap: () => ref
-                    .read(captureProvider.notifier)
-                    .seekTo(state.currentTime + (1 / videoInfo.fps)),
-                onLongPress: () => ref
-                    .read(captureProvider.notifier)
-                    .seekTo(state.currentTime + (10 / videoInfo.fps)),
+                label: '+1',
+                onTap: () => _step(ref, state, 1),
+                onLongPress: () => _step(ref, state, 10),
               ),
             ],
           ),
         ),
         const SizedBox(height: SelaSpace.lg),
-        const FrameFilmstrip(),
+        FrameFilmstrip(videoInfo: videoInfo),
       ],
     );
   }
 }
 
 class _NudgeButton extends StatelessWidget {
-  final IconData icon;
+  final String label;
   final VoidCallback onTap;
   final VoidCallback onLongPress;
 
   const _NudgeButton({
-    required this.icon,
+    required this.label,
     required this.onTap,
     required this.onLongPress,
   });
@@ -77,19 +118,41 @@ class _NudgeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
 
-    return InkWell(
-      onTap: onTap,
-      onLongPress: onLongPress,
-      borderRadius: BorderRadius.circular(24),
-      child: Container(
-        width: 48,
-        height: 48,
-        decoration: BoxDecoration(
-          color: colors.surface,
-          shape: BoxShape.circle,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        InkWell(
+          onTap: onTap,
+          onLongPress: onLongPress,
+          borderRadius: BorderRadius.circular(28),
+          child: Container(
+            width: 56,
+            height: 56,
+            decoration: BoxDecoration(
+              color: colors.surface,
+              shape: BoxShape.circle,
+              border: Border.all(color: colors.border),
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              label,
+              style: SelaText.body.copyWith(
+                color: colors.textPrimary,
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+          ),
         ),
-        child: Icon(icon, color: colors.textPrimary, size: 20),
-      ),
+        const SizedBox(height: 4),
+        Text(
+          'frame',
+          style: SelaText.caption.copyWith(
+            color: colors.textSecondary,
+            fontSize: 11,
+          ),
+        ),
+      ],
     );
   }
 }

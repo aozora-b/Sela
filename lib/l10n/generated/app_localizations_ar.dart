@@ -36,8 +36,8 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String frameEstimate(int count, String sizeMb) {
-    return '±$count إطار · ±$sizeMb م.ب';
+  String frameEstimate(int count) {
+    return '±$count إطار';
   }
 
   @override
@@ -191,4 +191,111 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get btnPickVideo => 'اختر فيديو';
+
+  @override
+  String get homeHeadline => 'التقط اللحظات\nمن الفيديو.';
+
+  @override
+  String get homeSubtitle => 'استخرج إطارات ثابتة بدقة عالية.';
+
+  @override
+  String get homePickVideo => 'اختر فيديو';
+
+  @override
+  String get homeSupportedFormats => 'MP4 · MOV · MKV · WEBM';
+
+  @override
+  String get homePickFolder => 'اختر مجلد';
+
+  @override
+  String get tabExtract => 'استخراج';
+
+  @override
+  String get titleResults => 'النتائج';
+
+  @override
+  String get btnSelectAll => 'تحديد الكل';
+
+  @override
+  String get btnDeselectAll => 'إلغاء التحديد';
+
+  @override
+  String get btnSaveToGallery => 'حفظ في المعرض';
+
+  @override
+  String get btnShare => 'مشاركة';
+
+  @override
+  String get btnViewResults => 'عرض النتائج';
+
+  @override
+  String resultsSelectedCount(int count, String sizeMb) {
+    return '$count إطار · $sizeMb م.ب';
+  }
+
+  @override
+  String get folderPickNotice => 'سيتوفر اختيار المجلد في التحديث القادم';
+
+  @override
+  String get titleDeleteSession => 'حذف السجل';
+
+  @override
+  String get confirmDeleteSession => 'هل أنت متأكد من حذف هذا السجل؟';
+
+  @override
+  String get btnDelete => 'حذف';
+
+  @override
+  String get customIntervalTitle => 'تخصيص الفاصل';
+
+  @override
+  String get customIntervalHint => 'ثوانٍ (مثال: 0.1 أو 3)';
+
+  @override
+  String titlePhotos(int count) {
+    return 'الصور ($count)';
+  }
+
+  @override
+  String get resultsSubtitle => 'انقر لتحديد الصور';
+
+  @override
+  String get btnSaveAll => 'حفظ الكل';
+
+  @override
+  String get btnSaveSelected => 'حفظ المحدد';
+
+  @override
+  String savedToFolder(int count, String folder) {
+    return 'تم حفظ $count إطار في $folder';
+  }
+
+  @override
+  String get errorSharePhotos => 'فشل مشاركة الصور';
+
+  @override
+  String get sectionStorage => 'التخزين والمجلد';
+
+  @override
+  String get labelOrganizeByVideo => 'تنظيم حسب الفيديو';
+
+  @override
+  String get subOrganizeByVideo =>
+      'إنشاء مجلد فرعي باسم الفيديو تلقائياً للحفاظ على ترتيب الإطارات.';
+
+  @override
+  String get labelPickFolder => 'تحديد مجلد الحفظ';
+
+  @override
+  String get tooltipResetDefault => 'استعادة الافتراضي';
+
+  @override
+  String storageFolderChanged(String path) {
+    return 'تم تغيير مجلد الحفظ إلى $path';
+  }
+
+  @override
+  String titleSelectVideoCount(int count) {
+    return 'اختر فيديو ($count)';
+  }
 }

@@ -8,18 +8,80 @@
   "btnStartExtraction": "بدء الاستخراج",
   "intervalCustom": "مخصص",
   "intervalSeconds": "{seconds} ث",
-  "frameEstimate": "±{count} إطار · ±{sizeMb} م.ب",
+  "@intervalSeconds": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "frameEstimate": "±{count} إطار",
+  "@frameEstimate": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "frameIndicator": "إطار {current} / {total}",
+  "@frameIndicator": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "errorFailedExtract": "فشل استخراج الإطار",
   "titleCapture": "استخراج",
   "progressFrames": "{current} / {total} إطار",
+  "@progressFrames": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "progressRemaining": "المتبقي {time}",
+  "@progressRemaining": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "btnCancel": "إلغاء",
   "btnOpenGallery": "فتح المعرض",
   "btnClose": "إغلاق",
   "extractionComplete": "تم حفظ {count} إطار في Pictures/Sela",
+  "@extractionComplete": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "extractionCancelled": "تم إلغاء الاستخراج. تم حفظ {count} إطار.",
+  "@extractionCancelled": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "errorMaxFramesExceeded": "تم تجاوز الحد الأقصى {max} إطار. قلل المدة أو زد الفاصل الزمني.",
+  "@errorMaxFramesExceeded": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
   "singleFrameSaved": "تم حفظ الإطار في Pictures/Sela",
   "errorSaveFrame": "فشل حفظ الإطار",
   "titleExtracting": "جارٍ استخراج الإطارات...",
@@ -27,11 +89,32 @@
   "emptyHistory": "لا يوجد سجل استخراج حتى الآن",
   "dialogResumeTitle": "استئناف الاستخراج؟",
   "dialogResumeMessage": "المتابعة من الإطار {nextFrame}؟",
+  "@dialogResumeMessage": {
+    "placeholders": {
+      "nextFrame": {
+        "type": "int"
+      }
+    }
+  },
   "btnResume": "استئناف",
   "btnRestart": "إعادة البدء",
   "sessionDeleted": "تم حذف السجل",
   "historyTotalFrames": "{count} إطار",
+  "@historyTotalFrames": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "historyFileSize": "±{sizeMb} م.ب",
+  "@historyFileSize": {
+    "placeholders": {
+      "sizeMb": {
+        "type": "String"
+      }
+    }
+  },
   "titleSettings": "الإعدادات",
   "sectionExtraction": "الاستخراج",
   "labelFormat": "صيغة الملف",
@@ -49,8 +132,88 @@
   "btnUndo": "تراجع",
   "dialogRtlTitle": "تغيير التخطيط (RTL)؟",
   "dialogRtlMessage": "التغيير إلى {language} سيعكس تخطيط الواجهة بالكامل. هل تريد المتابعة؟",
+  "@dialogRtlMessage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
   "btnApply": "تطبيق",
   "sectionAbout": "حول",
   "titleHome": "الرئيسية",
-  "btnPickVideo": "اختر فيديو"
+  "btnPickVideo": "اختر فيديو",
+  "homeHeadline": "التقط اللحظات\nمن الفيديو.",
+  "homeSubtitle": "استخرج إطارات ثابتة بدقة عالية.",
+  "homePickVideo": "اختر فيديو",
+  "homeSupportedFormats": "MP4 · MOV · MKV · WEBM",
+  "homePickFolder": "اختر مجلد",
+  "tabExtract": "استخراج",
+  "titleResults": "النتائج",
+  "btnSelectAll": "تحديد الكل",
+  "btnDeselectAll": "إلغاء التحديد",
+  "btnSaveToGallery": "حفظ في المعرض",
+  "btnShare": "مشاركة",
+  "btnViewResults": "عرض النتائج",
+  "resultsSelectedCount": "{count} إطار · {sizeMb} م.ب",
+  "@resultsSelectedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "sizeMb": {
+        "type": "String"
+      }
+    }
+  },
+  "folderPickNotice": "سيتوفر اختيار المجلد في التحديث القادم",
+  "titleDeleteSession": "حذف السجل",
+  "confirmDeleteSession": "هل أنت متأكد من حذف هذا السجل؟",
+  "btnDelete": "حذف",
+  "customIntervalTitle": "تخصيص الفاصل",
+  "customIntervalHint": "ثوانٍ (مثال: 0.1 أو 3)",
+  "titlePhotos": "الصور ({count})",
+  "@titlePhotos": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "resultsSubtitle": "انقر لتحديد الصور",
+  "btnSaveAll": "حفظ الكل",
+  "btnSaveSelected": "حفظ المحدد",
+  "savedToFolder": "تم حفظ {count} إطار في {folder}",
+  "@savedToFolder": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "folder": {
+        "type": "String"
+      }
+    }
+  },
+  "errorSharePhotos": "فشل مشاركة الصور",
+  "sectionStorage": "التخزين والمجلد",
+  "labelOrganizeByVideo": "تنظيم حسب الفيديو",
+  "subOrganizeByVideo": "إنشاء مجلد فرعي باسم الفيديو تلقائياً للحفاظ على ترتيب الإطارات.",
+  "labelPickFolder": "تحديد مجلد الحفظ",
+  "tooltipResetDefault": "استعادة الافتراضي",
+  "storageFolderChanged": "تم تغيير مجلد الحفظ إلى {path}",
+  "@storageFolderChanged": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "titleSelectVideoCount": "اختر فيديو ({count})",
+  "@titleSelectVideoCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

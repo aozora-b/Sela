@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sela/l10n/generated/app_localizations.dart';
@@ -8,22 +6,58 @@ import '../../theme/sela_colors.dart';
 import '../../theme/sela_space.dart';
 import '../../theme/sela_text.dart';
 import 'history_controller.dart';
+import 'widgets/history_card.dart';
 
 class HistoryScreen extends ConsumerWidget {
   const HistoryScreen({super.key});
 
-  String _formatDate(DateTime dt) {
-    final y = dt.year.toString().padLeft(4, '0');
-    final m = dt.month.toString().padLeft(2, '0');
-    final d = dt.day.toString().padLeft(2, '0');
-    final h = dt.hour.toString().padLeft(2, '0');
-    final min = dt.minute.toString().padLeft(2, '0');
-    return '$y-$m-$d $h:$min';
+  void _confirmDelete(
+    BuildContext context,
+    WidgetRef ref,
+    String id,
+    AppLocalizations l10n,
+  ) {
+    showDialog<void>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: context.colors.bgElevated,
+        title: Text(l10n.titleDeleteSession, style: SelaText.titleCard),
+        content: Text(l10n.confirmDeleteSession, style: SelaText.body),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text(l10n.btnCancel),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              _deleteImmediately(context, ref, id, l10n);
+            },
+            child: Text(
+              l10n.btnDelete,
+              style: TextStyle(color: context.colors.error),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
-  String _formatSize(int bytes, AppLocalizations l10n) {
-    final mb = bytes / (1024 * 1024);
-    return l10n.historyFileSize(mb.toStringAsFixed(1));
+  void _deleteImmediately(
+    BuildContext context,
+    WidgetRef ref,
+    String id,
+    AppLocalizations l10n,
+  ) {
+    ref.read(historyProvider.notifier).deleteSession(id);
+    final messenger = ScaffoldMessenger.of(context);
+    messenger.clearSnackBars();
+    messenger.showSnackBar(
+      SnackBar(
+        duration: const Duration(seconds: 2),
+        content: Text(l10n.sessionDeleted),
+      ),
+    );
   }
 
   @override
@@ -63,70 +97,10 @@ class HistoryScreen extends ConsumerWidget {
             separatorBuilder: (_, _) => const SizedBox(height: SelaSpace.md),
             itemBuilder: (context, index) {
               final s = sessions[index];
-              final stem = s.videoPath.split(Platform.pathSeparator).last;
-
-              return Dismissible(
-                key: ValueKey(s.id),
-                direction: DismissDirection.endToStart,
-                background: Container(
-                  alignment: Alignment.centerRight,
-                  padding: const EdgeInsets.symmetric(horizontal: SelaSpace.lg),
-                  decoration: BoxDecoration(
-                    color: colors.error,
-                    borderRadius: SelaRadius.cardBorderRadius,
-                  ),
-                  child: const Icon(Icons.delete_outline, color: Colors.white),
-                ),
-                onDismissed: (_) {
-                  ref.read(historyProvider.notifier).deleteSession(s.id);
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text(l10n.sessionDeleted)));
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(SelaSpace.md),
-                  decoration: BoxDecoration(
-                    color: colors.surface,
-                    borderRadius: SelaRadius.cardBorderRadius,
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 48,
-                        height: 48,
-                        decoration: BoxDecoration(
-                          color: colors.surfaceHighlight,
-                          borderRadius: BorderRadius.circular(SelaRadius.sm),
-                        ),
-                        child: Icon(Icons.movie_outlined, color: colors.accent),
-                      ),
-                      const SizedBox(width: SelaSpace.md),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              stem,
-                              style: SelaText.body.copyWith(
-                                color: colors.textPrimary,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            const SizedBox(height: SelaSpace.xs),
-                            Text(
-                              '${_formatDate(s.timestamp)} · ${l10n.historyTotalFrames(s.savedCount)} · ${_formatSize(s.totalSizeBytes, l10n)}',
-                              style: SelaText.caption.copyWith(
-                                color: colors.textSecondary,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              return HistoryCard(
+                session: s,
+                onDelete: () => _deleteImmediately(context, ref, s.id, l10n),
+                onTap: () => _confirmDelete(context, ref, s.id, l10n),
               );
             },
           );

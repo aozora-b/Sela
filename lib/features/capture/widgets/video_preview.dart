@@ -30,6 +30,7 @@ class VideoPreview extends StatelessWidget {
             ? Image.memory(
                 activeFrame!,
                 fit: BoxFit.contain,
+                cacheWidth: 540,
                 gaplessPlayback: true,
               )
             : const Center(child: CircularProgressIndicator()),

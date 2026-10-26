@@ -1,0 +1,219 @@
+{
+  "@@locale": "he",
+  "appName": "סלה",
+  "captureModeManual": "ידני",
+  "captureModeInterval": "מרווחים",
+  "btnSaveFrame": "שמור פריים זה",
+  "btnSaveMarked": "שמור את כל הפריימים המסומנים",
+  "btnStartExtraction": "התחל חילוץ",
+  "intervalCustom": "מותאם אישית",
+  "intervalSeconds": "{seconds} שנ׳",
+  "@intervalSeconds": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "frameEstimate": "כ-{count} פריימים",
+  "@frameEstimate": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "frameIndicator": "פריים {current} / {total}",
+  "@frameIndicator": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "errorFailedExtract": "שגיאה בחילוץ הפריים",
+  "titleCapture": "חילוץ",
+  "progressFrames": "{current} / {total} פריימים",
+  "@progressFrames": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "progressRemaining": "נותרו {time}",
+  "@progressRemaining": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "btnCancel": "ביטול",
+  "btnOpenGallery": "פתח גלריה",
+  "btnClose": "סגור",
+  "extractionComplete": "{count} פריימים נשמרו ב-Pictures/Sela",
+  "@extractionComplete": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "extractionCancelled": "החילוץ בוטל. {count} פריימים נשמרו.",
+  "@extractionCancelled": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "errorMaxFramesExceeded": "חרגת מהמגבלה של {max} פריימים. קצר את משך הזמן או הגדל את המרווח.",
+  "@errorMaxFramesExceeded": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "singleFrameSaved": "הפריים נשמר ב-Pictures/Sela",
+  "errorSaveFrame": "שגיאה בשמירת הפריים",
+  "titleExtracting": "מחלץ פריימים...",
+  "titleHistory": "היסטוריה",
+  "emptyHistory": "אין עדיין היסטוריית חילוץ",
+  "dialogResumeTitle": "להמשיך בחילוץ?",
+  "dialogResumeMessage": "להמשיך מפריים {nextFrame}?",
+  "@dialogResumeMessage": {
+    "placeholders": {
+      "nextFrame": {
+        "type": "int"
+      }
+    }
+  },
+  "btnResume": "המשך",
+  "btnRestart": "התחל מחדש",
+  "sessionDeleted": "ההיסטוריה נמחקה",
+  "historyTotalFrames": "{count} פריימים",
+  "@historyTotalFrames": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "historyFileSize": "כ-{sizeMb} מ״ב",
+  "@historyFileSize": {
+    "placeholders": {
+      "sizeMb": {
+        "type": "String"
+      }
+    }
+  },
+  "titleSettings": "הגדרות",
+  "sectionExtraction": "חילוץ",
+  "labelFormat": "פורמט קובץ",
+  "labelJpegQuality": "איכות JPEG",
+  "sectionAppearance": "מראה",
+  "themeDark": "כהה",
+  "themeLight": "בהיר",
+  "themeSystem": "מערכת",
+  "sectionLanguage": "שפה",
+  "titleSelectLanguage": "בחר שפה",
+  "searchLanguage": "חיפוש שפה...",
+  "sectionSuggested": "מומלץ",
+  "sectionAllLanguages": "כל השפות",
+  "languageChanged": "השפה שונתה",
+  "btnUndo": "בטל",
+  "dialogRtlTitle": "לשנות כיוון תצוגה (RTL)?",
+  "dialogRtlMessage": "מעבר לשפה {language} יהפוך את כל פריסת הממשק. להמשיך?",
+  "@dialogRtlMessage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "btnApply": "החל",
+  "sectionAbout": "אודות",
+  "titleHome": "בית",
+  "btnPickVideo": "בחר סרטון",
+  "homeHeadline": "ללכוד רגעים\nמסרטונים.",
+  "homeSubtitle": "חילוץ תמונות סטילס בדיוק מרבי.",
+  "homePickVideo": "בחר סרטון",
+  "homeSupportedFormats": "MP4 · MOV · MKV · WEBM",
+  "homePickFolder": "בחר תיקייה",
+  "tabExtract": "חילוץ",
+  "titleResults": "תוצאות",
+  "btnSelectAll": "בחר הכל",
+  "btnDeselectAll": "בטל בחירה",
+  "btnSaveToGallery": "שמור לגלריה",
+  "btnShare": "שתף",
+  "btnViewResults": "צפה בתוצאות",
+  "resultsSelectedCount": "{count} פריימים · {sizeMb} מ״ב",
+  "@resultsSelectedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "sizeMb": {
+        "type": "String"
+      }
+    }
+  },
+  "folderPickNotice": "בחירת תיקייה תהיה זמינה בעדכון קרוב",
+  "titleDeleteSession": "מחיקת היסטוריה",
+  "confirmDeleteSession": "האם אתה בטוח שברצונך למחוק פריט היסטוריה זה?",
+  "btnDelete": "מחק",
+  "customIntervalTitle": "הגדרת מרווח",
+  "customIntervalHint": "שניות (למשל: 0.1 או 3)",
+  "titlePhotos": "תמונות ({count})",
+  "@titlePhotos": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "resultsSubtitle": "הקש כדי לבחור תמונות",
+  "btnSaveAll": "שמור הכל",
+  "btnSaveSelected": "שמור נבחרים",
+  "savedToFolder": "{count} פריימים נשמרו ב-{folder}",
+  "@savedToFolder": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "folder": {
+        "type": "String"
+      }
+    }
+  },
+  "errorSharePhotos": "שגיאה בשיתוף תמונות",
+  "sectionStorage": "אחסון ותיקייה",
+  "labelOrganizeByVideo": "ארגון לפי סרטון",
+  "subOrganizeByVideo": "יוצר אוטומטית תת-תיקייה לפי שם הסרטון כדי לשמור על סדר הפריימים.",
+  "labelPickFolder": "בחר תיקיית יעד",
+  "tooltipResetDefault": "איפוס לברירת מחדל",
+  "storageFolderChanged": "תיקיית האחסון שונתה ל-{path}",
+  "@storageFolderChanged": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "titleSelectVideoCount": "בחר סרטון ({count})",
+  "@titleSelectVideoCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
+}

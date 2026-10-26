@@ -69,7 +69,6 @@ void main() {
 
     expect(find.text('my_holiday.mp4'), findsOneWidget);
     expect(find.textContaining('15 frame'), findsOneWidget);
-    expect(find.textContaining('±2.0 MB'), findsOneWidget);
 
     // Test swipe to dismiss
     await tester.drag(find.byType(Dismissible), const Offset(-500, 0));

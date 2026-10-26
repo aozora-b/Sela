@@ -1,0 +1,219 @@
+{
+  "@@locale": "fr",
+  "appName": "Sela",
+  "captureModeManual": "Manuel",
+  "captureModeInterval": "Intervalle",
+  "btnSaveFrame": "Enregistrer cette image",
+  "btnSaveMarked": "Enregistrer toutes les images marquées",
+  "btnStartExtraction": "Démarrer l'extraction",
+  "intervalCustom": "Personnalisé",
+  "intervalSeconds": "{seconds}s",
+  "@intervalSeconds": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "frameEstimate": "±{count} images",
+  "@frameEstimate": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "frameIndicator": "Image {current} / {total}",
+  "@frameIndicator": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "errorFailedExtract": "Échec de l'extraction de l'image",
+  "titleCapture": "Extraction",
+  "progressFrames": "{current} / {total} images",
+  "@progressFrames": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "progressRemaining": "Restant {time}",
+  "@progressRemaining": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "btnCancel": "Annuler",
+  "btnOpenGallery": "Ouvrir la galerie",
+  "btnClose": "Fermer",
+  "extractionComplete": "{count} images enregistrées dans Pictures/Sela",
+  "@extractionComplete": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "extractionCancelled": "Extraction annulée. {count} images enregistrées.",
+  "@extractionCancelled": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "errorMaxFramesExceeded": "Limite maximale de {max} images dépassée. Réduisez la durée ou augmentez l'intervalle.",
+  "@errorMaxFramesExceeded": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "singleFrameSaved": "Image enregistrée dans Pictures/Sela",
+  "errorSaveFrame": "Échec de l'enregistrement de l'image",
+  "titleExtracting": "Extraction des images...",
+  "titleHistory": "Historique",
+  "emptyHistory": "Aucun historique d'extraction",
+  "dialogResumeTitle": "Reprendre l'extraction ?",
+  "dialogResumeMessage": "Continuer à partir de l'image {nextFrame} ?",
+  "@dialogResumeMessage": {
+    "placeholders": {
+      "nextFrame": {
+        "type": "int"
+      }
+    }
+  },
+  "btnResume": "Reprendre",
+  "btnRestart": "Recommencer",
+  "sessionDeleted": "Historique supprimé",
+  "historyTotalFrames": "{count} images",
+  "@historyTotalFrames": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "historyFileSize": "±{sizeMb} Mo",
+  "@historyFileSize": {
+    "placeholders": {
+      "sizeMb": {
+        "type": "String"
+      }
+    }
+  },
+  "titleSettings": "Paramètres",
+  "sectionExtraction": "Extraction",
+  "labelFormat": "Format de fichier",
+  "labelJpegQuality": "Qualité JPEG",
+  "sectionAppearance": "Apparence",
+  "themeDark": "Sombre",
+  "themeLight": "Clair",
+  "themeSystem": "Système",
+  "sectionLanguage": "Langue",
+  "titleSelectLanguage": "Sélectionner la langue",
+  "searchLanguage": "Rechercher une langue...",
+  "sectionSuggested": "Suggéré",
+  "sectionAllLanguages": "Toutes les langues",
+  "languageChanged": "Langue modifiée",
+  "btnUndo": "Annuler",
+  "dialogRtlTitle": "Changer la disposition (RTL) ?",
+  "dialogRtlMessage": "Passer à {language} inversera toute la disposition de l'interface. Continuer ?",
+  "@dialogRtlMessage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "btnApply": "Appliquer",
+  "sectionAbout": "À propos",
+  "titleHome": "Accueil",
+  "btnPickVideo": "Choisir une vidéo",
+  "homeHeadline": "Capturez des moments\nde vos vidéos.",
+  "homeSubtitle": "Extrayez des images fixes avec précision.",
+  "homePickVideo": "Sélectionner une vidéo",
+  "homeSupportedFormats": "MP4 · MOV · MKV · WEBM",
+  "homePickFolder": "Sélectionner un dossier",
+  "tabExtract": "Extraire",
+  "titleResults": "Résultats",
+  "btnSelectAll": "Tout sélectionner",
+  "btnDeselectAll": "Tout désélectionner",
+  "btnSaveToGallery": "Enregistrer dans la galerie",
+  "btnShare": "Partager",
+  "btnViewResults": "Voir les résultats",
+  "resultsSelectedCount": "{count} images · {sizeMb} Mo",
+  "@resultsSelectedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "sizeMb": {
+        "type": "String"
+      }
+    }
+  },
+  "folderPickNotice": "La sélection de dossier sera disponible dans une prochaine mise à jour",
+  "titleDeleteSession": "Supprimer l'historique",
+  "confirmDeleteSession": "Voulez-vous vraiment supprimer cet élément de l'historique ?",
+  "btnDelete": "Supprimer",
+  "customIntervalTitle": "Définir l'intervalle",
+  "customIntervalHint": "Secondes (ex. 0.1 ou 3)",
+  "titlePhotos": "Photos ({count})",
+  "@titlePhotos": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "resultsSubtitle": "Appuyez pour sélectionner des photos",
+  "btnSaveAll": "Tout enregistrer",
+  "btnSaveSelected": "Enregistrer la sélection",
+  "savedToFolder": "{count} images enregistrées dans {folder}",
+  "@savedToFolder": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "folder": {
+        "type": "String"
+      }
+    }
+  },
+  "errorSharePhotos": "Échec du partage des photos",
+  "sectionStorage": "Stockage et dossier",
+  "labelOrganizeByVideo": "Organiser par vidéo",
+  "subOrganizeByVideo": "Crée automatiquement un sous-dossier correspondant au nom de la vidéo pour garder les images bien rangées.",
+  "labelPickFolder": "Sélectionner le dossier de destination",
+  "tooltipResetDefault": "Réinitialiser par défaut",
+  "storageFolderChanged": "Dossier de stockage modifié vers {path}",
+  "@storageFolderChanged": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "titleSelectVideoCount": "Sélectionner une vidéo ({count})",
+  "@titleSelectVideoCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
+}

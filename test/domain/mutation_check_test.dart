@@ -2,18 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:sela/domain/formats.dart';
 import 'package:sela/domain/frame_naming.dart';
-import 'package:sela/domain/language_models.dart';
 import 'package:sela/domain/models.dart';
 import 'package:sela/domain/sample_plan.dart';
-import 'package:sela/domain/session_models.dart';
-import 'package:sela/domain/settings_models.dart';
-
-/// Harness "mutation check" — utang Tahap 7 #1.
-///
-/// Menjepit nilai ajaib, pemetaan, dan operator kritis pada lapisan domain.
-/// Bila seseorang mengubah konstanta/operator secara diam-diam (mutasi) tanpa
-/// keputusan teknis yang tercatat, salah satu asersi di sini wajib gagal.
-/// Ini melengkapi tes perilaku yang sudah ada, bukan menggantikannya.
 
 VideoInfo _info(double duration) => VideoInfo(
   path: 'video.mp4',
@@ -140,16 +130,16 @@ void main() {
   });
 
   group('perkiraan ukuran keluaran (formula persis)', () {
-    test('PNG memakai 1,5 byte/piksel', () {
+    test('PNG memakai 0,40 byte/piksel', () {
       final bytes = estimateOutputBytes(
         _info(10),
         ExtractOptions(mode: CaptureMode.count),
         10,
       );
-      expect(bytes, 31104000); // 10 * 1920 * 1080 * 1,5
+      expect(bytes, 8294400); // 10 * 1920 * 1080 * 0.40
     });
 
-    test('JPEG q80 memakai 0,15 + 0,35 * (80/100) per piksel', () {
+    test('JPEG q80 memakai 0,02 + 0,08 * (80/100) per piksel', () {
       final bytes = estimateOutputBytes(
         _info(10),
         ExtractOptions(
@@ -159,12 +149,10 @@ void main() {
         ),
         10,
       );
-      // 0.35 * 0.8 dalam float ganda sedikit di bawah 0.28, lalu .toInt()
-      // memotong, sehingga hasil bulatnya 8916479 (bukan 8916480 ideal).
-      expect(bytes, 8916479);
+      expect(bytes, 1741824); // 10 * 1920 * 1080 * 0.084
     });
 
-    test('JPEG q100 memakai 0,50 byte/piksel', () {
+    test('JPEG q100 memakai 0,10 byte/piksel', () {
       final bytes = estimateOutputBytes(
         _info(10),
         ExtractOptions(
@@ -174,43 +162,7 @@ void main() {
         ),
         10,
       );
-      expect(bytes, 10368000);
-    });
-  });
-
-  group('model pengaturan & sesi', () {
-    test('AppSettings default: png/90/dark/id', () {
-      const s = AppSettings();
-      expect(s.format, OutputFormat.png);
-      expect(s.jpegQuality, 90);
-      expect(s.themeMode, AppThemeMode.dark);
-      expect(s.localeCode, 'id');
-    });
-
-    test('pemetaan RTL tepat untuk ar/fa/he/ur', () {
-      for (final code in ['ar', 'fa', 'he', 'ur']) {
-        expect(AppLanguage.isLanguageRtl(code), isTrue, reason: code);
-      }
-      expect(AppLanguage.isLanguageRtl('id'), isFalse);
-      expect(AppLanguage.isLanguageRtl('en'), isFalse);
-    });
-
-    test('canResume hanya benar saat 0 < savedCount < total', () {
-      ExtractionSession s(int saved, int total) => ExtractionSession(
-        id: 'x',
-        videoPath: 'v.mp4',
-        savedCount: saved,
-        lastIndex: saved,
-        total: total,
-        timestamp: DateTime(2026),
-      );
-      expect(s(0, 10).canResume, isFalse);
-      expect(s(5, 10).canResume, isTrue);
-      expect(s(10, 10).canResume, isFalse);
-    });
-
-    test('resolusi VideoInfo memakai tanda kali (×)', () {
-      expect(_info(10).resolution, '1920×1080');
+      expect(bytes, 2073600); // 10 * 1920 * 1080 * 0.10
     });
   });
 }

@@ -1,21 +1,24 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sela/l10n/generated/app_localizations.dart';
 
-import '../../engine/video_picker_channel.dart';
+import '../../engine/video_picker.dart';
 import '../../theme/sela_colors.dart';
 import '../../theme/sela_space.dart';
 import '../../theme/sela_text.dart';
 import '../capture/capture_controller.dart';
 import '../capture/capture_screen.dart';
-import '../capture/resume_flow.dart';
+import '../history/history_controller.dart';
 import '../history/history_screen.dart';
 import '../settings/settings_screen.dart';
+import 'widgets/folder_videos_sheet.dart';
+import 'widgets/home_wordmark.dart';
+import 'widgets/import_drop_zone.dart';
+import 'widgets/pick_folder_button.dart';
 
-/// Layar beranda Sela: shell tiga tab (Beranda / Riwayat / Setelan).
-///
-/// Tab Beranda menjadi titik masuk pemilihan video melalui pemilih native
-/// (Storage Access Framework), lalu meneruskan ke [CaptureScreen].
+/// Layar beranda Sela (Layar 01 Impor Video) dengan shell navigasi 3 tab.
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
@@ -26,16 +29,65 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   int _selectedIndex = 0;
 
+  Future<void> _openVideoPath(String path) async {
+    try {
+      await ref.read(captureProvider.notifier).openVideo(path);
+      if (!mounted) return;
+      unawaited(
+        Navigator.of(context).push(
+          MaterialPageRoute<void>(builder: (_) => const CaptureScreen()),
+        ),
+      );
+    } catch (_) {
+      if (!mounted) return;
+      final l10n = AppLocalizations.of(context);
+      if (l10n != null) {
+        final messenger = ScaffoldMessenger.of(context);
+        messenger.clearSnackBars();
+        messenger.showSnackBar(
+          SnackBar(
+            content: Text(l10n.errorFailedExtract),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    }
+  }
+
   Future<void> _pickAndOpen() async {
-    final result = await VideoPickerChannel().pickVideo();
+    final picker = ref.read(videoPickerProvider);
+    final result = await picker.pickVideo();
     if (!mounted || result == null) return;
     final path = result['path'] as String;
-    await ref.read(captureProvider.notifier).openVideo(path);
-    if (!mounted) return;
-    await runResumeFlow(context, ref, path);
-    if (!mounted) return;
-    Navigator.of(context)
-        .push(MaterialPageRoute<void>(builder: (_) => const CaptureScreen()));
+    await _openVideoPath(path);
+  }
+
+  Future<void> _onPickFolder() async {
+    final picker = ref.read(videoPickerProvider);
+    final videos = await picker.pickFolder();
+    if (!mounted || videos == null) return;
+    if (videos.isEmpty) {
+      final messenger = ScaffoldMessenger.of(context);
+      messenger.clearSnackBars();
+      messenger.showSnackBar(
+        const SnackBar(
+          content: Text('Tidak ada berkas video di folder ini'),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      return;
+    }
+    await FolderVideosSheet.show(
+      context: context,
+      videos: videos,
+      onSelect: (uri) async {
+        final copied = await picker.copyVideoUri(uri);
+        if (copied != null && mounted) {
+          final path = copied['path'] as String;
+          await _openVideoPath(path);
+        }
+      },
+    );
   }
 
   @override
@@ -54,71 +106,94 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           const SettingsScreen(),
         ],
       ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _selectedIndex,
-        onDestinationSelected: (i) => setState(() => _selectedIndex = i),
-        backgroundColor: colors.bgElevated,
-        indicatorColor: colors.accentSoft,
-        destinations: [
-          NavigationDestination(
-            icon: Icon(Icons.home_outlined, color: colors.textSecondary),
-            selectedIcon: Icon(Icons.home_rounded, color: colors.accent),
-            label: l10n.titleHome,
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: colors.bgElevated,
+          border: Border(top: BorderSide(color: colors.border, width: 0.5)),
+        ),
+        child: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: (i) {
+            if (i == 1) {
+              unawaited(ref.read(historyProvider.notifier).refresh());
+            }
+            setState(() => _selectedIndex = i);
+          },
+          backgroundColor: colors.bgElevated,
+          selectedItemColor: colors.accent,
+          unselectedItemColor: colors.textSecondary,
+          selectedLabelStyle: SelaText.caption.copyWith(
+            fontWeight: FontWeight.w600,
           ),
-          NavigationDestination(
-            icon: Icon(Icons.history_rounded, color: colors.textSecondary),
-            selectedIcon: Icon(Icons.history_rounded, color: colors.accent),
-            label: l10n.titleHistory,
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.settings_outlined, color: colors.textSecondary),
-            selectedIcon: Icon(Icons.settings_rounded, color: colors.accent),
-            label: l10n.titleSettings,
-          ),
-        ],
+          unselectedLabelStyle: SelaText.caption,
+          elevation: 0,
+          type: BottomNavigationBarType.fixed,
+          items: [
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.crop_free_rounded),
+              activeIcon: const Icon(Icons.crop_free_rounded),
+              label: l10n.tabExtract,
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.history_rounded),
+              activeIcon: const Icon(Icons.history_rounded),
+              label: l10n.titleHistory,
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.settings_outlined),
+              activeIcon: const Icon(Icons.settings_rounded),
+              label: l10n.titleSettings,
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildHomeTab(AppLocalizations l10n, SelaColorsData colors) {
-    return Scaffold(
-      backgroundColor: colors.bg,
-      appBar: AppBar(
-        elevation: 0,
-        scrolledUnderElevation: 0,
-        backgroundColor: colors.bgElevated,
-        title: Text(
-          l10n.titleHome,
-          style: SelaText.of(context, SelaText.titleCard),
-        ),
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: SelaSpace.xl),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                Icons.video_library_outlined,
-                size: 56,
-                color: colors.textSecondary,
-              ),
-              const SizedBox(height: SelaSpace.lg),
-              Text(
-                l10n.titleCapture,
-                style: SelaText.body.copyWith(color: colors.textSecondary),
-              ),
-              const SizedBox(height: SelaSpace.xl),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: _pickAndOpen,
-                  child: Text(l10n.btnPickVideo),
+    return SafeArea(
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: SelaSpace.xl),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: IntrinsicHeight(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: SelaSpace.xl),
+                    const HomeWordmark(),
+                    const SizedBox(height: SelaSpace.xxl),
+                    Text(
+                      l10n.homeHeadline,
+                      style: const TextStyle(
+                        fontFamily: 'PlayfairDisplay',
+                        fontSize: 38,
+                        height: 1.15,
+                        fontWeight: FontWeight.normal,
+                      ).copyWith(color: colors.textPrimary),
+                    ),
+                    const SizedBox(height: SelaSpace.md),
+                    Text(
+                      l10n.homeSubtitle,
+                      style: SelaText.body.copyWith(
+                        color: colors.textSecondary,
+                        fontSize: 15,
+                      ),
+                    ),
+                    const SizedBox(height: SelaSpace.xxl),
+                    ImportDropZone(onTap: _pickAndOpen),
+                    const SizedBox(height: SelaSpace.lg),
+                    PickFolderButton(onPressed: _onPickFolder),
+                    const Spacer(),
+                    const SizedBox(height: SelaSpace.xl),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

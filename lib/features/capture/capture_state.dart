@@ -10,6 +10,9 @@ class CaptureState {
   final double selectedInterval;
   final Uint8List? activeFrame;
   final Set<double> savedFrames;
+  final Set<int> markedFrames;
+  final bool isScrubbing;
+  final int thumbRevision;
 
   const CaptureState({
     this.videoInfo,
@@ -18,6 +21,9 @@ class CaptureState {
     this.selectedInterval = 0.25,
     this.activeFrame,
     this.savedFrames = const {},
+    this.markedFrames = const {},
+    this.isScrubbing = false,
+    this.thumbRevision = 0,
   });
 
   CaptureState copyWith({
@@ -27,6 +33,9 @@ class CaptureState {
     double? selectedInterval,
     Uint8List? activeFrame,
     Set<double>? savedFrames,
+    Set<int>? markedFrames,
+    bool? isScrubbing,
+    int? thumbRevision,
   }) {
     return CaptureState(
       videoInfo: videoInfo ?? this.videoInfo,
@@ -35,18 +44,14 @@ class CaptureState {
       selectedInterval: selectedInterval ?? this.selectedInterval,
       activeFrame: activeFrame ?? this.activeFrame,
       savedFrames: savedFrames ?? this.savedFrames,
+      markedFrames: markedFrames ?? this.markedFrames,
+      isScrubbing: isScrubbing ?? this.isScrubbing,
+      thumbRevision: thumbRevision ?? this.thumbRevision,
     );
   }
 
-  int get estimatedFrameCount {
-    if (videoInfo == null || selectedInterval <= 0) return 0;
-    final duration = videoInfo!.durationS;
-    if (!duration.isFinite || duration <= 0) return 0;
-    return ((duration - 1e-9) / selectedInterval).floor() + 1;
-  }
-
   List<double> get intervalPoints {
-    if (videoInfo == null || estimatedFrameCount > maxFrames) return const [];
+    if (videoInfo == null || selectedInterval <= 0) return const [];
     try {
       final opt = ExtractOptions(
         mode: CaptureMode.interval,
@@ -58,19 +63,5 @@ class CaptureState {
     }
   }
 
-  String get estimatedSizeMb {
-    if (videoInfo == null) return '0';
-    try {
-      final count = estimatedFrameCount;
-      final opt = ExtractOptions(
-        mode: CaptureMode.interval,
-        intervalS: selectedInterval,
-      );
-      final bytes = estimateOutputBytes(videoInfo!, opt, count);
-      final mb = bytes / (1024 * 1024);
-      return mb.toStringAsFixed(1);
-    } catch (e) {
-      return '0';
-    }
-  }
+  int get estimatedFrameCount => intervalPoints.length;
 }

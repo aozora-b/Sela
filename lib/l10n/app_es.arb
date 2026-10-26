@@ -1,0 +1,219 @@
+{
+  "@@locale": "es",
+  "appName": "Sela",
+  "captureModeManual": "Manual",
+  "captureModeInterval": "Intervalo",
+  "btnSaveFrame": "Guardar Este Fotograma",
+  "btnSaveMarked": "Guardar Todos los Fotogramas Marcados",
+  "btnStartExtraction": "Iniciar Extracción",
+  "intervalCustom": "Personalizar",
+  "intervalSeconds": "{seconds}s",
+  "@intervalSeconds": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "frameEstimate": "±{count} fotogramas",
+  "@frameEstimate": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "frameIndicator": "Fotograma {current} / {total}",
+  "@frameIndicator": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "errorFailedExtract": "Error al extraer el fotograma",
+  "titleCapture": "Extracción",
+  "progressFrames": "{current} / {total} fotogramas",
+  "@progressFrames": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "progressRemaining": "Restante {time}",
+  "@progressRemaining": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "btnCancel": "Cancelar",
+  "btnOpenGallery": "Abrir Galería",
+  "btnClose": "Cerrar",
+  "extractionComplete": "{count} fotogramas guardados en Pictures/Sela",
+  "@extractionComplete": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "extractionCancelled": "Extracción cancelada. {count} fotogramas guardados.",
+  "@extractionCancelled": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "errorMaxFramesExceeded": "Límite máximo de {max} fotogramas superado. Reduce la duración o aumenta el intervalo.",
+  "@errorMaxFramesExceeded": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "singleFrameSaved": "Fotograma guardado en Pictures/Sela",
+  "errorSaveFrame": "Error al guardar el fotograma",
+  "titleExtracting": "Extrayendo fotogramas...",
+  "titleHistory": "Historial",
+  "emptyHistory": "Aún no hay historial de extracción",
+  "dialogResumeTitle": "¿Reanudar Extracción?",
+  "dialogResumeMessage": "¿Continuar desde el fotograma {nextFrame}?",
+  "@dialogResumeMessage": {
+    "placeholders": {
+      "nextFrame": {
+        "type": "int"
+      }
+    }
+  },
+  "btnResume": "Reanudar",
+  "btnRestart": "Reiniciar",
+  "sessionDeleted": "Historial eliminado",
+  "historyTotalFrames": "{count} fotogramas",
+  "@historyTotalFrames": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "historyFileSize": "±{sizeMb} MB",
+  "@historyFileSize": {
+    "placeholders": {
+      "sizeMb": {
+        "type": "String"
+      }
+    }
+  },
+  "titleSettings": "Ajustes",
+  "sectionExtraction": "Extracción",
+  "labelFormat": "Formato de Archivo",
+  "labelJpegQuality": "Calidad JPEG",
+  "sectionAppearance": "Apariencia",
+  "themeDark": "Oscuro",
+  "themeLight": "Claro",
+  "themeSystem": "Sistema",
+  "sectionLanguage": "Idioma",
+  "titleSelectLanguage": "Seleccionar Idioma",
+  "searchLanguage": "Buscar idioma...",
+  "sectionSuggested": "Sugerido",
+  "sectionAllLanguages": "Todos los Idiomas",
+  "languageChanged": "Idioma cambiado",
+  "btnUndo": "Deshacer",
+  "dialogRtlTitle": "¿Cambiar Diseño (RTL)?",
+  "dialogRtlMessage": "Cambiar a {language} invertirá todo el diseño de la interfaz. ¿Deseas continuar?",
+  "@dialogRtlMessage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "btnApply": "Aplicar",
+  "sectionAbout": "Acerca de",
+  "titleHome": "Inicio",
+  "btnPickVideo": "Elegir Video",
+  "homeHeadline": "Captura momentos\nde tus videos.",
+  "homeSubtitle": "Extrae fotogramas fijos con precisión.",
+  "homePickVideo": "Seleccionar video",
+  "homeSupportedFormats": "MP4 · MOV · MKV · WEBM",
+  "homePickFolder": "Seleccionar carpeta",
+  "tabExtract": "Extraer",
+  "titleResults": "Resultados",
+  "btnSelectAll": "Seleccionar todo",
+  "btnDeselectAll": "Deseleccionar todo",
+  "btnSaveToGallery": "Guardar en Galería",
+  "btnShare": "Compartir",
+  "btnViewResults": "Ver Resultados",
+  "resultsSelectedCount": "{count} fotogramas · {sizeMb} MB",
+  "@resultsSelectedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "sizeMb": {
+        "type": "String"
+      }
+    }
+  },
+  "folderPickNotice": "La selección de carpeta estará disponible en una próxima actualización",
+  "titleDeleteSession": "Eliminar Historial",
+  "confirmDeleteSession": "¿Estás seguro de que deseas eliminar este elemento del historial?",
+  "btnDelete": "Eliminar",
+  "customIntervalTitle": "Definir Intervalo",
+  "customIntervalHint": "Segundos (ej. 0.1 o 3)",
+  "titlePhotos": "Fotos ({count})",
+  "@titlePhotos": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "resultsSubtitle": "Toca para seleccionar fotos",
+  "btnSaveAll": "Guardar Todo",
+  "btnSaveSelected": "Guardar Seleccionadas",
+  "savedToFolder": "{count} fotogramas guardados en {folder}",
+  "@savedToFolder": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "folder": {
+        "type": "String"
+      }
+    }
+  },
+  "errorSharePhotos": "Error al compartir fotos",
+  "sectionStorage": "Almacenamiento y Carpeta",
+  "labelOrganizeByVideo": "Organizar por Video",
+  "subOrganizeByVideo": "Crea automáticamente una subcarpeta con el nombre del video para mantener organizados los fotogramas.",
+  "labelPickFolder": "Seleccionar Carpeta de Destino",
+  "tooltipResetDefault": "Restablecer a Predeterminado",
+  "storageFolderChanged": "Carpeta de almacenamiento cambiada a {path}",
+  "@storageFolderChanged": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "titleSelectVideoCount": "Seleccionar Video ({count})",
+  "@titleSelectVideoCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
+}

@@ -12,7 +12,9 @@ void main() {
     await tester.pumpWidget(const ProviderScope(child: SelaApp()));
     await tester.pumpAndSettle();
 
-    expect(find.text('Pilih Video'), findsOneWidget);
-    expect(find.text('Beranda'), findsWidgets);
+    expect(find.text('Pilih video'), findsOneWidget);
+    expect(find.text('Ekstrak'), findsOneWidget);
+    expect(find.text('Riwayat'), findsOneWidget);
+    expect(find.text('Setelan'), findsOneWidget);
   });
 }

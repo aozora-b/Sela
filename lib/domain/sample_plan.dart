@@ -99,8 +99,8 @@ List<double> planPoints(VideoInfo info, ExtractOptions opt) {
 int estimateOutputBytes(VideoInfo info, ExtractOptions opt, int count) {
   final pixels = (info.width * info.height).clamp(1, double.infinity).toInt();
   final perPixel = opt.fmt == OutputFormat.png
-      ? 1.5
-      : 0.15 + 0.35 * (opt.quality / 100.0);
+      ? 0.40
+      : 0.02 + 0.08 * (opt.quality / 100.0);
   final actualCount = count < 1 ? 1 : count;
   return (actualCount * pixels * perPixel).toInt();
 }

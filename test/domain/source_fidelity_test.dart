@@ -44,7 +44,7 @@ import 'package:sela/domain/models.dart';
 }
 
 void main() {
-  group('Source Resolution Fidelity Verification (Tahap 7)', () {
+  group('Source Resolution Fidelity Ve rification (Tahap 7)', () {
     test('VideoInfo resolution getter produces exact width and height', () {
       const infoLow = VideoInfo(
         path: 'assets/test.mp4',
@@ -89,6 +89,30 @@ void main() {
         );
         expect(width, 1920);
         expect(height, 1080);
+      },
+    );
+
+    test(
+      'frameForTime and timeForFrame maintain 1-to-1 consistency (315 frames / 13.1s)',
+      () {
+        const infoVfr = VideoInfo(
+          path: 'sample_vfr.mp4',
+          durationS: 13.1,
+          fps: 315 / 13.1,
+          frameCount: 315,
+          width: 1920,
+          height: 1080,
+          codec: 'h264',
+        );
+        expect(infoVfr.frameForTime(0.0), 1);
+        expect(infoVfr.frameForTime(13.1), 315);
+        expect(infoVfr.timeForFrame(1), 0.0);
+        expect(infoVfr.timeForFrame(315), closeTo(13.1, 1e-6));
+
+        for (final idx in [1, 2, 150, 245, 314, 315]) {
+          final t = infoVfr.timeForFrame(idx);
+          expect(infoVfr.frameForTime(t), idx);
+        }
       },
     );
   });

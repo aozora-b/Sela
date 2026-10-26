@@ -1,0 +1,219 @@
+{
+  "@@locale": "ur",
+  "appName": "سیلا",
+  "captureModeManual": "دستی",
+  "captureModeInterval": "وقفہ",
+  "btnSaveFrame": "یہ فریم محفوظ کریں",
+  "btnSaveMarked": "تمام نشان زدہ فریم محفوظ کریں",
+  "btnStartExtraction": "استخراج شروع کریں",
+  "intervalCustom": "اپنی مرضی کا",
+  "intervalSeconds": "{seconds} سیکنڈ",
+  "@intervalSeconds": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "frameEstimate": "تقریباً {count} فریم",
+  "@frameEstimate": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "frameIndicator": "فریم {current} / {total}",
+  "@frameIndicator": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "errorFailedExtract": "فریم حاصل کرنے میں ناکامی",
+  "titleCapture": "استخراج",
+  "progressFrames": "{current} / {total} فریم",
+  "@progressFrames": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "progressRemaining": "باقی وقت {time}",
+  "@progressRemaining": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "btnCancel": "منسوخ کریں",
+  "btnOpenGallery": "گیلری کھولیں",
+  "btnClose": "بند کریں",
+  "extractionComplete": "Pictures/Sela میں {count} فریم محفوظ ہو گئے",
+  "@extractionComplete": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "extractionCancelled": "استخراج منسوخ کر دیا گیا۔ {count} فریم محفوظ ہوئے۔",
+  "@extractionCancelled": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "errorMaxFramesExceeded": "زیادہ سے زیادہ {max} فریم کی حد تجاوز کر گئی ہے۔ دورانیہ کم کریں یا وقفہ بڑھائیں۔",
+  "@errorMaxFramesExceeded": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "singleFrameSaved": "فریم Pictures/Sela میں محفوظ ہو گیا",
+  "errorSaveFrame": "فریم محفوظ کرنے میں ناکامی",
+  "titleExtracting": "فریم نکالے جا رہے ہیں...",
+  "titleHistory": "تاریخچہ",
+  "emptyHistory": "ابھی تک کوئی تاریخچہ نہیں ہے",
+  "dialogResumeTitle": "کیا استخراج جاری رکھیں؟",
+  "dialogResumeMessage": "فریم {nextFrame} سے جاری رکھیں؟",
+  "@dialogResumeMessage": {
+    "placeholders": {
+      "nextFrame": {
+        "type": "int"
+      }
+    }
+  },
+  "btnResume": "جاری رکھیں",
+  "btnRestart": "دوبارہ شروع کریں",
+  "sessionDeleted": "تاریخچہ حذف ہو گیا",
+  "historyTotalFrames": "{count} فریم",
+  "@historyTotalFrames": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "historyFileSize": "تقریباً {sizeMb} ایم بی",
+  "@historyFileSize": {
+    "placeholders": {
+      "sizeMb": {
+        "type": "String"
+      }
+    }
+  },
+  "titleSettings": "ترتیبات",
+  "sectionExtraction": "استخراج",
+  "labelFormat": "فائل فارمیٹ",
+  "labelJpegQuality": "جے پی ای جی کوالٹی",
+  "sectionAppearance": "ظاہری شکل",
+  "themeDark": "ڈارک",
+  "themeLight": "لائٹ",
+  "themeSystem": "سسٹم",
+  "sectionLanguage": "زبان",
+  "titleSelectLanguage": "زبان منتخب کریں",
+  "searchLanguage": "زبان تلاش کریں...",
+  "sectionSuggested": "تجویز کردہ",
+  "sectionAllLanguages": "تمام زبانیں",
+  "languageChanged": "زبان تبدیل ہو گئی",
+  "btnUndo": "کالعدم کریں",
+  "dialogRtlTitle": "لے آؤٹ تبدیل کریں (RTL)؟",
+  "dialogRtlMessage": "{language} پر سوئچ کرنے سے پورا انٹرفیس معکوس ہو جائے گا۔ کیا آپ جاری رکھنا چاہتے ہیں؟",
+  "@dialogRtlMessage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "btnApply": "لاگو کریں",
+  "sectionAbout": "کے بارے میں",
+  "titleHome": "ہوم",
+  "btnPickVideo": "ویڈیو منتخب کریں",
+  "homeHeadline": "ویڈیوز سے\nلمحات محفوظ کریں۔",
+  "homeSubtitle": "درست ترین انداز میں اسٹیل فریم نکالیں۔",
+  "homePickVideo": "ویڈیو منتخب کریں",
+  "homeSupportedFormats": "MP4 · MOV · MKV · WEBM",
+  "homePickFolder": "فولڈر منتخب کریں",
+  "tabExtract": "استخراج",
+  "titleResults": "نتائج",
+  "btnSelectAll": "سب منتخب کریں",
+  "btnDeselectAll": "انتخاب ختم کریں",
+  "btnSaveToGallery": "گیلری میں محفوظ کریں",
+  "btnShare": "شیئر کریں",
+  "btnViewResults": "نتائج دیکھیں",
+  "resultsSelectedCount": "{count} فریم · {sizeMb} ایم بی",
+  "@resultsSelectedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "sizeMb": {
+        "type": "String"
+      }
+    }
+  },
+  "folderPickNotice": "فولڈر کا انتخاب آئندہ اپ ڈیٹ میں دستیاب ہوگا",
+  "titleDeleteSession": "تاریخچہ حذف کریں",
+  "confirmDeleteSession": "کیا آپ واقعی اس تاریخچے کو حذف کرنا چاہتے ہیں؟",
+  "btnDelete": "حذف کریں",
+  "customIntervalTitle": "وقفہ مقرر کریں",
+  "customIntervalHint": "سیکنڈ (مثال: 0.1 یا 3)",
+  "titlePhotos": "تصاویر ({count})",
+  "@titlePhotos": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "resultsSubtitle": "تصاویر منتخب کرنے کے لیے ٹیپ کریں",
+  "btnSaveAll": "تمام محفوظ کریں",
+  "btnSaveSelected": "منتخب کردہ محفوظ کریں",
+  "savedToFolder": "{count} فریم {folder} میں محفوظ ہو گئے",
+  "@savedToFolder": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "folder": {
+        "type": "String"
+      }
+    }
+  },
+  "errorSharePhotos": "تصاویر شیئر کرنے میں ناکامی",
+  "sectionStorage": "اسٹوریج اور فولڈر",
+  "labelOrganizeByVideo": "ویڈیو کے لحاظ سے منظم کریں",
+  "subOrganizeByVideo": "فریموں کو منظم رکھنے کے لیے خودکار طور پر ویڈیو کے نام کا ذیلی فولڈر بناتا ہے۔",
+  "labelPickFolder": "محفوظ کرنے کا فولڈر منتخب کریں",
+  "tooltipResetDefault": "ڈیفالٹ پر بحال کریں",
+  "storageFolderChanged": "اسٹوریج کا فولڈر تبدیل ہو کر {path} ہو گیا",
+  "@storageFolderChanged": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "titleSelectVideoCount": "ویڈیو منتخب کریں ({count})",
+  "@titleSelectVideoCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
+}

@@ -43,14 +43,14 @@ void main() {
     await tester.tap(find.text('Open'));
     await tester.pumpAndSettle();
 
-    // Select English
+    // Select English -> SnackBar immediately matches selected language
     await tester.tap(find.text('English').first);
     await tester.pumpAndSettle();
 
-    expect(find.text('Bahasa diubah'), findsOneWidget);
-    expect(find.text('Urungkan'), findsOneWidget);
+    expect(find.text('Language changed'), findsOneWidget);
+    expect(find.text('Undo'), findsOneWidget);
 
-    await tester.tap(find.text('Urungkan'));
+    await tester.tap(find.text('Undo'));
     await tester.pumpAndSettle();
   });
 

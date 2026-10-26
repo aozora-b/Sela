@@ -10,6 +10,7 @@ import '../../theme/sela_text.dart';
 import 'settings_controller.dart';
 import 'widgets/format_selector_card.dart';
 import 'widgets/language_picker_sheet.dart';
+import 'widgets/storage_folder_card.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -45,6 +46,9 @@ class SettingsScreen extends ConsumerWidget {
         children: [
           _buildSectionHeader(context, l10n.sectionExtraction, colors),
           FormatSelectorCard(settings: settings, notifier: notifier),
+          const SizedBox(height: SelaSpace.xl),
+          _buildSectionHeader(context, l10n.sectionStorage, colors),
+          StorageFolderCard(settings: settings, notifier: notifier),
           const SizedBox(height: SelaSpace.xl),
           _buildSectionHeader(context, l10n.sectionAppearance, colors),
           _buildThemeSelector(settings, notifier, l10n, colors),
@@ -149,7 +153,7 @@ class SettingsScreen extends ConsumerWidget {
           style: SelaText.body.copyWith(color: colors.textPrimary),
         ),
         subtitle: Text(
-          'v1.0.0 (build b6)',
+          'v1.0.0',
           style: SelaText.caption.copyWith(color: colors.textSecondary),
         ),
       ),

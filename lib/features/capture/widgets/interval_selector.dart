@@ -10,13 +10,89 @@ import '../capture_controller.dart';
 class IntervalSelector extends ConsumerWidget {
   const IntervalSelector({super.key});
 
+  static const _presets = [0.25, 0.5, 1.0, 2.0, 5.0];
+
+  void _showCustomDialog(BuildContext context, WidgetRef ref, double current) {
+    final l10n = AppLocalizations.of(context)!;
+    final colors = context.colors;
+    final init = current == current.roundToDouble()
+        ? current.toStringAsFixed(0)
+        : current.toString();
+    final ctrl = TextEditingController(text: init);
+
+    showDialog<void>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: colors.bgElevated,
+        shape: const RoundedRectangleBorder(borderRadius: SelaRadius.cardBorderRadius),
+        title: Text(l10n.customIntervalTitle, style: SelaText.titleCard),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Wrap(
+              spacing: SelaSpace.xs,
+              children: [0.1, 0.2, 3.0, 10.0, 30.0].map((v) {
+                final txt = v == v.roundToDouble() ? v.toStringAsFixed(0) : v.toString();
+                return ActionChip(
+                  label: Text('${txt}s'),
+                  onPressed: () => ctrl.text = txt,
+                  backgroundColor: colors.surface,
+                );
+              }).toList(),
+            ),
+            const SizedBox(height: SelaSpace.md),
+            TextField(
+              controller: ctrl,
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              autofocus: true,
+              style: SelaText.body.copyWith(color: colors.textPrimary),
+              decoration: InputDecoration(
+                hintText: l10n.customIntervalHint,
+                isDense: true,
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text(l10n.btnCancel),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: colors.accent,
+              foregroundColor: Colors.white,
+            ),
+            onPressed: () {
+              final p = double.tryParse(ctrl.text.replaceAll(',', '.'));
+              if (p != null && p > 0 && p <= 3600) {
+                ref.read(captureProvider.notifier).selectInterval(p);
+                Navigator.pop(ctx);
+              }
+            },
+            child: Text(l10n.btnApply),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(captureProvider);
     final l10n = AppLocalizations.of(context)!;
     final colors = context.colors;
 
-    final intervals = [0.25, 0.5, 1.0, 2.0, 5.0];
+    final isCustom = !_presets.contains(state.selectedInterval);
+    final customLabel = isCustom
+        ? l10n.intervalSeconds(
+            state.selectedInterval == state.selectedInterval.roundToDouble()
+                ? state.selectedInterval.toStringAsFixed(0)
+                : state.selectedInterval.toString(),
+          )
+        : l10n.intervalCustom;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -29,7 +105,7 @@ class IntervalSelector extends ConsumerWidget {
           ),
           child: Row(
             children: [
-              for (final val in intervals) ...[
+              for (final val in _presets) ...[
                 _IntervalChip(
                   label: l10n.intervalSeconds(
                     val == val.roundToDouble()
@@ -43,16 +119,16 @@ class IntervalSelector extends ConsumerWidget {
                 const SizedBox(width: SelaSpace.sm),
               ],
               _IntervalChip(
-                label: l10n.intervalCustom,
-                isActive: false,
-                onTap: () {},
+                label: customLabel,
+                isActive: isCustom,
+                onTap: () => _showCustomDialog(context, ref, state.selectedInterval),
               ),
             ],
           ),
         ),
         const SizedBox(height: SelaSpace.lg),
         Text(
-          l10n.frameEstimate(state.estimatedFrameCount, state.estimatedSizeMb),
+          l10n.frameEstimate(state.estimatedFrameCount),
           style: SelaText.body.copyWith(color: colors.textSecondary),
           textAlign: TextAlign.center,
         ),

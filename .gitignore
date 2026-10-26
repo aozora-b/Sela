@@ -44,6 +44,17 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# Build & Binary Outputs
+/build/
+build/
+android/build/
+android/app/build/
+.gradle/
+android/.gradle/
+release/
+*.apk
+*.aab
+
 # Widget Preview related
 .widget_preview/
 

@@ -37,6 +37,36 @@ class SettingsController extends Notifier<AppSettings> {
     state = state.copyWith(localeCode: code);
     await _repo.saveSettings(state);
   }
+
+  Future<void> setCustomFolder(String folder) async {
+    final clean = folder.trim().replaceAll('/', '').replaceAll('\\', '');
+    state = state.copyWith(
+      customFolder: clean.isEmpty ? 'Sela' : clean,
+      clearTreeUri: true,
+    );
+    await _repo.saveSettings(state);
+  }
+
+  Future<void> setOutputDirectory({
+    required String displayPath,
+    required String treeUri,
+  }) async {
+    state = state.copyWith(
+      customFolder: displayPath.trim().isEmpty ? 'Sela' : displayPath.trim(),
+      customTreeUri: treeUri,
+    );
+    await _repo.saveSettings(state);
+  }
+
+  Future<void> resetOutputDirectory() async {
+    state = state.copyWith(customFolder: 'Sela', clearTreeUri: true);
+    await _repo.saveSettings(state);
+  }
+
+  Future<void> setOrganizeByVideo(bool organize) async {
+    state = state.copyWith(organizeByVideo: organize);
+    await _repo.saveSettings(state);
+  }
 }
 
 final settingsProvider = NotifierProvider<SettingsController, AppSettings>(

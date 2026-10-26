@@ -1,0 +1,219 @@
+{
+  "@@locale": "fa",
+  "appName": "سلا",
+  "captureModeManual": "دستی",
+  "captureModeInterval": "فاصله‌ای",
+  "btnSaveFrame": "ذخیره این فریم",
+  "btnSaveMarked": "ذخیره همه فریم‌های نشان‌گذاری‌شده",
+  "btnStartExtraction": "شروع استخراج",
+  "intervalCustom": "سفارشی",
+  "intervalSeconds": "{seconds} ثانیه",
+  "@intervalSeconds": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "frameEstimate": "تقریباً {count} فریم",
+  "@frameEstimate": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "frameIndicator": "فریم {current} از {total}",
+  "@frameIndicator": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "errorFailedExtract": "خطا در استخراج فریم",
+  "titleCapture": "استخراج",
+  "progressFrames": "{current} از {total} فریم",
+  "@progressFrames": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "progressRemaining": "باقی‌مانده {time}",
+  "@progressRemaining": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "btnCancel": "لغو",
+  "btnOpenGallery": "باز کردن گالری",
+  "btnClose": "بستن",
+  "extractionComplete": "{count} فریم در Pictures/Sela ذخیره شد",
+  "@extractionComplete": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "extractionCancelled": "استخراج لغو شد. {count} فریم ذخیره گردید.",
+  "@extractionCancelled": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "errorMaxFramesExceeded": "حداکثر مجاز {max} فریم فراتر رفته است. مدت را کاهش یا فاصله را افزایش دهید.",
+  "@errorMaxFramesExceeded": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "singleFrameSaved": "فریم در Pictures/Sela ذخیره شد",
+  "errorSaveFrame": "خطا در ذخیره فریم",
+  "titleExtracting": "در حال استخراج فریم‌ها...",
+  "titleHistory": "تاریخچه",
+  "emptyHistory": "هنوز تاریخچه استخراجی وجود ندارد",
+  "dialogResumeTitle": "ادامه استخراج؟",
+  "dialogResumeMessage": "از فریم {nextFrame} ادامه داده شود؟",
+  "@dialogResumeMessage": {
+    "placeholders": {
+      "nextFrame": {
+        "type": "int"
+      }
+    }
+  },
+  "btnResume": "ادامه",
+  "btnRestart": "شروع مجدد",
+  "sessionDeleted": "تاریخچه حذف شد",
+  "historyTotalFrames": "{count} فریم",
+  "@historyTotalFrames": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "historyFileSize": "تقریباً {sizeMb} مگابایت",
+  "@historyFileSize": {
+    "placeholders": {
+      "sizeMb": {
+        "type": "String"
+      }
+    }
+  },
+  "titleSettings": "تنظیمات",
+  "sectionExtraction": "استخراج",
+  "labelFormat": "فرمت فایل",
+  "labelJpegQuality": "کیفیت JPEG",
+  "sectionAppearance": "ظاهر",
+  "themeDark": "تاریک",
+  "themeLight": "روشن",
+  "themeSystem": "سیستم",
+  "sectionLanguage": "زبان",
+  "titleSelectLanguage": "انتخاب زبان",
+  "searchLanguage": "جستجوی زبان...",
+  "sectionSuggested": "پیشنهادی",
+  "sectionAllLanguages": "همه زبان‌ها",
+  "languageChanged": "زبان تغییر کرد",
+  "btnUndo": "بازگردانی",
+  "dialogRtlTitle": "تغییر چیدمان (RTL)؟",
+  "dialogRtlMessage": "تغییر به {language} کل چیدمان رابط را معکوس می‌کند. ادامه می‌دهید؟",
+  "@dialogRtlMessage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "btnApply": "اعمال",
+  "sectionAbout": "درباره",
+  "titleHome": "خانه",
+  "btnPickVideo": "انتخاب ویدیو",
+  "homeHeadline": "ثبت لحظات\nاز ویدیوها.",
+  "homeSubtitle": "استخراج دقیق فریم‌های ثابت با وضوح بالا.",
+  "homePickVideo": "انتخاب ویدیو",
+  "homeSupportedFormats": "MP4 · MOV · MKV · WEBM",
+  "homePickFolder": "انتخاب پوشه",
+  "tabExtract": "استخراج",
+  "titleResults": "نتایج",
+  "btnSelectAll": "انتخاب همه",
+  "btnDeselectAll": "لغو انتخاب",
+  "btnSaveToGallery": "ذخیره در گالری",
+  "btnShare": "اشتراک‌گذاری",
+  "btnViewResults": "مشاهده نتایج",
+  "resultsSelectedCount": "{count} فریم · {sizeMb} مگابایت",
+  "@resultsSelectedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "sizeMb": {
+        "type": "String"
+      }
+    }
+  },
+  "folderPickNotice": "انتخاب پوشه در به‌روزرسانی بعدی در دسترس خواهد بود",
+  "titleDeleteSession": "حذف تاریخچه",
+  "confirmDeleteSession": "آیا از حذف این مورد از تاریخچه اطمینان دارید؟",
+  "btnDelete": "حذف",
+  "customIntervalTitle": "تنظیم فاصله",
+  "customIntervalHint": "ثانیه (مثال: 0.1 یا 3)",
+  "titlePhotos": "عکس‌ها ({count})",
+  "@titlePhotos": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "resultsSubtitle": "برای انتخاب عکس ضربه بزنید",
+  "btnSaveAll": "ذخیره همه",
+  "btnSaveSelected": "ذخیره موارد انتخابی",
+  "savedToFolder": "{count} فریم در {folder} ذخیره شد",
+  "@savedToFolder": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "folder": {
+        "type": "String"
+      }
+    }
+  },
+  "errorSharePhotos": "خطا در اشتراک‌گذاری عکس‌ها",
+  "sectionStorage": "فضای ذخیره‌سازی و پوشه",
+  "labelOrganizeByVideo": "دسته‌بندی بر اساس ویدیو",
+  "subOrganizeByVideo": "پوشه فرعی با نام ویدیو برای مرتب نگه داشتن فریم‌ها ایجاد می‌شود.",
+  "labelPickFolder": "انتخاب پوشه ذخیره‌سازی",
+  "tooltipResetDefault": "بازگردانی به پیش‌فرض",
+  "storageFolderChanged": "پوشه ذخیره‌سازی به {path} تغییر یافت",
+  "@storageFolderChanged": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "titleSelectVideoCount": "انتخاب ویدیو ({count})",
+  "@titleSelectVideoCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
+}

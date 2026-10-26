@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../theme/sela_colors.dart';
 import '../../../theme/sela_text.dart';
 import '../capture_controller.dart';
+import 'scrubber_painters.dart';
 import 'tick_painter.dart';
 
 class TimelineScrubber extends ConsumerWidget {
@@ -16,6 +17,33 @@ class TimelineScrubber extends ConsumerWidget {
     final m = (timeS / 60).floor().toString().padLeft(2, '0');
     final s = (timeS % 60).floor().toString().padLeft(2, '0');
     return '$m:$s.${((timeS % 1) * 10).floor()}';
+  }
+
+  void _seek(
+    WidgetRef ref,
+    double localDx,
+    double width,
+    double duration, {
+    required bool exact,
+  }) {
+    final targetTime = (localDx / width).clamp(0.0, 1.0) * duration;
+    final oldState = ref.read(captureProvider);
+    if ((oldState.currentTime - targetTime).abs() < 0.001) return;
+
+    ref.read(captureProvider.notifier).seekTo(targetTime, exact: exact);
+
+    final minT = math.min(oldState.currentTime, targetTime);
+    final maxT = math.max(oldState.currentTime, targetTime);
+    final points = oldState.isExactMode
+        ? oldState.savedFrames
+        : oldState.intervalPoints;
+
+    for (final tick in points) {
+      if (tick >= minT && tick <= maxT) {
+        HapticFeedback.selectionClick();
+        break;
+      }
+    }
   }
 
   @override
@@ -43,21 +71,32 @@ class TimelineScrubber extends ConsumerWidget {
               details.localPosition.dx,
               constraints.maxWidth,
               duration,
+              exact: state.isExactMode,
             ),
+            onHorizontalDragStart: (_) {
+              ref.read(captureProvider.notifier).setScrubbing(true);
+            },
             onHorizontalDragUpdate: (details) => _seek(
               ref,
               details.localPosition.dx,
               constraints.maxWidth,
               duration,
+              exact: false,
             ),
+            onHorizontalDragEnd: (_) {
+              ref.read(captureProvider.notifier).setScrubbing(false);
+            },
+            onHorizontalDragCancel: () {
+              ref.read(captureProvider.notifier).setScrubbing(false);
+            },
             child: SizedBox(
-              height: 32, // space for 20dp handle
+              height: 32,
               width: double.infinity,
               child: Stack(
                 fit: StackFit.expand,
                 children: [
                   CustomPaint(
-                    painter: _TrackPainter(
+                    painter: TrackPainter(
                       progress: currentProgress,
                       trackColor: colors.border,
                       activeTrackColor: colors.accent,
@@ -72,7 +111,7 @@ class TimelineScrubber extends ConsumerWidget {
                     ),
                   ),
                   CustomPaint(
-                    painter: _HandlePainter(
+                    painter: HandlePainter(
                       progress: currentProgress,
                       handleColor: colors.bgElevated,
                       borderColor: colors.accent,
@@ -100,98 +139,4 @@ class TimelineScrubber extends ConsumerWidget {
       ],
     );
   }
-
-  void _seek(WidgetRef ref, double localDx, double width, double duration) {
-    final targetTime = (localDx / width).clamp(0.0, 1.0) * duration;
-    final oldState = ref.read(captureProvider);
-    if ((oldState.currentTime - targetTime).abs() < 0.001) return;
-
-    ref.read(captureProvider.notifier).seekTo(targetTime);
-
-    final minT = math.min(oldState.currentTime, targetTime);
-    final maxT = math.max(oldState.currentTime, targetTime);
-    final points = oldState.isExactMode
-        ? oldState.savedFrames
-        : oldState.intervalPoints;
-
-    for (final tick in points) {
-      if (tick >= minT && tick <= maxT) {
-        HapticFeedback.selectionClick();
-        break;
-      }
-    }
-  }
-}
-
-class _TrackPainter extends CustomPainter {
-  final double progress;
-  final Color trackColor;
-  final Color activeTrackColor;
-
-  const _TrackPainter({
-    required this.progress,
-    required this.trackColor,
-    required this.activeTrackColor,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final cy = size.height / 2;
-    const r = Radius.circular(2);
-    canvas.drawRRect(
-      RRect.fromLTRBR(0, cy - 2, size.width, cy + 2, r),
-      Paint()..color = trackColor,
-    );
-    canvas.drawRRect(
-      RRect.fromLTRBR(
-        0,
-        cy - 2,
-        size.width * progress.clamp(0.0, 1.0),
-        cy + 2,
-        r,
-      ),
-      Paint()..color = activeTrackColor,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant _TrackPainter old) =>
-      old.progress != progress ||
-      old.trackColor != trackColor ||
-      old.activeTrackColor != activeTrackColor;
-}
-
-class _HandlePainter extends CustomPainter {
-  final double progress;
-  final Color handleColor;
-  final Color borderColor;
-
-  const _HandlePainter({
-    required this.progress,
-    required this.handleColor,
-    required this.borderColor,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(
-      progress.clamp(0.0, 1.0) * size.width,
-      size.height / 2,
-    );
-    canvas.drawCircle(center, 10, Paint()..color = handleColor);
-    canvas.drawCircle(
-      center,
-      10,
-      Paint()
-        ..color = borderColor
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 2.0,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant _HandlePainter old) =>
-      old.progress != progress ||
-      old.handleColor != handleColor ||
-      old.borderColor != borderColor;
 }

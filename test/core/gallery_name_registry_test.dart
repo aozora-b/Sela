@@ -7,7 +7,7 @@ class FakeGalleryWriter implements GalleryWriter {
   final List<String> writtenNames = [];
 
   @override
-  Future<bool> exists(String displayName) async {
+  Future<bool> exists(String displayName, {String? subfolder}) async {
     return existingNames.contains(displayName);
   }
 
@@ -16,6 +16,7 @@ class FakeGalleryWriter implements GalleryWriter {
     required List<int> bytes,
     required String displayName,
     required String mimeType,
+    String? subfolder,
   }) async {
     writtenNames.add(displayName);
     existingNames.add(displayName);
@@ -24,6 +25,9 @@ class FakeGalleryWriter implements GalleryWriter {
 
   @override
   Future<bool> openGallery() async => true;
+
+  @override
+  Future<bool> shareImages(List<String> paths) async => true;
 }
 
 void main() {

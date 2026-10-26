@@ -1,0 +1,219 @@
+{
+  "@@locale": "ja",
+  "appName": "Sela",
+  "captureModeManual": "手動",
+  "captureModeInterval": "間隔",
+  "btnSaveFrame": "このフレームを保存",
+  "btnSaveMarked": "マークした全フレームを保存",
+  "btnStartExtraction": "抽出を開始",
+  "intervalCustom": "カスタム",
+  "intervalSeconds": "{seconds}秒",
+  "@intervalSeconds": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "frameEstimate": "約{count}フレーム",
+  "@frameEstimate": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "frameIndicator": "フレーム {current} / {total}",
+  "@frameIndicator": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "errorFailedExtract": "フレームの取得に失敗しました",
+  "titleCapture": "抽出",
+  "progressFrames": "{current} / {total} フレーム",
+  "@progressFrames": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "progressRemaining": "残り {time}",
+  "@progressRemaining": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "btnCancel": "キャンセル",
+  "btnOpenGallery": "ギャラリーを開く",
+  "btnClose": "閉じる",
+  "extractionComplete": "{count}枚のフレームをPictures/Selaに保存しました",
+  "@extractionComplete": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "extractionCancelled": "抽出がキャンセルされました。{count}枚保存済み。",
+  "@extractionCancelled": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "errorMaxFramesExceeded": "上限の{max}フレームを超えました。時間を短くするか間隔を広げてください。",
+  "@errorMaxFramesExceeded": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "singleFrameSaved": "フレームをPictures/Selaに保存しました",
+  "errorSaveFrame": "フレームの保存に失敗しました",
+  "titleExtracting": "フレームを抽出中...",
+  "titleHistory": "履歴",
+  "emptyHistory": "抽出履歴はまだありません",
+  "dialogResumeTitle": "抽出を再開しますか？",
+  "dialogResumeMessage": "フレーム {nextFrame} から続行しますか？",
+  "@dialogResumeMessage": {
+    "placeholders": {
+      "nextFrame": {
+        "type": "int"
+      }
+    }
+  },
+  "btnResume": "再開",
+  "btnRestart": "最初から",
+  "sessionDeleted": "履歴を削除しました",
+  "historyTotalFrames": "{count}フレーム",
+  "@historyTotalFrames": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "historyFileSize": "約{sizeMb} MB",
+  "@historyFileSize": {
+    "placeholders": {
+      "sizeMb": {
+        "type": "String"
+      }
+    }
+  },
+  "titleSettings": "設定",
+  "sectionExtraction": "抽出",
+  "labelFormat": "ファイル形式",
+  "labelJpegQuality": "JPEG品質",
+  "sectionAppearance": "外観",
+  "themeDark": "ダーク",
+  "themeLight": "ライト",
+  "themeSystem": "システム",
+  "sectionLanguage": "言語",
+  "titleSelectLanguage": "言語を選択",
+  "searchLanguage": "言語を検索...",
+  "sectionSuggested": "おすすめ",
+  "sectionAllLanguages": "すべての言語",
+  "languageChanged": "言語を変更しました",
+  "btnUndo": "元に戻す",
+  "dialogRtlTitle": "レイアウト方向(RTL)を変更しますか？",
+  "dialogRtlMessage": "{language}に変更すると、全体のUIレイアウトが反転します。続行しますか？",
+  "@dialogRtlMessage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "btnApply": "適用",
+  "sectionAbout": "アプリについて",
+  "titleHome": "ホーム",
+  "btnPickVideo": "動画を選択",
+  "homeHeadline": "動画から\n瞬間を切り取る。",
+  "homeSubtitle": "正確に静止画フレームを抽出します。",
+  "homePickVideo": "動画を選択",
+  "homeSupportedFormats": "MP4 · MOV · MKV · WEBM",
+  "homePickFolder": "フォルダを選択",
+  "tabExtract": "抽出",
+  "titleResults": "結果",
+  "btnSelectAll": "すべて選択",
+  "btnDeselectAll": "選択を解除",
+  "btnSaveToGallery": "ギャラリーに保存",
+  "btnShare": "共有",
+  "btnViewResults": "結果を表示",
+  "resultsSelectedCount": "{count}フレーム · {sizeMb} MB",
+  "@resultsSelectedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "sizeMb": {
+        "type": "String"
+      }
+    }
+  },
+  "folderPickNotice": "フォルダ選択機能は今後のアップデートで追加されます",
+  "titleDeleteSession": "履歴を削除",
+  "confirmDeleteSession": "この履歴を削除してもよろしいですか？",
+  "btnDelete": "削除",
+  "customIntervalTitle": "間隔を設定",
+  "customIntervalHint": "秒数 (例: 0.1 または 3)",
+  "titlePhotos": "写真 ({count})",
+  "@titlePhotos": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "resultsSubtitle": "タップして写真を選択",
+  "btnSaveAll": "すべて保存",
+  "btnSaveSelected": "選択項目を保存",
+  "savedToFolder": "{folder} に {count} 枚保存しました",
+  "@savedToFolder": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "folder": {
+        "type": "String"
+      }
+    }
+  },
+  "errorSharePhotos": "写真の共有に失敗しました",
+  "sectionStorage": "ストレージとフォルダ",
+  "labelOrganizeByVideo": "動画ごとに整理",
+  "subOrganizeByVideo": "動画名のサブフォルダを自動作成し、フレームを整理して保存します。",
+  "labelPickFolder": "保存先フォルダを選択",
+  "tooltipResetDefault": "デフォルトに戻す",
+  "storageFolderChanged": "保存先フォルダを {path} に変更しました",
+  "@storageFolderChanged": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "titleSelectVideoCount": "動画を選択 ({count})",
+  "@titleSelectVideoCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
+}

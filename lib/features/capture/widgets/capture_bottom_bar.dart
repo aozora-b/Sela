@@ -44,11 +44,19 @@ class CaptureBottomBar extends ConsumerWidget {
                   final msg = uri != null
                       ? l10n.singleFrameSaved
                       : l10n.errorSaveFrame;
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text(msg)));
+                  final messenger = ScaffoldMessenger.of(context);
+                  messenger.clearSnackBars();
+                  messenger.showSnackBar(
+                    SnackBar(
+                      duration: const Duration(seconds: 2),
+                      content: Text(msg),
+                    ),
+                  );
                 } else {
                   if (state.estimatedFrameCount > maxFrames) {
-                    ScaffoldMessenger.of(context).showSnackBar(
+                    final messenger = ScaffoldMessenger.of(context);
+                    messenger.clearSnackBars();
+                    messenger.showSnackBar(
                       SnackBar(
                         content: Text(l10n.errorMaxFramesExceeded(maxFrames)),
                       ),
@@ -74,21 +82,28 @@ class CaptureBottomBar extends ConsumerWidget {
           if (state.isExactMode) ...[
             const SizedBox(height: SelaSpace.md),
             TextButton(
-              onPressed: state.savedFrames.isEmpty
+              onPressed: state.markedFrames.isEmpty
                   ? null
-                  : () {
-                      ScaffoldMessenger.of(context).showSnackBar(
+                  : () async {
+                      final uris = await ref
+                          .read(captureProvider.notifier)
+                          .saveAllMarkedFrames();
+                      if (!context.mounted) return;
+                      final messenger = ScaffoldMessenger.of(context);
+                      messenger.clearSnackBars();
+                      messenger.showSnackBar(
                         SnackBar(
-                          content: Text(
-                            l10n.extractionComplete(state.savedFrames.length),
-                          ),
+                          duration: const Duration(seconds: 2),
+                          content: Text(l10n.extractionComplete(uris.length)),
                         ),
                       );
                     },
               child: Text(
-                l10n.btnSaveMarked,
+                state.markedFrames.isEmpty
+                    ? l10n.btnSaveMarked
+                    : '${l10n.btnSaveMarked} (${state.markedFrames.length})',
                 style: SelaText.button.copyWith(
-                  color: state.savedFrames.isEmpty
+                  color: state.markedFrames.isEmpty
                       ? colors.textSecondary
                       : colors.accent,
                 ),

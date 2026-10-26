@@ -36,8 +36,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String frameEstimate(int count, String sizeMb) {
-    return '±$count frames · ±$sizeMb MB';
+  String frameEstimate(int count) {
+    return '±$count frames';
   }
 
   @override
@@ -177,7 +177,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String dialogRtlMessage(String language) {
-    return 'Changing to $language will mirror the entire user interface. Continue?';
+    return 'Switching to $language will mirror the entire interface layout. Continue?';
   }
 
   @override
@@ -191,4 +191,113 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get btnPickVideo => 'Pick Video';
+
+  @override
+  String get homeHeadline => 'Capture moments\nfrom video.';
+
+  @override
+  String get homeSubtitle => 'Extract still frames with precision.';
+
+  @override
+  String get homePickVideo => 'Select video';
+
+  @override
+  String get homeSupportedFormats => 'MP4 · MOV · MKV · WEBM';
+
+  @override
+  String get homePickFolder => 'Select folder';
+
+  @override
+  String get tabExtract => 'Extract';
+
+  @override
+  String get titleResults => 'Results';
+
+  @override
+  String get btnSelectAll => 'Select all';
+
+  @override
+  String get btnDeselectAll => 'Deselect all';
+
+  @override
+  String get btnSaveToGallery => 'Save to Gallery';
+
+  @override
+  String get btnShare => 'Share';
+
+  @override
+  String get btnViewResults => 'View Results';
+
+  @override
+  String resultsSelectedCount(int count, String sizeMb) {
+    return '$count frames · $sizeMb MB';
+  }
+
+  @override
+  String get folderPickNotice =>
+      'Folder selection will be available in an upcoming update';
+
+  @override
+  String get titleDeleteSession => 'Delete History';
+
+  @override
+  String get confirmDeleteSession =>
+      'Are you sure you want to delete this history item?';
+
+  @override
+  String get btnDelete => 'Delete';
+
+  @override
+  String get customIntervalTitle => 'Set Interval';
+
+  @override
+  String get customIntervalHint => 'Seconds (e.g. 0.1 or 3)';
+
+  @override
+  String titlePhotos(int count) {
+    return 'Photos ($count)';
+  }
+
+  @override
+  String get resultsSubtitle => 'Tap to select photos';
+
+  @override
+  String get btnSaveAll => 'Save All';
+
+  @override
+  String get btnSaveSelected => 'Save Selected';
+
+  @override
+  String savedToFolder(int count, String folder) {
+    return '$count frames saved in $folder';
+  }
+
+  @override
+  String get errorSharePhotos => 'Failed to share photos';
+
+  @override
+  String get sectionStorage => 'Storage & Folder';
+
+  @override
+  String get labelOrganizeByVideo => 'Organize by Video';
+
+  @override
+  String get subOrganizeByVideo =>
+      'Automatically creates a subfolder matching the video name to keep frames organized.';
+
+  @override
+  String get labelPickFolder => 'Select Storage Folder';
+
+  @override
+  String get tooltipResetDefault => 'Reset to Default';
+
+  @override
+  String storageFolderChanged(String path) {
+    return 'Storage folder changed to $path';
+  }
+
+  @override
+  String titleSelectVideoCount(int count) {
+    return 'Select Video ($count)';
+  }
 }

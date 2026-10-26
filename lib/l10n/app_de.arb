@@ -1,0 +1,219 @@
+{
+  "@@locale": "de",
+  "appName": "Sela",
+  "captureModeManual": "Manuell",
+  "captureModeInterval": "Intervall",
+  "btnSaveFrame": "Diesen Frame speichern",
+  "btnSaveMarked": "Alle markierten Frames speichern",
+  "btnStartExtraction": "Extraktion starten",
+  "intervalCustom": "Anpassen",
+  "intervalSeconds": "{seconds}s",
+  "@intervalSeconds": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "frameEstimate": "±{count} Frames",
+  "@frameEstimate": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "frameIndicator": "Frame {current} / {total}",
+  "@frameIndicator": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "errorFailedExtract": "Fehler beim Extrahieren des Frames",
+  "titleCapture": "Extraktion",
+  "progressFrames": "{current} / {total} Frames",
+  "@progressFrames": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "progressRemaining": "Verbleibend {time}",
+  "@progressRemaining": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "btnCancel": "Abbrechen",
+  "btnOpenGallery": "Galerie öffnen",
+  "btnClose": "Schließen",
+  "extractionComplete": "{count} Frames in Pictures/Sela gespeichert",
+  "@extractionComplete": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "extractionCancelled": "Extraktion abgebrochen. {count} Frames gespeichert.",
+  "@extractionCancelled": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "errorMaxFramesExceeded": "Maximale Grenze von {max} Frames überschritten. Dauer reduzieren oder Intervall erhöhen.",
+  "@errorMaxFramesExceeded": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "singleFrameSaved": "Frame in Pictures/Sela gespeichert",
+  "errorSaveFrame": "Fehler beim Speichern des Frames",
+  "titleExtracting": "Frames werden extrahiert...",
+  "titleHistory": "Verlauf",
+  "emptyHistory": "Noch kein Extraktionsverlauf vorhanden",
+  "dialogResumeTitle": "Extraktion fortsetzen?",
+  "dialogResumeMessage": "Ab Frame {nextFrame} fortfahren?",
+  "@dialogResumeMessage": {
+    "placeholders": {
+      "nextFrame": {
+        "type": "int"
+      }
+    }
+  },
+  "btnResume": "Fortsetzen",
+  "btnRestart": "Neu starten",
+  "sessionDeleted": "Verlauf gelöscht",
+  "historyTotalFrames": "{count} Frames",
+  "@historyTotalFrames": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "historyFileSize": "±{sizeMb} MB",
+  "@historyFileSize": {
+    "placeholders": {
+      "sizeMb": {
+        "type": "String"
+      }
+    }
+  },
+  "titleSettings": "Einstellungen",
+  "sectionExtraction": "Extraktion",
+  "labelFormat": "Dateiformat",
+  "labelJpegQuality": "JPEG-Qualität",
+  "sectionAppearance": "Erscheinungsbild",
+  "themeDark": "Dunkel",
+  "themeLight": "Hell",
+  "themeSystem": "System",
+  "sectionLanguage": "Sprache",
+  "titleSelectLanguage": "Sprache auswählen",
+  "searchLanguage": "Sprache suchen...",
+  "sectionSuggested": "Vorgeschlagen",
+  "sectionAllLanguages": "Alle Sprachen",
+  "languageChanged": "Sprache geändert",
+  "btnUndo": "Rückgängig",
+  "dialogRtlTitle": "Layout ändern (RTL)?",
+  "dialogRtlMessage": "Der Wechsel zu {language} spiegelt das gesamte Layout der Benutzeroberfläche. Fortfahren?",
+  "@dialogRtlMessage": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "btnApply": "Anwenden",
+  "sectionAbout": "Über",
+  "titleHome": "Startseite",
+  "btnPickVideo": "Video auswählen",
+  "homeHeadline": "Momente aus\nVideos festhalten.",
+  "homeSubtitle": "Standbilder mit Präzision extrahieren.",
+  "homePickVideo": "Video auswählen",
+  "homeSupportedFormats": "MP4 · MOV · MKV · WEBM",
+  "homePickFolder": "Ordner auswählen",
+  "tabExtract": "Extrahieren",
+  "titleResults": "Ergebnisse",
+  "btnSelectAll": "Alle auswählen",
+  "btnDeselectAll": "Auswahl aufheben",
+  "btnSaveToGallery": "In Galerie speichern",
+  "btnShare": "Teilen",
+  "btnViewResults": "Ergebnisse anzeigen",
+  "resultsSelectedCount": "{count} Frames · {sizeMb} MB",
+  "@resultsSelectedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "sizeMb": {
+        "type": "String"
+      }
+    }
+  },
+  "folderPickNotice": "Die Ordnerauswahl wird in einem kommenden Update verfügbar sein",
+  "titleDeleteSession": "Verlauf löschen",
+  "confirmDeleteSession": "Möchten Sie diesen Verlaufseintrag wirklich löschen?",
+  "btnDelete": "Löschen",
+  "customIntervalTitle": "Intervall festlegen",
+  "customIntervalHint": "Sekunden (z. B. 0.1 oder 3)",
+  "titlePhotos": "Fotos ({count})",
+  "@titlePhotos": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "resultsSubtitle": "Tippen, um Fotos auszuwählen",
+  "btnSaveAll": "Alle speichern",
+  "btnSaveSelected": "Ausgewählte speichern",
+  "savedToFolder": "{count} Frames in {folder} gespeichert",
+  "@savedToFolder": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "folder": {
+        "type": "String"
+      }
+    }
+  },
+  "errorSharePhotos": "Fehler beim Teilen der Fotos",
+  "sectionStorage": "Speicher & Ordner",
+  "labelOrganizeByVideo": "Nach Video gruppieren",
+  "subOrganizeByVideo": "Erstellt automatisch einen Unterordner mit dem Videonamen, um Frames ordentlich zu halten.",
+  "labelPickFolder": "Speicherordner wählen",
+  "tooltipResetDefault": "Auf Standard zurücksetzen",
+  "storageFolderChanged": "Speicherordner geändert zu {path}",
+  "@storageFolderChanged": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "titleSelectVideoCount": "Video auswählen ({count})",
+  "@titleSelectVideoCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
+}

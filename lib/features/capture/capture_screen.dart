@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sela/l10n/generated/app_localizations.dart';
 
-import '../../engine/video_picker_channel.dart';
+import '../../engine/video_picker.dart';
 import '../../theme/sela_colors.dart';
 import '../../theme/sela_space.dart';
 import '../../theme/sela_text.dart';
 import 'capture_controller.dart';
 import 'resume_flow.dart';
+import 'thumbnail_cache.dart';
 import 'widgets/capture_app_bar.dart';
 import 'widgets/capture_bottom_bar.dart';
 import 'widgets/interval_selector.dart';
@@ -24,8 +25,27 @@ class CaptureScreen extends ConsumerStatefulWidget {
 }
 
 class _CaptureScreenState extends ConsumerState<CaptureScreen> {
+  @override
+  void initState() {
+    super.initState();
+    ThumbnailCache.trimImageCache();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final path = ref.read(captureProvider).videoInfo?.path;
+      if (path != null) {
+        runResumeFlow(context, ref, path);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    ThumbnailCache.flushImageCache();
+    super.dispose();
+  }
+
   Future<void> _pickAndOpen() async {
-    final result = await VideoPickerChannel().pickVideo();
+    final result = await ref.read(videoPickerProvider).pickVideo();
     if (!mounted || result == null) return;
     final path = result['path'] as String;
     await ref.read(captureProvider.notifier).openVideo(path);

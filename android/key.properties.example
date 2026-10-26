@@ -1,0 +1,4 @@
+storePassword=GANTI_DENGAN_PASSWORD_ANDa
+keyPassword=GANTI_DENGAN_PASSWORD_ANDa
+keyAlias=upload
+storeFile=upload-keystore.jks

@@ -36,8 +36,8 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String frameEstimate(int count, String sizeMb) {
-    return '±$count frame · ±$sizeMb MB';
+  String frameEstimate(int count) {
+    return '±$count frame';
   }
 
   @override
@@ -191,4 +191,113 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get btnPickVideo => 'Pilih Video';
+
+  @override
+  String get homeHeadline => 'Ambil momen\ndari video.';
+
+  @override
+  String get homeSubtitle => 'Ekstrak frame diam dengan presisi.';
+
+  @override
+  String get homePickVideo => 'Pilih video';
+
+  @override
+  String get homeSupportedFormats => 'MP4 · MOV · MKV · WEBM';
+
+  @override
+  String get homePickFolder => 'Pilih folder';
+
+  @override
+  String get tabExtract => 'Ekstrak';
+
+  @override
+  String get titleResults => 'Hasil';
+
+  @override
+  String get btnSelectAll => 'Pilih semua';
+
+  @override
+  String get btnDeselectAll => 'Batal pilih';
+
+  @override
+  String get btnSaveToGallery => 'Simpan ke Galeri';
+
+  @override
+  String get btnShare => 'Bagikan';
+
+  @override
+  String get btnViewResults => 'Lihat Hasil';
+
+  @override
+  String resultsSelectedCount(int count, String sizeMb) {
+    return '$count frame · $sizeMb MB';
+  }
+
+  @override
+  String get folderPickNotice =>
+      'Pemilihan folder akan hadir pada pembaruan mendatang';
+
+  @override
+  String get titleDeleteSession => 'Hapus Riwayat';
+
+  @override
+  String get confirmDeleteSession =>
+      'Apakah Anda yakin ingin menghapus riwayat ini?';
+
+  @override
+  String get btnDelete => 'Hapus';
+
+  @override
+  String get customIntervalTitle => 'Atur Interval';
+
+  @override
+  String get customIntervalHint => 'Detik (contoh: 0.1 atau 3)';
+
+  @override
+  String titlePhotos(int count) {
+    return 'Foto ($count)';
+  }
+
+  @override
+  String get resultsSubtitle => 'Ketuk untuk memilih foto';
+
+  @override
+  String get btnSaveAll => 'Simpan Semua';
+
+  @override
+  String get btnSaveSelected => 'Simpan yang Dipilih';
+
+  @override
+  String savedToFolder(int count, String folder) {
+    return '$count frame tersimpan di $folder';
+  }
+
+  @override
+  String get errorSharePhotos => 'Gagal membagikan foto';
+
+  @override
+  String get sectionStorage => 'Penyimpanan & Folder';
+
+  @override
+  String get labelOrganizeByVideo => 'Kelompokkan per Video';
+
+  @override
+  String get subOrganizeByVideo =>
+      'Otomatis membuat subfolder sesuai nama video agar ribuan frame tetap rapi.';
+
+  @override
+  String get labelPickFolder => 'Pilih Folder Penyimpanan';
+
+  @override
+  String get tooltipResetDefault => 'Kembalikan ke Default';
+
+  @override
+  String storageFolderChanged(String path) {
+    return 'Folder penyimpanan diubah ke $path';
+  }
+
+  @override
+  String titleSelectVideoCount(int count) {
+    return 'Pilih Video ($count)';
+  }
 }
