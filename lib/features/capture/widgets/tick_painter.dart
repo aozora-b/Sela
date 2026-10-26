@@ -20,7 +20,6 @@ class TickPainter extends CustomPainter {
     final cy = size.height / 2;
 
     if (isExactMode) {
-      // Mode Manual: tick 2dp solid di setiap frame yang sudah disimpan
       final paint = Paint()
         ..color = accentColor
         ..style = PaintingStyle.fill;
@@ -32,7 +31,6 @@ class TickPainter extends CustomPainter {
         );
       }
     } else {
-      // Mode Interval: tick 1dp opacity 35% di SETIAP titik planPoints()
       final paint = Paint()
         ..color = accentColor.withValues(alpha: 0.35)
         ..style = PaintingStyle.fill;

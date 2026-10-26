@@ -9,9 +9,9 @@ export 'sela_colors.dart';
 export 'sela_space.dart';
 export 'sela_text.dart';
 
-/// Tema global ThemeData untuk Sela.
+/// Global ThemeData definitions for Sela.
 abstract final class SelaTheme {
-  /// ThemeData Gelap Resmi Sela (Editorial Dark).
+  /// Dark editorial theme configuration.
   static ThemeData get darkTheme {
     return ThemeData(
       useMaterial3: true,
@@ -90,7 +90,7 @@ abstract final class SelaTheme {
     );
   }
 
-  /// ThemeData Terang Resmi Sela (Editorial Light).
+  /// Light editorial theme configuration.
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,

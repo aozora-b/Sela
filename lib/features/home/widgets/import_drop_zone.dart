@@ -6,7 +6,7 @@ import '../../../theme/sela_space.dart';
 import '../../../theme/sela_text.dart';
 import 'dashed_border_painter.dart';
 
-/// Kartu area drop/pilih video dengan batas garis putus-putus terracotta.
+/// Video import drop zone card with dashed border outline.
 class ImportDropZone extends StatelessWidget {
   const ImportDropZone({super.key, required this.onTap});
 

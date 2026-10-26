@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Painter untuk menggambar garis putus-putus (dashed border) pada RRect.
+/// Custom painter rendering a dashed border outline on a rounded rectangle.
 class DashedBorderPainter extends CustomPainter {
   const DashedBorderPainter({
     required this.color,

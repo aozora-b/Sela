@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../theme/sela_colors.dart';
 
-/// Wordmark `Sela.` dengan titik terracotta khas desain editorial Sela.
+/// Editorial wordmark displaying `Sela.` with accented terracotta dot.
 class HomeWordmark extends StatelessWidget {
   const HomeWordmark({super.key});
 

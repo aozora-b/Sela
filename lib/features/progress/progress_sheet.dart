@@ -36,11 +36,10 @@ class ProgressSheet extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(extractionProgressProvider, (prev, next) {
       if ((prev == null || !prev.isCompleted) && next.isCompleted) {
-        // Otomatis pindah ke halaman hasil (ResultsScreen) setelah selesai
         Future.microtask(() {
           if (!context.mounted) return;
           final navigator = Navigator.of(context);
-          navigator.pop(); // Tutup progress sheet
+          navigator.pop();
           navigator.push(
             MaterialPageRoute<void>(
               builder: (_) => const ResultsScreen(),

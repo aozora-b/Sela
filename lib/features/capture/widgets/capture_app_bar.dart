@@ -8,8 +8,7 @@ import '../../../theme/sela_colors.dart';
 import '../../../theme/sela_space.dart';
 import '../../../theme/sela_text.dart';
 
-/// AppBar layar capture saat video sudah terbuka: tombol kembali,
-/// nama berkas video, dan chip info resolusi + FPS sesuai mockup.
+/// App bar for capture screen displaying video title and resolution/FPS badge.
 class CaptureAppBar extends ConsumerWidget implements PreferredSizeWidget {
   const CaptureAppBar({super.key, required this.videoInfo});
 

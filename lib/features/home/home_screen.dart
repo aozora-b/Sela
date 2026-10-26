@@ -18,7 +18,7 @@ import 'widgets/home_wordmark.dart';
 import 'widgets/import_drop_zone.dart';
 import 'widgets/pick_folder_button.dart';
 
-/// Layar beranda Sela (Layar 01 Impor Video) dengan shell navigasi 3 tab.
+/// Main home screen hosting the 3-tab navigation shell (Extract, History, Settings).
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 

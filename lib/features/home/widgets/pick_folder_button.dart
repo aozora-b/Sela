@@ -4,7 +4,7 @@ import 'package:sela/l10n/generated/app_localizations.dart';
 import '../../../theme/sela_colors.dart';
 import '../../../theme/sela_text.dart';
 
-/// Tombol outline sekunder "Pilih folder".
+/// Secondary outlined button triggering folder picker.
 class PickFolderButton extends StatelessWidget {
   const PickFolderButton({super.key, required this.onPressed});
 

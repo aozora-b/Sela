@@ -29,7 +29,7 @@ class VideoInfo {
 
   String get resolution => '$width×$height';
 
-  /// Satu sumber kebenaran FPS (avg_frame_rate = frameCount / durationS).
+  /// Effective average frame rate calculated from total frames and duration.
   double get effectiveFps {
     if (durationS > 0 && frameCount > 0) {
       return frameCount / durationS;
@@ -37,7 +37,7 @@ class VideoInfo {
     return fps > 0 ? fps : 30.0;
   }
 
-  /// Format FPS untuk UI (misal "24.2 FPS" atau "30 FPS").
+  /// Formatted frame rate string for UI display (e.g. "24 FPS" or "24.2 FPS").
   String get formattedFps {
     final f = fps > 0 ? fps : effectiveFps;
     if ((f - f.roundToDouble()).abs() < 0.05) {
@@ -46,7 +46,7 @@ class VideoInfo {
     return '${f.toStringAsFixed(1)} FPS';
   }
 
-  /// Memetakan waktu (detik) ke indeks frame (1..frameCount) secara konsisten.
+  /// Maps playback time in seconds to the corresponding frame index (1..frameCount).
   int frameForTime(double timeS) {
     if (frameCount <= 1 || durationS <= 0) return 1;
     final clamped = timeS.clamp(0.0, durationS);
@@ -54,7 +54,7 @@ class VideoInfo {
     return idx.clamp(1, frameCount);
   }
 
-  /// Memetakan indeks frame (1..frameCount) ke waktu (detik) secara konsisten.
+  /// Maps a frame index (1..frameCount) to playback time in seconds.
   double timeForFrame(int frameIndex) {
     if (frameCount <= 1 || durationS <= 0) return 0.0;
     final clamped = frameIndex.clamp(1, frameCount);

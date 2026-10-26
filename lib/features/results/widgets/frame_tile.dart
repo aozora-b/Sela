@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../domain/models.dart';
 import '../../../theme/sela_colors.dart';
 
-/// Ubin tunggal frame pada kisi 3 kolom Layar 06 Hasil Ekstraksi.
+/// Single frame item in the extraction results gallery grid.
 class FrameTile extends StatelessWidget {
   const FrameTile({
     super.key,

@@ -246,7 +246,6 @@ class MainActivity : FlutterActivity() {
             }
         }
 
-        // Pemilih video & direktori native (SAF) via VideoPickerHandler.
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, VideoPickerHandler.CHANNEL_NAME)
             .setMethodCallHandler { call, result ->
                 when (call.method) {

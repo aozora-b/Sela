@@ -10,11 +10,9 @@ import '../progress/progress_sheet.dart';
 import 'capture_controller.dart';
 import 'widgets/resume_dialog.dart';
 
-/// Alur lanjutan (resume) yang dibagikan oleh [HomeScreen] dan [CaptureScreen].
+/// Shared workflow for resuming an interrupted extraction session.
 ///
-/// Memeriksa sesi aktif untuk [path]; bila sesi dapat dilanjutkan, menampilkan
-/// dialog konfirmasi lalu melanjutkan ekstraksi dari frame terakhir, atau
-/// menghapus sesi bila pengguna memilih mulai ulang.
+/// Prompts the user to continue from the last saved frame or restart from scratch.
 Future<void> runResumeFlow(
   BuildContext context,
   WidgetRef ref,

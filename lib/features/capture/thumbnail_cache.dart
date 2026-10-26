@@ -6,7 +6,7 @@ import 'package:flutter/painting.dart';
 import '../../domain/models.dart';
 import '../../engine/frame_engine_channel.dart';
 
-/// Cache LRU terpadu untuk strip pratinjau dan thumbnail filmstrip (Segmen C, D, E).
+/// Unified LRU thumbnail cache for filmstrip and preview timeline scrubbing.
 class ThumbnailCache {
   final Map<int, Uint8List> _cache = {};
   final Map<int, Future<Uint8List?>> _inFlight = {};
@@ -14,7 +14,7 @@ class ThumbnailCache {
   int _sessionToken = 0;
   int _windowToken = 0;
 
-  /// Membatasi ukuran ImageCache Flutter agar memori stabil di sesi panjang (Segmen E.3).
+  /// Restricts Flutter's global [ImageCache] to prevent memory growth during long sessions.
   static void trimImageCache({int maxEntries = 60, int maxBytes = 24 << 20}) {
     try {
       final c = PaintingBinding.instance.imageCache;
@@ -23,7 +23,7 @@ class ThumbnailCache {
     } catch (_) {}
   }
 
-  /// Mengosongkan ImageCache Flutter saat keluar/berganti video (Segmen E.2).
+  /// Clears Flutter's global [ImageCache] when navigating away or switching videos.
   static void flushImageCache() {
     try {
       final c = PaintingBinding.instance.imageCache;
@@ -32,7 +32,7 @@ class ThumbnailCache {
     } catch (_) {}
   }
 
-  /// Mengambil thumbnail yang persis ada di cache (0 ms) dan memperbarui urutan LRU.
+  /// Retrieves an exact cached frame and updates LRU recency.
   Uint8List? getCached(int frameIndex) {
     final val = _cache.remove(frameIndex);
     if (val != null) {
@@ -41,7 +41,7 @@ class ThumbnailCache {
     return val;
   }
 
-  /// Mengambil placeholder terdekat dari strip/cache dalam 0 ms (Segmen D.1).
+  /// Returns the closest available frame thumbnail to serve as an instant placeholder.
   Uint8List? getNearestCached(int frameIndex) {
     final exact = getCached(frameIndex);
     if (exact != null) return exact;
@@ -122,7 +122,7 @@ class ThumbnailCache {
     }
   }
 
-  /// Prefetch tetangga di sekitar posisi saat ini (Segmen D.2: +1, -1, +2, -2, +3, -3).
+  /// Asynchronously prefetches adjacent frames around [centerFrame].
   Future<void> prefetchNeighbours({
     required FrameEngineChannel engine,
     required VideoInfo info,
@@ -144,7 +144,7 @@ class ThumbnailCache {
     }
   }
 
-  /// Membangun strip kasar sekali saat video dibuka agar placeholder 0 ms selalu siap (Segmen C.1).
+  /// Populates initial sparse keyframes so instant placeholders are available.
   Future<void> warmUpStrip({
     required FrameEngineChannel engine,
     required VideoInfo info,

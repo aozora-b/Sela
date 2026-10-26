@@ -10,14 +10,14 @@ import '../../engine/gallery_writer_channel.dart';
 import '../settings/settings_controller.dart';
 import 'results_state.dart';
 
-/// Pengendali untuk Layar 06 (Hasil Ekstraksi).
+/// State notifier controlling extracted frame review and export operations.
 class ResultsController extends Notifier<ResultsState> {
   final _gallery = GalleryWriterChannel();
 
   @override
   ResultsState build() => const ResultsState();
 
-  /// Mengatur daftar frame hasil ekstraksi dan secara bawaan memilih semua.
+  /// Sets the extracted frame list with all frames selected by default.
   void setFrames(List<FrameResult> frames, {String videoStem = ''}) {
     state = ResultsState(
       frames: frames,

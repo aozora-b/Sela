@@ -15,7 +15,7 @@ import '../progress/extraction_progress_controller.dart';
 import '../results/results_controller.dart';
 import '../settings/settings_controller.dart';
 
-/// Pelaksana loop ekstraksi frame ke penyimpanan dan galeri.
+/// Coordinates frame extraction, persistence, and progress state updates.
 class ExtractionRunner {
   ExtractionRunner({
     required this.ref,

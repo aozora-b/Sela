@@ -7,7 +7,7 @@ import '../../../theme/sela_colors.dart';
 import '../../../theme/sela_space.dart';
 import '../../../theme/sela_text.dart';
 
-/// Kartu akses cepat untuk melanjutkan sesi ekstraksi terakhir yang belum selesai.
+/// Quick access banner to resume the most recent incomplete session.
 class QuickAccessCard extends ConsumerWidget {
   const QuickAccessCard({
     super.key,

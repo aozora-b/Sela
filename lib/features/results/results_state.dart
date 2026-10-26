@@ -1,6 +1,6 @@
 import '../../domain/models.dart';
 
-/// Keadaan layar Layar 06 (Hasil Ekstraksi): daftar frame, seleksi, dan status simpan.
+/// Immutable state representing results screen frames, selections, and export status.
 class ResultsState {
   const ResultsState({
     this.frames = const [],

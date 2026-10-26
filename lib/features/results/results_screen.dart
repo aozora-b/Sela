@@ -10,7 +10,7 @@ import 'results_controller.dart';
 import 'widgets/frame_tile.dart';
 import 'widgets/results_bottom_bar.dart';
 
-/// Layar 06: Hasil Ekstraksi (Gallery Grid & Seleksi).
+/// Screen presenting extracted frames in a selection grid for export or sharing.
 class ResultsScreen extends ConsumerWidget {
   const ResultsScreen({super.key, this.initialFrames = const []});
 

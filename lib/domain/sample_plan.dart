@@ -69,7 +69,6 @@ List<double> planPoints(VideoInfo info, ExtractOptions opt) {
     times = List.generate(count, (i) => start + i * interval);
   }
 
-  // Filter out times that touch or exceed the end bound (due to floating point issues)
   times = times.where((t) => t < end - _eps).toList();
 
   if (times.isEmpty) {
@@ -82,7 +81,6 @@ List<double> planPoints(VideoInfo info, ExtractOptions opt) {
   final result = <double>[];
   for (final t in times) {
     if (result.isEmpty || t > result.last + 1e-9) {
-      // Double.parse(t.toStringAsFixed(6)) equivalent for rounding to 6 decimal places
       result.add(double.parse(t.toStringAsFixed(6)));
     }
   }

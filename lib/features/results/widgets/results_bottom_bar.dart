@@ -5,7 +5,7 @@ import '../../../theme/sela_colors.dart';
 import '../../../theme/sela_space.dart';
 import '../../../theme/sela_text.dart';
 
-/// Bilah aksi bawah pada Layar 06 (Hapus, Simpan Semua, Simpan yang Dipilih, Bagikan).
+/// Bottom action bar on results screen (Delete, Save All, Save Selected, Share).
 class ResultsBottomBar extends StatelessWidget {
   const ResultsBottomBar({
     super.key,
@@ -32,7 +32,6 @@ class ResultsBottomBar extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     final hasSelection = selectedCount > 0;
     
-    // Warna untuk elemen dinonaktifkan mengikuti gambar
     final disabledBg = colors.border.withValues(alpha: 0.3);
     final disabledFg = colors.textSecondary.withValues(alpha: 0.5);
 
@@ -50,7 +49,6 @@ class ResultsBottomBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Tombol Hapus (Kiri)
           Container(
             width: 48,
             height: 48,
@@ -71,7 +69,6 @@ class ResultsBottomBar extends StatelessWidget {
           ),
           const SizedBox(width: SelaSpace.xs),
           
-          // Tombol Simpan Semua (Tengah Kiri)
           Expanded(
             child: SizedBox(
               height: 44,
@@ -98,7 +95,6 @@ class ResultsBottomBar extends StatelessWidget {
           ),
           const SizedBox(width: SelaSpace.xs),
           
-          // Tombol Simpan yang Dipilih (Tengah Kanan)
           Expanded(
             child: SizedBox(
               height: 44,
@@ -130,7 +126,6 @@ class ResultsBottomBar extends StatelessWidget {
           ),
           const SizedBox(width: SelaSpace.xs),
           
-          // Tombol Bagikan (Kanan)
           Container(
             width: 48,
             height: 48,

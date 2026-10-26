@@ -22,7 +22,6 @@ class SelaEngine {
     @Volatile
     private var cachedFrameDurationUs: Long = 33_333L
 
-    // LRU cache capped at 120 frames (Guide §4 C.3)
     private val previewCache = object : LruCache<Long, ByteArray>(120) {}
 
     fun open(path: String) {
@@ -95,7 +94,6 @@ class SelaEngine {
         val durationUs = if (extractorDurationUs > 0L) extractorDurationUs else (durMs * 1000L)
         val durationS = (durationUs / 1_000_000.0).coerceAtLeast(0.0)
 
-        // Single source of truth (Guide §4 B.1): avg_frame_rate = nb_frames / duration
         val frameCount: Int
         val fps: Double
         if (containerFrameCount != null && durationS > 0.0) {

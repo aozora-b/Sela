@@ -2,8 +2,8 @@ import 'package:flutter/services.dart';
 
 import 'video_picker.dart';
 
-/// Implementasi pemilih video & direktori native melalui Storage Access Framework (SAF)
-/// di Android via MethodChannel `sela/video_picker`.
+/// Native video and directory picker communicating with Android's
+/// Storage Access Framework via MethodChannel `sela/video_picker`.
 class NativeVideoPicker implements VideoPicker {
   const NativeVideoPicker();
 
